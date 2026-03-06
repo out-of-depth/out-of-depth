@@ -1,0 +1,290 @@
+/* ============================================================
+   COMPONENTS.CSS
+   Out of Depth — outofdepth.com
+   Reusable UI components: box panels, amiga chrome,
+   Win 3.1 file icons, discovery footer
+   ============================================================ */
+
+/* ── BOX PANEL ── */
+/* Used on blog index, podcast page, home page cards */
+.box {
+  background-image: var(--box-bg);
+  border: var(--box-border);
+  border-radius: var(--box-radius);
+  position: relative;
+  overflow: hidden;
+}
+
+/* inner inset highlight line */
+.box::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--box-radius);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ── AMIGA DEPTH-SHADED BUTTON ── */
+/* Used in post window title bar */
+.amiga-btn {
+  font-family: 'Jersey15', monospace;
+  font-size: 13px;
+  height: 26px;
+  border-top:    2px solid rgba(255, 3, 255, 0.55);
+  border-left:   2px solid rgba(255, 3, 255, 0.55);
+  border-bottom: 2px solid rgba(255, 3, 255, 0.15);
+  border-right:  2px solid rgba(255, 3, 255, 0.15);
+  background: rgba(255, 3, 255, 0.06);
+  color: rgba(255, 3, 255, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s;
+  flex-shrink: 0;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  padding: 0 10px;
+  gap: 5px;
+  white-space: nowrap;
+}
+
+.amiga-btn:hover {
+  background: rgba(255, 3, 255, 0.14);
+  color: #fff;
+  border-top-color:  rgba(255, 3, 255, 0.9);
+  border-left-color: rgba(255, 3, 255, 0.9);
+}
+
+/* pressed / active state */
+.amiga-btn:active {
+  border-top-color:    rgba(255, 3, 255, 0.15);
+  border-left-color:   rgba(255, 3, 255, 0.15);
+  border-bottom-color: rgba(255, 3, 255, 0.55);
+  border-right-color:  rgba(255, 3, 255, 0.55);
+}
+
+/* ── POST WINDOW TITLE BAR ── */
+.window-titlebar {
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 3, 255, 0.07) 0px, rgba(255, 3, 255, 0.07) 1px,
+      transparent 1px, transparent 4px
+    ),
+    linear-gradient(180deg, #2a0030 0%, #1a0020 50%, #0d0018 100%);
+  border: 1px solid rgba(255, 3, 255, 0.4);
+  border-bottom: 1px solid rgba(255, 3, 255, 0.25);
+  padding: 0 6px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  position: relative;
+}
+
+/* magenta glow line under title bar */
+.window-titlebar::after {
+  content: '';
+  position: absolute;
+  bottom: -1px; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--magenta), transparent);
+  opacity: 0.35;
+}
+
+.window-titlebar .nav-btns {
+  display: flex;
+  gap: 3px;
+}
+
+.window-title-text {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Jersey15', monospace;
+  font-size: 12px;
+  color: rgba(255, 3, 255, 0.4);
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* ── WIN 3.1 FILE ICONS ── */
+/* Used in blog post discovery footer */
+.file-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.file-icon:hover { transform: translateY(-5px); }
+.file-icon:hover .file-name { color: #fff; }
+
+.file-body-wrap {
+  width: 88px;
+  height: 104px;
+  position: relative;
+  filter: drop-shadow(0 0 1px rgba(255, 3, 255, 0.5));
+  transition: filter 0.2s;
+}
+
+.file-icon:hover .file-body-wrap {
+  filter:
+    drop-shadow(0 0 8px rgba(255, 3, 255, 0.7))
+    drop-shadow(0 0 2px rgba(255, 3, 255, 0.9));
+}
+
+/* page body — notched top-right via clip-path */
+.file-body {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, rgba(0, 92, 99, 0.45), rgba(6, 9, 59, 0.65));
+  clip-path: polygon(0 0, 64px 0, 88px 24px, 88px 104px, 0 104px);
+}
+
+.file-scan {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent, transparent 5px,
+    rgba(0, 0, 0, 0.1) 5px, rgba(0, 0, 0, 0.1) 6px
+  );
+  clip-path: polygon(0 0, 64px 0, 88px 24px, 88px 104px, 0 104px);
+  pointer-events: none;
+}
+
+/* fold lines meeting at the notch */
+.fold-h {
+  position: absolute;
+  top: 24px; right: 0;
+  width: 24px; height: 1px;
+  background: rgba(255, 3, 255, 0.55);
+}
+
+.fold-v {
+  position: absolute;
+  top: 0; right: 24px;
+  width: 1px; height: 24px;
+  background: rgba(255, 3, 255, 0.55);
+}
+
+/* colored header strip — shows category */
+.file-header-strip {
+  position: absolute;
+  top: 0; left: 0;
+  right: 24px; /* stops before the notch */
+  height: 30px;
+  background: rgba(255, 3, 255, 0.28);
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  font-family: 'Jersey15', monospace;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.8);
+  letter-spacing: 0.1em;
+  transition: background 0.2s;
+}
+
+.file-icon:hover .file-header-strip {
+  background: rgba(255, 3, 255, 0.5);
+  color: #fff;
+}
+
+.file-glyph {
+  position: absolute;
+  top: 55%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 28px;
+  color: rgba(255, 3, 255, 0.5);
+  transition: all 0.2s;
+  z-index: 1;
+}
+
+.file-icon:hover .file-glyph {
+  color: var(--magenta);
+  text-shadow: 0 0 12px rgba(255, 3, 255, 0.7);
+}
+
+.file-name {
+  font-family: 'Jersey25', monospace;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.65);
+  text-align: center;
+  max-width: 110px;
+  line-height: 1.25;
+  transition: color 0.2s;
+}
+
+.file-date {
+  font-family: 'Jersey15', monospace;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.2);
+  text-align: center;
+}
+
+/* random file — cyan variant */
+.file-icon.random .file-body {
+  background: linear-gradient(160deg, rgba(0, 40, 60, 0.5), rgba(0, 20, 50, 0.7));
+}
+
+.file-icon.random .file-header-strip {
+  background: rgba(0, 229, 255, 0.18);
+  color: rgba(0, 229, 255, 0.7);
+}
+
+.file-icon.random:hover .file-header-strip {
+  background: rgba(0, 229, 255, 0.4);
+  color: #fff;
+}
+
+.file-icon.random .file-glyph { color: rgba(0, 229, 255, 0.45); }
+
+.file-icon.random:hover .file-body-wrap {
+  filter:
+    drop-shadow(0 0 8px rgba(0, 229, 255, 0.7))
+    drop-shadow(0 0 2px rgba(0, 229, 255, 0.9));
+}
+
+.file-icon.random:hover .file-glyph {
+  color: var(--cyan);
+  text-shadow: 0 0 12px rgba(0, 229, 255, 0.7);
+}
+
+.file-icon.random .file-name { color: rgba(0, 229, 255, 0.5); }
+.file-icon.random:hover .file-name { color: var(--cyan); }
+
+.file-icon.random .fold-h,
+.file-icon.random .fold-v { background: rgba(0, 229, 255, 0.45); }
+
+/* ── DISCOVERY FOOTER ── */
+.discovery {
+  max-width: var(--content-max);
+  margin: 28px auto 0;
+  position: relative;
+  z-index: 1;
+}
+
+.discovery-label {
+  font-family: 'Jersey15', monospace;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.2);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.discovery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  justify-items: center;
+}

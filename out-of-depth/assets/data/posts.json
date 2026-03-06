@@ -1,0 +1,94 @@
+{
+  "posts": [
+    {
+      "slug":     "everything-everywhere-all-at-once",
+      "title":    "Everything Everywhere All At Once",
+      "type":     "blog",
+      "category": "Film",
+      "excerpt":  "I did not expect to cry at a film about a woman doing her taxes.",
+      "date":     "2025-02-18",
+      "author":   "Jae",
+      "readTime": 8,
+      "path":     "/blog/everything-everywhere-all-at-once/",
+      "featured": true
+    },
+    {
+      "slug":     "the-table-is-the-story",
+      "title":    "The Table Is the Story",
+      "type":     "blog",
+      "category": "TTRPGs",
+      "excerpt":  "Why the best campaigns aren't about the world you build, but the people sitting around it.",
+      "date":     "2025-01-31",
+      "author":   "Jae",
+      "readTime": 6,
+      "path":     "/blog/the-table-is-the-story/",
+      "featured": false
+    },
+    {
+      "slug":     "organs",
+      "title":    "That Time My Organs Fused Together",
+      "type":     "blog",
+      "category": "Life",
+      "excerpt":  "A story I keep getting asked to write down. Here it finally is.",
+      "date":     "2025-01-12",
+      "author":   "Jae",
+      "readTime": 10,
+      "path":     "/blog/organs/",
+      "featured": false
+    }
+  ],
+
+  "episodes": [
+    {
+      "slug":       "the-rite-of-the-last-wave",
+      "title":      "The Rite of the Last Wave",
+      "season":     "sapphire-doom",
+      "seasonLabel":"Sapphire Doom",
+      "episode":    8,
+      "seasonNum":  3,
+      "description":"The Ka'tek reach the sacred shore. Nothing goes as planned.",
+      "date":       "2025-02-01",
+      "duration":   "1h 12m",
+      "audioUrl":   "https://player.captivate.fm/episode/REPLACE-WITH-EPISODE-ID/",
+      "path":       "/podcast/sapphire-doom/episode-8/"
+    }
+  ],
+
+  "seasons": [
+    {
+      "slug":       "sunbeams",
+      "label":      "sunbeams",
+      "seasonNum":  1,
+      "coverArt":   "/assets/images/podcast/sunbeams.jpg",
+      "accentColor":"#e8550a"
+    },
+    {
+      "slug":       "fifty-cent-souls",
+      "label":      "fifty cent souls",
+      "seasonNum":  2,
+      "coverArt":   "/assets/images/podcast/fifty-cent-souls.jpg",
+      "accentColor":"#c8a000"
+    },
+    {
+      "slug":       "sapphire-doom",
+      "label":      "sapphire doom",
+      "seasonNum":  3,
+      "coverArt":   "/assets/images/podcast/sapphire-doom.jpg",
+      "accentColor":"#6644cc"
+    },
+    {
+      "slug":       "hackway-heights",
+      "label":      "hackway heights",
+      "seasonNum":  4,
+      "coverArt":   "/assets/images/podcast/hackway-heights.jpg",
+      "accentColor":"#c87800"
+    },
+    {
+      "slug":       "analysis-complete",
+      "label":      "analysis complete",
+      "seasonNum":  5,
+      "coverArt":   "/assets/images/podcast/analysis-complete.jpg",
+      "accentColor":"#447788"
+    }
+  ]
+}

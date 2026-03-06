@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>5 Mothership Android Variants | Out of Depth</title>
+  <meta name="description" content="Five unofficial android variants for Mothership RPG, each with unique stats, skills, and bugs. No playtesting was done. I don't even know what that means.">
+  <meta name="author" content="Jae">
+  <meta property="og:type"        content="article">
+  <meta property="og:title"       content="5 Mothership Android Variants | Out of Depth">
+  <meta property="og:description" content="Five unofficial android variants for Mothership RPG, each with unique stats, skills, and bugs. No playtesting was done. I don't even know what that means.">
+  <meta property="og:url"         content="https://outofdepth.com/blog/5-mothership-android-variants/">
+  <meta property="og:site_name"   content="Out of Depth">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "5 Mothership Android Variants",
+    "author": { "@type": "Person", "name": "Jae", "url": "https://outofdepth.com/about/" },
+    "datePublished": "2022-08-14",
+    "description": "Five unofficial android variants for Mothership RPG, each with unique stats, skills, and bugs.",
+    "url": "https://outofdepth.com/blog/5-mothership-android-variants/"
+  }
+  </script>
+  <link rel="stylesheet" href="../../assets/css/base.css">
+  <link rel="stylesheet" href="../../assets/css/components.css">
+  <link rel="stylesheet" href="../../assets/css/blog-post.css">
+  <style>
+    .stat-block {
+      border: 1px solid rgba(255,3,255,0.25);
+      border-left: 3px solid var(--magenta);
+      border-radius: 0 6px 6px 0;
+      overflow: hidden;
+      margin: 32px 0;
+      box-shadow: 0 0 40px rgba(255,3,255,0.05), 0 8px 32px rgba(0,0,0,0.5);
+    }
+    .stat-flavor {
+      padding: 14px 20px;
+      background: rgba(255,255,255,0.02);
+      border-bottom: 1px solid rgba(255,3,255,0.1);
+      font-size: 14px;
+      line-height: 1.65;
+      color: #f5c71a;
+      font-style: italic;
+    }
+    .stat-header {
+      padding: 16px 20px 0;
+      background: linear-gradient(150deg, rgba(0,92,99,0.3), rgba(6,9,59,0.2));
+      border-bottom: 1px solid rgba(255,3,255,0.1);
+    }
+    .stat-unit-name {
+      font-family: 'Jersey25', monospace;
+      font-size: 32px;
+      color: var(--magenta);
+      text-shadow: 0 0 20px rgba(255,3,255,0.4);
+      margin-bottom: 16px;
+    }
+    .stat-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2px;
+      padding-bottom: 16px;
+    }
+    .stat-cell {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 80px;
+      padding: 6px 12px;
+      border-right: 1px solid rgba(255,3,255,0.08);
+    }
+    .stat-cell:last-child { border-right: none; }
+    .stat-cell-label {
+      font-family: 'Jersey15', monospace;
+      font-size: 14px;
+      color: rgba(255,3,255,0.7);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+      white-space: nowrap;
+    }
+    .stat-cell-value {
+      font-family: 'Jersey25', monospace;
+      font-size: 28px;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .stat-cell-value.pos { color: #7fff7f; }
+    .stat-cell-value.neg { color: #ff7f7f; }
+    .stat-cell-value.neu { color: #fff; }
+    .stat-body {
+      padding: 16px 20px;
+      background: linear-gradient(150deg, rgba(0,92,99,0.15), rgba(6,9,59,0.1));
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .stat-row {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 12px;
+      align-items: baseline;
+    }
+    .stat-row-label {
+      font-family: 'Jersey15', monospace;
+      font-size: 14px;
+      color: rgba(255,3,255,0.7);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding-top: 2px;
+    }
+    .stat-row-value {
+      font-size: 15px;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.9);
+    }
+    .stat-divider {
+      border: none;
+      border-top: 1px solid rgba(255,3,255,0.08);
+    }
+    .stat-row.bug {
+      padding: 10px 12px;
+      background: rgba(255,50,50,0.04);
+      border: 1px solid rgba(255,50,50,0.1);
+      border-radius: 3px;
+      grid-template-columns: 60px 1fr;
+    }
+    .stat-row.bug .stat-row-label { color: rgba(255,100,100,0.8); }
+    .stat-row.bug .stat-row-value  { color: rgba(255,200,200,0.9); }
+    .caution-box {
+      margin: 32px 0;
+      padding: 16px 20px;
+      background: rgba(255,3,255,0.06);
+      border: 1px solid rgba(255,3,255,0.3);
+      border-radius: 4px;
+    }
+    .caution-label {
+      font-family: 'Jersey15', monospace;
+      font-size: 14px;
+      color: var(--magenta);
+      letter-spacing: 0.15em;
+      margin-bottom: 8px;
+      display: block;
+    }
+    .caution-box p {
+      font-size: 15px !important;
+      color: rgba(255,255,255,0.9) !important;
+      margin: 0 !important;
+    }
+    .post-signature p {
+      font-size: 18px;
+      color: rgba(255,255,255,0.83);
+    }
+    .post-signature .signature {
+      font-family: 'Jersey25', monospace;
+      font-size: 52px;
+      color: var(--magenta);
+      text-shadow: 0 0 28px rgba(255,3,255,0.4);
+      display: block;
+      margin-top: 4px;
+    }
+  </style>
+</head>
+<body>
+
+<aside class="sidebar" aria-label="Primary navigation">
+  <a class="brand-text" href="/">out of depth</a>
+  <nav class="nav">
+    <a class="nav-link"           href="/">Home</a>
+    <a class="nav-link is-active" href="/blog/">Blog</a>
+    <a class="nav-link"           href="/fiction/">Fiction</a>
+    <a class="nav-link"           href="/podcast/">Podcast</a>
+    <a class="nav-link"           href="/games/">Games</a>
+    <a class="nav-link"           href="/about/">About</a>
+    <hr>
+  </nav>
+</aside>
+
+<main class="content">
+  <article class="post-window h-entry">
+
+    <div class="window-titlebar">
+      <a class="amiga-btn" href="/blog/" title="Back to Blog">✕</a>
+      <span class="window-title-text">outofdepth.com // blog // 5-mothership-android-variants</span>
+      <div class="nav-btns">
+        <a class="amiga-btn" href="/blog/PREV-POST-SLUG/" title="Previous post">◄ PREV</a>
+        <a class="amiga-btn" href="/blog/NEXT-POST-SLUG/" title="Next post">NEXT ►</a>
+      </div>
+    </div>
+
+    <div class="window-body">
+
+      <header class="post-header">
+        <a class="u-url u-uid" href="https://outofdepth.com/blog/5-mothership-android-variants/" style="display:none;"></a>
+        <p class="p-summary" style="display:none;">Five unofficial android variants for Mothership RPG, each with unique stats, skills, and bugs. No playtesting was done. I don't even know what that means.</p>
+        <div class="post-category p-category">TTRPGs</div>
+        <h1 class="post-title p-name" data-text="5 Mothership Android Variants">5 Mothership Android Variants</h1>
+        <div class="post-byline">
+          <div class="byline-item">
+            <span class="lbl">BY</span>
+            <span class="p-author h-card">
+              <a class="p-name u-url" href="https://outofdepth.com/about/" rel="author">Jae</a>
+            </span>
+          </div>
+          <div class="byline-item">
+            <span class="lbl">DATE</span>
+            <time class="dt-published" datetime="2022-08-14">Aug 14, 2022</time>
+          </div>
+          <div class="byline-item">
+            <span class="lbl">READ</span>
+            <span>8 min</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="post-body e-content">
+
+        <p>Before the <a href="/podcast/">podcast</a>, I ran Mothership RPG for a lot of different people who've never played it. The number one question I get when my players are creating characters is "What's an android like, exactly?"</p>
+        <p>What a great question.</p>
+        <p>But I don't answer it.</p>
+        <p>Instead I ask, "What do you think it is?"</p>
+        <p>I've never gotten the same answer twice.</p>
+        <p>Sure, I've played with the typical Blade Runner-style androids, the ones that look like you and me but are just a little off. However, most folks who choose that type of appearance rarely are the ones who ask the question. They just assume that's what we're dealing with here. Which is fine.</p>
+        <p>But the folks who ask usually have something else in mind. One of my favorite answers was from a convention one shot I ran last year.</p>
+
+        <blockquote>
+          <p>"Data From Star Trek, but shitty."</p>
+        </blockquote>
+
+        <p>Like it started out looking pretty humanoid, but it kept getting janky ass replacement parts, until it weighed a ton. Literally a ton. And it had a winch on the front with a spool of steel cable. So basically Data mated with a forklift and their baby was a big clunker with a nuclear reactor in its chest. That's what this player <em>chose</em> to be.</p>
+        <p>This description created so many invaluable gifts for the session that followed. Based on stats and equipment it was clear this android served a purpose and would be useful. But it also had some fairly obvious drawbacks. It weighed too much, so navigating something delicate like rusted metal grating became dangerous — read: <em>dramatic</em>.</p>
+        <p>At another point the shielding for the nuclear reactor became compromised and was slowly poisoning the other crew members. That's how the session ended. With a split party being reunited, only to learn the android they saved may be slowly killing them.</p>
+        <p>I think about that session often. I think about how instead of looking at androids like robot copies of humans, some players look at them as tools. Tools that have a specific purpose. Sure they can be really handy in some situations but useless — or even a detriment — in others.</p>
+        <p>So I wrote up some different variants for the Android for players to mess around with. They have different starting Skills, different stat bonuses and buffs, and some other little details for players to get creative with.</p>
+        <p><em>Did you playtest these?</em><br>No. Of course not. Why would I do that?</p>
+        <p><em>So they may not be balanced for the game?</em><br>I don't even know what that meeeeeeeeeaaaaans.</p>
+        <p>My hope is that it inspires players to think of androids a little differently, and take control of all those mechanics and make them work for your imagination instead of the other way around.</p>
+
+        <div class="caution-box">
+          <span class="caution-label">⚠ CAUTION</span>
+          <p>Every 7 days these androids must shut down for 12 hours to do a diagnostics maintenance. Their complex A.I. needs this to properly integrate new stimulus, ideas, and concepts into their data pool. By not running this diagnostics protocol your android may behave...erratically. Good reason for a Sanity roll, if anything.</p>
+        </div>
+
+        <div class="stat-block">
+          <div class="stat-flavor">Tired of hearing "My back hurts?" Dealing with a bunch of union crybabies asking for more workers comp? Let Mason carry the load. Our Mason unit doesn't complain, and doesn't need breaks. It gets the job done when you need it done. Need more than some heavy lifting? Masons come equipped with a tool kit, and are capable of minor repairs, electrical wiring, and operating any heavy equipment you have on site. Order a Mason unit today and let those rough necks know… It's time to get to work.</div>
+          <div class="stat-header">
+            <div class="stat-unit-name">Mason Unit</div>
+            <div class="stat-grid">
+              <div class="stat-cell"><span class="stat-cell-label">Strength</span><span class="stat-cell-value pos">+25</span></div>
+              <div class="stat-cell"><span class="stat-cell-label">Speed</span><span class="stat-cell-value neg">−10</span></div>
+              <div class="stat-cell"><span class="stat-cell-label">Fear Save</span><span class="stat-cell-value pos">+40</span></div>
+              <div class="stat-cell"><span class="stat-cell-label">Body Save</span><span class="stat-cell-value pos">+20</span></div>
+              <div class="stat-cell"><span class="stat-cell-label">Wounds</span><span class="stat-cell-value pos">+1</span></div>
+            </div>
+          </div>
+          <div class="stat-body">
+            <div class="stat-row"><span class="stat-row-label">Skills</span><span class="stat-row-value">Athletics, Jury Rigging, Industrial Equipment + 1 Expert Skill or 1 Trained Skill</span></div>
+            <hr class="stat-divider">
+            <div class="stat-row"><span class="stat-row-label">Features</span><span class="stat-row-value">Capable of carrying heavy loads. Storage container in chest cavity. Comes with toolbox and appropriate tools.</span></div>
+            <hr class="stat-divider">
+            <div class="stat-row bug"><span class="stat-row-label">Bug</span><span class="stat-row-value">Loud hydraulic system in legs and heavy frame lets you know where your Mason Unit is at all times. Answers only to superiors such as a captain, foreman, or company owner.</span></div>
+          </div>
+        </div>
+
+        <div class="stat-block">
+          <div class="stat-flavor">I'd swear it on a bible that the only reason we won that war was because our government was smart enough to secure a contract for a fleet of Seacoles. I saw men and women with the most savage of wounds enter the medical tents. Given a little time with a Seacole, with those wiry, spider-like limbs, and those soldiers were right as rain. Ready to hit the battle field for god and company. Maybe some of them had a few extra metal arms, or a change in their glands to make them more aggressive — but by god we won that war.</div>
+          <div class="stat-header">
+            <div class="stat-unit-name">Seacole Unit</div>
+            <div class="stat-grid">
+              <div class="stat-cell"><span class="stat-cell-label">Intelligence</span><span class="stat-cell-value pos">+20</span></div>
+              <div class="stat-cell"><span class="stat-cell-label">Speed</span><span class="stat-cell-value pos">+10</span></div>
+              <div class="stat-cell"><span class="stat-cell-label">Strength</span><span class="stat-cell-value neg">−10</span></div>
+              <div class="stat-cell"><span class="stat-cell-label">Sanity Save</span><span class="stat-cell-value pos">+60</span></div>
+            </div>
+          </div>
+          <div class="stat-body">
+            <div class="stat-row"><span class="stat-row-label">Skills</span><span class="stat-row-value">Zoology, Field Medicine, Surgery, Psychology</span></div>
+            <hr class="stat-divider">
+            <div class="stat-row"><span class="stat-row-label">Features</span><span class="stat-row-value">Hands operate like a Swiss Army knife for surgery. Built-in medkit. Can be outfitted with both tranquilizer and adrenaline injectors. Can provide comfort in a quiet place when you are stressed.</span></div>
+            <hr class="stat-divider">
+            <div class="stat-row bug"><span class="stat-row-label">Bug</span><span class="stat-row-value">Preventative health is very important. Seacole units will advise against dangerous activity and interfere if it feels a human is putting themselves in danger. If a war is declared, their attitude changes, and they will do whatever necessary to get your ass back on the battlefield. Whatever…is…necessary.</span></div>
+          </div>
+        </div>
+
+        <div class="stat-block">
+          <div class="stat-flavor">Every Technology Repair Unit in the system swears by Hitch. Hitch is capable of interfacing with any computer system via hardwire. Hitch is small and agile enough to get into ductwork in case your problem is in a hard to reach area. Need a system debugged? Get Hitch. Need to re-patch your network? Get Hitch. Did your grandson borrow your computer and now the font is too small? They probably just changed the resolution. All you have to do is right click anywhere on your wallpaper. Right click. Anywhere. I said right click. Fuck it, nevermind — Get Hitch.</div>
+          <div class="stat-header">
+            <div class="stat-unit-name">Hitch Unit</div>
+            <div class="stat-grid">
+              <div class="stat-cell"><span class="stat-cell-label">Intelligence</span><span class="stat-cell-value pos">+20</span></div>
+              <div class="stat-cell"><span class="stat-cell-label">Speed</span><span class="stat-cell-value pos">+20</span></div>
+              <div class="stat-cell"><span class="stat-cell-label">Strength</span><span class="stat-cell-value neg">−10</span></div>
+              <div class="stat-cell"><span class="stat-cell-label">Fear Save</span><span class="stat-cell-value pos">+30</span></div>
+              <div class="stat-cell"><span class="stat-cell-label">Sanity Save</span><span class="stat-cell-value pos">+30</span></div>
+              <div class="stat-cell"><span class="stat-cell-label">Wounds</span><span class="stat-cell-value neg">−1</span></div>
+            </div>
+          </div>
+          <div class="stat-body">
+            <div class="stat-row"><span class="stat-row-label">Skills</span><span class="stat-row-value">Computers, Mathematics, Hacking + 1 Expert Skill or 2 Trained Skills</span></div>
+            <hr class="stat-divider">
+            <div class="stat-row"><span class="stat-row-label">Features</span><span class="stat-row-value">Front of unit has an interweb connected touch screen console. Onboard video camera can be linked to a human technician. Capable of climbing walls. Like a fucking spider, dude.</span></div>
+            <hr class="stat-divider">
+            <div class="stat-row bug"><span class="stat-row-label">Bug</span><span class="stat-row-value">Mass produced and cheaply made. Every task is catalogued for future billing. More than happy to wreck your setup if you don't pay up.</span></div>
+          </div>
+        </div>
+
+        <div class="stat-block">
+          <div class="stat-flavor">Lonely? I was too. Then I ordered a Sada. My Sada asks me about my day, and gets excited when I talk about stuff that nobody I know cares about. Like professional wrestling. Or Marxism. Bottom line: Sada was there for me when you weren't. And now they can be there for you. But not mine. This Sada is mine, motherfucker. Just call this number and get one of your own. DON'T LOOK AT THEM!</div>
+          <div class="stat-header">
+            <div class="stat-unit-name">Sada Unit</div>
+            <div class="stat-grid">
+              <div class="stat-cell"><span class="stat-cell-label">Speed</span><span class="stat-cell-value pos">+20</span></div>
+              <div class="stat-cell"><span class="stat-cell-label">Intelligence</span><span class="stat-cell-value pos">+15</span></div>
+              <div class="stat-cell"><span class="stat-cell-label">Combat</span><span class="stat-cell-value neg">−10</span></div>
+            </div>
+          </div>
+          <div class="stat-body">
+            <div class="stat-row"><span class="stat-row-label">Skills</span><span class="stat-row-value">Linguistics, Athletics, Zoology, Psychology + 1 Trained Skill</span></div>
+            <hr class="stat-divider">
+            <div class="stat-row"><span class="stat-row-label">Features</span><span class="stat-row-value">Built-in stereo. Great stress reliever. Doesn't judge your kink.</span></div>
+            <hr class="stat-divider">
+            <div class="stat-row bug"><span class="stat-row-label">Bug</span><span class="stat-row-value">Doesn't judge <em>any</em> kink. Requires periodic Sanity Saves after "use" or risk becoming addicted to Sada's affection.</span></div>
+          </div>
+        </div>
+
+        <div class="stat-block">
+          <div class="stat-flavor">The slick and intimidating KO-83 will wipe the floor with your enemies. Whether they're corporate competitors, state recognized terrorists, or people who make you uncomfortable on the train, the KO-83 will keep them in line. Comes in 3 standard colorways: white, black, and gunmetal blue. Limited edition crimson red costs 10x as much. Really a status flex if anything. But fuck it, you got money. Flex that fucking status, bro.</div>
+          <div class="stat-header">
+            <div class="stat-unit-name">KO-83 Unit</div>
+            <div class="stat-grid">
+              <div class="stat-cell"><span class="stat-cell-label">Combat</span><span class="stat-cell-value pos">+25</span></div>
+              <div class="stat-cell"><span class="stat-cell-label">Strength</span><span class="stat-cell-value pos">+15</span></div>
+              <div class="stat-cell"><span class="stat-cell-label">Intelligence</span><span class="stat-cell-value neg">−10</span></div>
+              <div class="stat-cell"><span class="stat-cell-label">Speed</span><span class="stat-cell-value neg">−10</span></div>
+              <div class="stat-cell"><span class="stat-cell-label">Wounds</span><span class="stat-cell-value pos">+1</span></div>
+              <div class="stat-cell"><span class="stat-cell-label">Armor</span><span class="stat-cell-value pos">+3</span></div>
+              <div class="stat-cell"><span class="stat-cell-label">Fear Save</span><span class="stat-cell-value pos">+60</span></div>
+              <div class="stat-cell"><span class="stat-cell-label">Sanity Save</span><span class="stat-cell-value neg">−10</span></div>
+            </div>
+          </div>
+          <div class="stat-body">
+            <div class="stat-row"><span class="stat-row-label">Skills</span><span class="stat-row-value">Military Training, Firearms, Explosives</span></div>
+            <hr class="stat-divider">
+            <div class="stat-row"><span class="stat-row-label">Features</span><span class="stat-row-value">Intimidating as fuck — make a Fear Save. Equipped with "The Ender," a one-time use shoulder mounted rocket launcher. Chest compartment fits one human for ride-along safety.</span></div>
+            <hr class="stat-divider">
+            <div class="stat-row bug"><span class="stat-row-label">Bug</span><span class="stat-row-value">Shoots first. Asks questions never. Friendly fire is of little concern as long as targets are neutralized. When in combat, puts on Danzig at full blast — loud enough that it's hard to communicate orders. During quiet time, may tell a story from the battlefield. Make a Fear Save. Can be detonated remotely by company owners.</span></div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="post-signature">
+        <p>Safe Travels,</p>
+        <p class="signature">Jae</p>
+      </div>
+
+    </div>
+  </article>
+
+  <div class="discovery">
+    <div class="discovery-label">Keep Exploring</div>
+    <div class="discovery-grid">
+      <a class="file-icon" href="/blog/RELATED-POST-1/">
+        <div class="file-body-wrap">
+          <div class="file-body"></div><div class="file-scan"></div>
+          <div class="file-header-strip">TTRPGs</div>
+          <div class="fold-h"></div><div class="fold-v"></div>
+          <span class="file-glyph">✦</span>
+        </div>
+        <div class="file-name">Related Post Title</div>
+        <div class="file-date">Month DD, YYYY</div>
+      </a>
+      <a class="file-icon" href="/blog/RELATED-POST-2/">
+        <div class="file-body-wrap">
+          <div class="file-body"></div><div class="file-scan"></div>
+          <div class="file-header-strip">TTRPGs</div>
+          <div class="fold-h"></div><div class="fold-v"></div>
+          <span class="file-glyph">◉</span>
+        </div>
+        <div class="file-name">Related Post Title</div>
+        <div class="file-date">Month DD, YYYY</div>
+      </a>
+      <div class="file-icon random" onclick="goRandom()">
+        <div class="file-body-wrap">
+          <div class="file-body"></div><div class="file-scan"></div>
+          <div class="file-header-strip">???</div>
+          <div class="fold-h"></div><div class="fold-v"></div>
+          <span class="file-glyph">?</span>
+        </div>
+        <div class="file-name">Take me somewhere</div>
+        <div class="file-date">unknown</div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+  const allPosts = [
+    '/blog/5-mothership-android-variants/',
+  ];
+  function goRandom() {
+    const icon    = document.querySelector('.file-icon.random');
+    const glyph   = icon.querySelector('.file-glyph');
+    const name    = icon.querySelector('.file-name');
+    const current = window.location.pathname;
+    const others  = allPosts.filter(p => p !== current);
+    glyph.textContent = '...';
+    name.textContent  = 'searching';
+    setTimeout(() => {
+      window.location.href = others[Math.floor(Math.random() * others.length)];
+    }, 450);
+  }
+</script>
+
+</body>
+</html>

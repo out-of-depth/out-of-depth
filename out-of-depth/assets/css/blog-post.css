@@ -1,0 +1,242 @@
+/* ============================================================
+   BLOG-POST.CSS
+   Out of Depth — outofdepth.com
+   Styles specific to individual blog post pages.
+   Requires base.css and components.css.
+   ============================================================ */
+
+/* ── POST WINDOW ── */
+.post-window {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+  box-shadow:
+    0 0 0 1px rgba(255, 3, 255, 0.06) inset,
+    0 0 60px rgba(255, 3, 255, 0.05),
+    0 0 120px rgba(0, 92, 99, 0.08),
+    0 24px 80px rgba(0, 0, 0, 0.7);
+  animation: materialize 0.5s ease both;
+}
+
+/* ── WINDOW BODY ── */
+.window-body {
+  background: linear-gradient(
+    150deg,
+    rgba(0, 92, 99, 0.28) 0%,
+    rgba(6, 9, 59, 0.12) 60%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+  border: 1px solid rgba(255, 3, 255, 0.25);
+  border-top: none;
+  padding: 36px 44px 44px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* magenta glitch stripe — left edge */
+.window-body::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(255, 3, 255, 0.65) 18%,
+    transparent 32%,
+    rgba(255, 3, 255, 0.35) 57%,
+    transparent 72%,
+    rgba(255, 3, 255, 0.55) 89%,
+    transparent 100%
+  );
+  animation: glitch 6s ease-in-out infinite;
+}
+
+/* subtle grid texture */
+.window-body::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 3, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 3, 255, 0.015) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+
+/* ── POST HEADER ── */
+.post-header {
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid rgba(255, 3, 255, 0.1);
+  position: relative;
+  z-index: 1;
+}
+
+.post-category {
+  font-family: 'Jersey15', monospace;
+  font-size: 13px;
+  color: var(--magenta-dim);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* blinking prompt cursor before category */
+.post-category::before {
+  content: '>';
+  color: var(--magenta);
+  animation: blink 1.2s step-end infinite;
+}
+
+.post-title {
+  font-family: 'Jersey25', monospace;
+  font-size: 48px;
+  color: var(--magenta);
+  line-height: 1.05;
+  text-shadow:
+    0 0 28px rgba(255, 3, 255, 0.4),
+    0 0 60px rgba(255, 3, 255, 0.1);
+  margin-bottom: 20px;
+  position: relative;
+}
+
+/* chromatic aberration on title */
+.post-title::before {
+  content: attr(data-text);
+  position: absolute;
+  left: 2px; top: 1px;
+  color: rgba(0, 229, 255, 0.1);
+  pointer-events: none;
+}
+
+.post-byline {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.byline-item {
+  font-family: 'Jersey15', monospace;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.byline-item .lbl { color: rgba(255, 3, 255, 0.5); }
+
+/* ── POST BODY ── */
+.post-body {
+  position: relative;
+  z-index: 1;
+}
+
+.post-body p {
+  font-size: 17px;
+  line-height: 1.85;
+  color: rgba(255, 255, 255, 0.83);
+  margin-bottom: 22px;
+}
+
+.post-body p:last-child { margin-bottom: 0; }
+
+.post-body h2 {
+  font-family: 'Jersey15', monospace;
+  font-size: 30px;
+  color: var(--magenta);
+  margin: 36px 0 14px;
+  text-shadow: 0 0 14px rgba(255, 3, 255, 0.3);
+}
+
+.post-body h3 {
+  font-family: 'Jersey15', monospace;
+  font-size: 22px;
+  color: rgba(255, 3, 255, 0.7);
+  margin: 26px 0 10px;
+}
+
+/* inline images */
+.post-body img {
+  max-width: 260px;
+  height: auto;
+  float: right;
+  margin: 0 0 16px 24px;
+  border: 1px solid #054278;
+  border-radius: 4px;
+}
+
+.post-body img.left {
+  float: left;
+  margin: 0 24px 16px 0;
+}
+
+.post-body img.full {
+  float: none;
+  display: block;
+  max-width: 100%;
+  margin: 24px auto;
+}
+
+.clearfix::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+/* ── BLOCKQUOTE — JRPG dialogue style ── */
+/* SymphonyOfTheNight font reserved for use inside
+   blockquotes if desired — keep it rare */
+.post-body blockquote {
+  margin: 32px 0;
+  padding: 18px 24px;
+  background: linear-gradient(135deg, rgba(0, 92, 99, 0.2), rgba(6, 9, 59, 0.3));
+  border: 1px solid rgba(255, 3, 255, 0.2);
+  border-left: 3px solid var(--magenta);
+  border-radius: 0 4px 4px 0;
+}
+
+.post-body blockquote p {
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+/* ── SIGNATURE ── */
+.post-signature {
+  margin-top: 36px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(255, 3, 255, 0.1);
+  position: relative;
+  z-index: 1;
+}
+
+.post-signature p {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 2px;
+}
+
+.signature {
+  font-family: 'Jersey25', monospace;
+  font-size: 38px;
+  color: var(--magenta);
+  text-shadow: 0 0 20px rgba(255, 3, 255, 0.35);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 700px) {
+  .post-title    { font-size: 34px; }
+  .window-body   { padding: 24px 20px 28px; }
+  .discovery-grid { grid-template-columns: 1fr; }
+}

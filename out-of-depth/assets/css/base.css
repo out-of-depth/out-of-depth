@@ -1,0 +1,288 @@
+/* ============================================================
+   BASE.CSS
+   Out of Depth — outofdepth.com
+   Variables, reset, body, scanlines, sidebar, nav links
+   ============================================================ */
+
+/* ── CUSTOM PROPERTIES ── */
+:root {
+  --magenta:       #ff03ff;
+  --magenta-dim:   rgba(255, 3, 255, 0.45);
+  --cyan:          #00e5ff;
+  --teal:          #005c63;
+  --blue-mid:      #054278;
+  --bg:            #000;
+  --white:         #fff;
+
+  --sidebar-width: 220px;
+  --content-max:   820px;
+
+  /* shared box style — used on blog index, podcast, etc */
+  --box-bg:        linear-gradient(150deg, #005c6399, #06093B11 60%);
+  --box-border:    2px solid #c6c6c6;
+  --box-radius:    8px;
+}
+
+/* ── RESET ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── BODY ── */
+body {
+  font-family: 'AtkinsonHyperlegible', sans-serif;
+  background: var(--bg);
+  color: var(--white);
+  min-height: 100vh;
+}
+
+/* ── FONT FACES ── */
+@font-face {
+  font-family: 'AtkinsonHyperlegible';
+  src: url('../fonts/AtkinsonHyperlegible-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AtkinsonHyperlegible';
+  src: url('../fonts/AtkinsonHyperlegible-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AtkinsonHyperlegible';
+  src: url('../fonts/AtkinsonHyperlegible-Italic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AtkinsonHyperlegible';
+  src: url('../fonts/AtkinsonHyperlegible-BoldItalic.ttf') format('truetype');
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Jersey15';
+  src: url('../fonts/Jersey15-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Jersey25';
+  src: url('../fonts/Jersey25-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Exo';
+  src: url('../fonts/Exo-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Exo';
+  src: url('../fonts/Exo-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Reserve SymphonyOfTheNight for dialogue boxes and easter eggs only.
+   Do not use it in structural UI elements. */
+@font-face {
+  font-family: 'SymphonyOfTheNight';
+  src: url('../fonts/SymphonyoftheNightfont.ttf') format('truetype');
+  font-weight: normal;
+  font-display: swap;
+}
+
+/* ── SCANLINES OVERLAY ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.07) 2px,
+    rgba(0, 0, 0, 0.07) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ── AMBIENT GLOW ── */
+.content::before {
+  content: '';
+  position: fixed;
+  top: 10%;
+  left: calc(var(--sidebar-width) + 5%);
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(ellipse, rgba(0, 92, 99, 0.1) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── SIDEBAR ── */
+.sidebar {
+  position: fixed;
+  top: 0; left: 0;
+  width: var(--sidebar-width);
+  height: 100vh;
+  background: linear-gradient(160deg, #05427888 0%, #000 50%, #05427833 100%);
+  border-right: 1px solid #054278;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 0;
+  z-index: 100;
+}
+
+/* magenta glow line on right edge of sidebar */
+.sidebar::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent, var(--magenta), transparent);
+  opacity: 0.4;
+}
+
+/* ── BRAND NAME ── */
+.brand-text {
+  font-family: 'Exo', sans-serif;
+  font-weight: 300;
+  font-size: 28px;
+  color: var(--white);
+  text-align: center;
+  padding: 0 16px 24px;
+  border-bottom: 1px solid #054278;
+  line-height: 1.2;
+  text-decoration: none;
+  display: block;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+}
+
+/* ── NAV ── */
+.nav {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 16px;
+  gap: 6px;
+  flex: 1;
+}
+
+.nav-link {
+  font-family: 'Jersey15', monospace;
+  font-size: 24px;
+  display: block;
+  padding: 8px 14px;
+  text-align: center;
+  border: 1px solid #054278;
+  border-radius: 5px;
+  color: var(--magenta);
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.nav-link:hover {
+  border-color: var(--magenta);
+  box-shadow: 0 0 10px rgba(255, 3, 255, 0.3);
+  color: #fff;
+}
+
+.nav-link.is-active {
+  background: linear-gradient(120deg, rgba(255, 3, 255, 0.15), transparent);
+  border-color: var(--magenta);
+  color: #fff;
+}
+
+.nav hr {
+  border: none;
+  border-top: 1px solid #054278;
+  margin: 8px 0;
+}
+
+/* ── CONTENT AREA ── */
+.content {
+  margin-left: var(--sidebar-width);
+  padding: 48px 40px 100px;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.65; }
+  50%       { opacity: 1; box-shadow: 0 0 6px var(--magenta); }
+}
+
+@keyframes glitch {
+  0%,  100% { opacity: 1; transform: none; }
+  44%        { opacity: 1; }
+  45%        { opacity: 0.2; transform: translateY(3px); }
+  46%        { opacity: 1; transform: none; }
+  79%        { opacity: 1; }
+  80%        { opacity: 0.3; transform: translateY(-2px); }
+  81%        { opacity: 1; transform: none; }
+}
+
+@keyframes materialize {
+  from { opacity: 0; transform: translateY(14px) scaleY(0.98); }
+  to   { opacity: 1; transform: translateY(0) scaleY(1); }
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .sidebar {
+    position: relative;
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    padding: 12px 16px;
+    border-right: none;
+    border-bottom: 1px solid #054278;
+  }
+
+  .content {
+    margin-left: 0;
+    padding: 24px 16px 60px;
+  }
+
+  .nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 8px 0 0;
+    gap: 4px;
+  }
+
+  .nav-link { font-size: 16px; padding: 4px 10px; }
+}
