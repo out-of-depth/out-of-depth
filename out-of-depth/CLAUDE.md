@@ -207,3 +207,21 @@ The old site uses Squarespace. Images from the old site are hosted on Squarespac
 - Auto-port all old blog posts without instruction
 - Hotlink images from the old Squarespace CDN
 - Introduce any frameworks, build tools, or package dependencies
+
+---
+
+## Content integrity — CRITICAL
+
+When porting content from the old site, reproduce Jae's words **verbatim**. This means:
+
+- Do not fix typos
+- Do not change punctuation — if the original uses "--" do not change it to "—"
+- Do not rewrite sentences for clarity
+- Do not add, remove, or rephrase anything
+- Do not "clean up" grammar or style
+
+If the original says "wench" and it should be "winch", leave it as "wench". Jae's voice is Jae's voice.
+
+The only changes permitted when porting are structural — wrapping content in the correct HTML elements. The words themselves are untouchable unless Jae explicitly asks for a change.
+
+This rule applies to Claude Code AND to this chat session.
