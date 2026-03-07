@@ -87,15 +87,7 @@ body {
 
 @font-face {
   font-family: 'Exo';
-  src: url('../fonts/Exo-Light.woff2') format('woff2');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Exo';
-  src: url('../fonts/Exo-Regular.woff2') format('woff2');
+  src: url('../fonts/exo-v25-latin-regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;

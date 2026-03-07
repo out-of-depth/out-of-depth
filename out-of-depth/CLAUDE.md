@@ -1,7 +1,9 @@
 # Out of Depth — Claude Code Project Brief
 
 ## What this project is
-A personal website called **Out of Depth** (outofdepth.com) belonging to Jae. It is a fully static site — HTML, CSS, and JS only. No frameworks, no build step, no CMS. Hosted on Vercel, connected to this GitHub repository.
+A personal website called **Out of Depth** (outofdepth.com) belonging to Jae. It is a fully static site — HTML, CSS, and JS only. No frameworks, no CMS. Hosted on Vercel, connected to this GitHub repository.
+
+There is one build script: `build-sidebar.py`. Run it with `python3 build-sidebar.py` whenever the sidebar navigation changes. It stamps the canonical sidebar from `assets/partials/sidebar.html` into every page and sets the correct `is-active` class automatically.
 
 ---
 
@@ -22,11 +24,14 @@ A personal website called **Out of Depth** (outofdepth.com) belonging to Jae. It
 │   └── index.html                      ← not yet built
 ├── about/
 │   └── index.html                      ← not yet built
+├── build-sidebar.py                    ← run this when nav changes; stamps sidebar into all pages
 └── assets/
     ├── css/
     │   ├── base.css                    ← variables, reset, fonts, sidebar, nav, animations
     │   ├── components.css              ← box panels, amiga buttons, win3.1 file icons, discovery footer
     │   └── blog-post.css              ← post window, header, body, blockquote, signature
+    ├── partials/
+    │   └── sidebar.html               ← canonical sidebar — edit only this, then run build-sidebar.py
     ├── js/
     ├── fonts/                          ← all font files live here, already in place
     ├── images/
@@ -90,23 +95,32 @@ TTRPG/homebrew posts also include inline styles for stat blocks (see Mothership 
 
 ---
 
-## Sidebar HTML (copy exactly on every page, update is-active only)
+## Sidebar
+
+The canonical sidebar lives in `assets/partials/sidebar.html`. **Never edit the sidebar directly in individual page files.** Instead:
+
+1. Edit `assets/partials/sidebar.html`
+2. Run `python3 build-sidebar.py`
+
+The script stamps the sidebar into every page and sets `is-active` on the correct link based on each file's path. It also ensures all episode pages link `base.css` (which provides the sidebar CSS).
+
+The sidebar structure (for reference — edit the partial, not this):
 ```html
 <aside class="sidebar" aria-label="Primary navigation">
   <a class="brand-text" href="/">out of depth</a>
   <nav class="nav">
-    <a class="nav-link"           href="/">Home</a>
-    <a class="nav-link"           href="/blog/">Blog</a>
-    <a class="nav-link"           href="/fiction/">Fiction</a>
-    <a class="nav-link"           href="/podcast/">Podcast</a>
-    <a class="nav-link"           href="/games/">Games</a>
-    <a class="nav-link"           href="/about/">About</a>
+    <a class="nav-link" href="/">Home</a>
+    <a class="nav-link" href="/blog/">Blog</a>
+    <a class="nav-link" href="/fiction/">Fiction</a>
+    <a class="nav-link" href="/podcast/">Podcast</a>
+    <a class="nav-link" href="/games/">Games</a>
+    <a class="nav-link" href="/about/">About</a>
     <hr>
   </nav>
 </aside>
 ```
 
-Add `is-active` to whichever nav-link matches the current section.
+CSS for the sidebar lives in `base.css` (`.sidebar`, `.brand-text`, `.nav-link`, `.nav-link.is-active`).
 
 ---
 

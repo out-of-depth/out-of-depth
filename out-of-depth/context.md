@@ -53,6 +53,19 @@ Some posts have been ported from the old Squarespace site. Check `assets/data/po
 
 ---
 
+### Sidebar — standardized (as of commit after a11f44a)
+
+The sidebar is now managed by a build script. The canonical HTML lives in `assets/partials/sidebar.html`. To update the nav:
+
+1. Edit `assets/partials/sidebar.html`
+2. Run `python3 build-sidebar.py` from the project root
+
+The script replaces the sidebar in all 55+ pages and sets `is-active` automatically. All episode pages now also link `base.css` (which provides sidebar CSS — `.sidebar`, `.brand-text`, `.nav-link`, `.nav-link.is-active`).
+
+**Do not edit sidebar HTML directly in any page file** — it will be overwritten next time the script runs.
+
+---
+
 ## Pages still to build
 
 These are listed in `CLAUDE.md` and remain unbuilt:
@@ -82,7 +95,7 @@ The main branch should not be pushed to directly. All Claude work goes on this b
 
 **Cover art paths** are always `../../assets/images/podcast/[slug].jpg` — two levels up because pages live at `podcast/[slug]/episode-N/index.html`.
 
-**Font paths** are always `../../assets/fonts/` — same depth logic.
+**Font paths** in inline `<style>` blocks on episode pages are always `../../assets/fonts/` — same depth logic. Fonts declared in `base.css` use `../fonts/` (relative to the CSS file). Both resolve correctly.
 
 **Episode list** on every page includes all episodes for that season (not just nearby ones), with the current episode marked `class="current"`.
 

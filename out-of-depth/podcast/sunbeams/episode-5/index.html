@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sunbeams Episode 5 — out of depth plays</title>
+<link rel="stylesheet" href="../../assets/css/base.css">
 <style>
 @font-face { font-family: "Jersey15"; src: url("../../assets/fonts/Jersey15-Regular.ttf") format("truetype"); }
 @font-face { font-family: "Jersey25"; src: url("../../assets/fonts/Jersey25-Regular.ttf") format("truetype"); }
@@ -83,16 +84,18 @@ body::after { content: ""; position: fixed; inset: 0; pointer-events: none; z-in
 </style>
 </head>
 <body>
-<nav class="sidebar">
-  <a href="/" class="sidebar-brand">out of depth</a>
-  <div class="sidebar-nav">
-    <a href="/blog">Blog</a>
-    <a href="/fiction">Fiction</a>
-    <a href="/podcast" class="active">Podcast</a>
-    <a href="/games">Games</a>
-    <a href="/about">About</a>
-  </div>
-</nav>
+<aside class="sidebar" aria-label="Primary navigation">
+  <a class="brand-text" href="/">out of depth</a>
+  <nav class="nav">
+    <a class="nav-link" href="/">Home</a>
+    <a class="nav-link" href="/blog/">Blog</a>
+    <a class="nav-link" href="/fiction/">Fiction</a>
+    <a class="nav-link is-active" href="/podcast/">Podcast</a>
+    <a class="nav-link" href="/games/">Games</a>
+    <a class="nav-link" href="/about/">About</a>
+    <hr>
+  </nav>
+</aside>
 <main class="main">
   <div class="breadcrumb"><a href="/podcast">podcast</a><span>›</span><a href="/podcast/sunbeams">sunbeams</a><span>›</span>episode 5</div>
   <div class="episode-header">
