@@ -972,9 +972,7 @@
 
         <div class="cp-controls">
           <button class="cp-btn" id="btn-back" title="Back 15s">&#10216;15</button>
-          <button class="cp-btn" id="btn-prev" title="Previous">&#9198;</button>
           <button class="cp-btn play" id="btn-play" title="Play/Pause">&#9654;</button>
-          <button class="cp-btn" id="btn-next" title="Next">&#9197;</button>
           <button class="cp-btn" id="btn-fwd" title="Forward 15s">15&#10217;</button>
           <button class="cp-speed" id="btn-speed">1&times;</button>
         </div>
@@ -1042,29 +1040,15 @@
   var btnPlay = document.getElementById('btn-play');
   var btnBack = document.getElementById('btn-back');
   var btnFwd  = document.getElementById('btn-fwd');
-  var btnPrev = document.getElementById('btn-prev');
-  var btnNext = document.getElementById('btn-next');
   var btnSpeed = document.getElementById('btn-speed');
   var progress = document.getElementById('cp-progress');
   var progressWrap = document.getElementById('cp-progress-wrap');
   var cpCurrent = document.getElementById('cp-current');
   var cpDuration = document.getElementById('cp-duration');
-  var cpSeason = document.getElementById('cp-season');
-  var cpTitle = document.getElementById('cp-title');
-  var cpCover = document.getElementById('cp-cover');
-  var cpLink = document.getElementById('cp-link');
   var filterLabel = document.getElementById('filter-label');
 
   var speeds = [1, 1.25, 1.5, 2];
   var speedIdx = 0;
-
-  var slugMap = {
-    'hackway':   'hackway-heights',
-    'analysis':  'analysis-complete',
-    'sunbeams':  'sunbeams',
-    'fiftycent': 'fifty-cent-souls',
-    'sapphire':  'sapphire-doom'
-  };
 
   function fmt(s) {
     if (!isFinite(s)) return '–:––';
@@ -1073,50 +1057,11 @@
     return m + ':' + ss;
   }
 
-  function getVisibleRows() {
-    return Array.prototype.filter.call(document.querySelectorAll('.episode-row'), function(r) {
-      return r.style.display !== 'none';
-    });
+  // Load the most recent episode into the player on page load
+  var firstRow = document.querySelector('.episode-row');
+  if (firstRow && firstRow.dataset.audio) {
+    audio.src = firstRow.dataset.audio;
   }
-
-  function loadEpisode(row, autoplay) {
-    document.querySelectorAll('.episode-row').forEach(function(r) { r.classList.remove('is-active'); });
-    row.classList.add('is-active');
-    row.scrollIntoView({ block: 'nearest' });
-
-    var seasonKey = row.dataset.season;
-    var seasonName = row.dataset.seasonName;
-    var ep = row.dataset.ep;
-    var audioSrc = row.dataset.audio || '';
-    var slug = slugMap[seasonKey] || seasonKey;
-    var epUrl = '/podcast/' + slug + '/episode-' + ep + '/';
-    var rowTitle = row.querySelector('.ep-title').textContent;
-
-    cpSeason.textContent = seasonName + ' · Ep ' + ep;
-    cpTitle.textContent = rowTitle;
-    cpCover.src = '../assets/images/podcast/' + slug + '.jpg';
-    cpCover.alt = seasonName + ' cover art';
-    cpLink.href = epUrl;
-
-    if (audioSrc) {
-      var wasPlaying = !audio.paused;
-      audio.src = audioSrc;
-      audio.playbackRate = speeds[speedIdx];
-      if (autoplay || wasPlaying) {
-        audio.play().catch(function() {});
-        btnPlay.innerHTML = '&#9646;&#9646;';
-      } else {
-        btnPlay.innerHTML = '&#9654;';
-      }
-    }
-  }
-
-  document.querySelectorAll('.episode-row').forEach(function(row) {
-    row.addEventListener('click', function(e) {
-      e.preventDefault();
-      loadEpisode(row, true);
-    });
-  });
 
   function filterSeason(season, card) {
     document.querySelectorAll('.season-card').forEach(function(c) { c.classList.remove('is-active'); });
@@ -1141,18 +1086,6 @@
   btnBack.addEventListener('click', function() { audio.currentTime = Math.max(0, audio.currentTime - 15); });
   btnFwd.addEventListener('click',  function() { audio.currentTime += 15; });
 
-  btnPrev.addEventListener('click', function() {
-    var rows = getVisibleRows();
-    var idx = rows.findIndex(function(r) { return r.classList.contains('is-active'); });
-    if (idx > 0) loadEpisode(rows[idx - 1], !audio.paused);
-  });
-
-  btnNext.addEventListener('click', function() {
-    var rows = getVisibleRows();
-    var idx = rows.findIndex(function(r) { return r.classList.contains('is-active'); });
-    if (idx < rows.length - 1) loadEpisode(rows[idx + 1], !audio.paused);
-  });
-
   btnSpeed.addEventListener('click', function() {
     speedIdx = (speedIdx + 1) % speeds.length;
     audio.playbackRate = speeds[speedIdx];
@@ -1172,9 +1105,6 @@
 
   audio.addEventListener('ended', function() {
     btnPlay.innerHTML = '&#9654;';
-    var rows = getVisibleRows();
-    var idx = rows.findIndex(function(r) { return r.classList.contains('is-active'); });
-    if (idx < rows.length - 1) loadEpisode(rows[idx + 1], true);
   });
 
   progressWrap.addEventListener('click', function(e) {
