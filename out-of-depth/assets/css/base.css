@@ -41,7 +41,7 @@ body {
 /* ── FONT FACES ── */
 @font-face {
   font-family: 'AtkinsonHyperlegible';
-  src: url('../fonts/AtkinsonHyperlegible-Regular.ttf') format('truetype');
+  src: url('../fonts/AtkinsonHyperlegible-Regular.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -49,7 +49,7 @@ body {
 
 @font-face {
   font-family: 'AtkinsonHyperlegible';
-  src: url('../fonts/AtkinsonHyperlegible-Bold.ttf') format('truetype');
+  src: url('../fonts/AtkinsonHyperlegible-Bold.woff2') format('woff2');
   font-weight: bold;
   font-style: normal;
   font-display: swap;
@@ -57,7 +57,7 @@ body {
 
 @font-face {
   font-family: 'AtkinsonHyperlegible';
-  src: url('../fonts/AtkinsonHyperlegible-Italic.ttf') format('truetype');
+  src: url('../fonts/AtkinsonHyperlegible-Italic.woff2') format('woff2');
   font-weight: normal;
   font-style: italic;
   font-display: swap;
@@ -65,7 +65,7 @@ body {
 
 @font-face {
   font-family: 'AtkinsonHyperlegible';
-  src: url('../fonts/AtkinsonHyperlegible-BoldItalic.ttf') format('truetype');
+  src: url('../fonts/AtkinsonHyperlegible-BoldItalic.woff2') format('woff2');
   font-weight: bold;
   font-style: italic;
   font-display: swap;
@@ -73,14 +73,14 @@ body {
 
 @font-face {
   font-family: 'Jersey15';
-  src: url('../fonts/Jersey15-Regular.ttf') format('truetype');
+  src: url('../fonts/Jersey15-Regular.woff2') format('woff2');
   font-weight: normal;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'Jersey25';
-  src: url('../fonts/Jersey25-Regular.ttf') format('truetype');
+  src: url('../fonts/Jersey25-Regular.woff2') format('woff2');
   font-weight: normal;
   font-display: swap;
 }
@@ -97,7 +97,7 @@ body {
    Do not use it in structural UI elements. */
 @font-face {
   font-family: 'SymphonyOfTheNight';
-  src: url('../fonts/SymphonyoftheNightfont.ttf') format('truetype');
+  src: url('../fonts/SymphonyoftheNightfont.woff2') format('woff2');
   font-weight: normal;
   font-display: swap;
 }
