@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Podcast | Out of Depth</title>
+  <meta property="og:title" content="Podcast | Out of Depth">
+  <meta property="og:description" content="Out of Depth Plays &#8212; actual-play TTRPG podcast. Five seasons of Electric Bastionland, Mothership RPG, Icons, Call of Cthulhu, and Knave 2e.">
+  <meta property="og:url" content="https://outofdepth.com/podcast/">
+  <link rel="stylesheet" href="../assets/css/base.css">
+  <style>
+    .content { padding: 32px 28px 80px; }
+
+    .page-grid {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      grid-template-rows: auto 1fr;
+      gap: 12px;
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+      height: calc(100vh - 96px);
+      animation: fadeUp 0.4s ease both;
+    }
+
+    .box {
+      background-image: var(--box-bg);
+      border: var(--box-border);
+      border-radius: var(--box-radius);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .box::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: var(--box-radius);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .episode-list {
+      grid-column: 1;
+      grid-row: 1 / 3;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .list-header {
+      padding: 16px 20px 12px;
+      border-bottom: 1px solid rgba(198,198,198,0.15);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .list-title {
+      font-family: 'Jersey15', monospace;
+      font-size: 22px;
+      color: var(--magenta);
+    }
+
+    .list-filter-label {
+      font-family: 'Jersey15', monospace;
+      font-size: 12px;
+      color: rgba(255,3,255,0.4);
+      letter-spacing: 0.1em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .list-filter-label span {
+      color: rgba(255,255,255,0.5);
+      border: 1px solid rgba(255,3,255,0.2);
+      padding: 1px 8px;
+      border-radius: 2px;
+      font-size: 11px;
+    }
+
+    .episodes-scroll {
+      flex: 1;
+      overflow-y: auto;
+      padding: 6px 0;
+    }
+
+    .episodes-scroll::-webkit-scrollbar { width: 4px; }
+    .episodes-scroll::-webkit-scrollbar-track { background: transparent; }
+    .episodes-scroll::-webkit-scrollbar-thumb { background: rgba(255,3,255,0.2); border-radius: 2px; }
+
+    .episode-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: all 0.15s;
+      position: relative;
+      border-left: 3px solid transparent;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .episode-row:hover { background: rgba(255,3,255,0.04); border-left-color: rgba(255,3,255,0.3); }
+    .episode-row.is-active { background: rgba(255,3,255,0.07); border-left-color: var(--magenta); }
+    .episode-row.is-active .ep-title { color: var(--magenta); }
+    .episode-row.is-active .ep-cursor { opacity: 1; animation: blink 1s step-end infinite; }
+
+    .ep-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .ep-info { flex: 1; min-width: 0; }
+
+    .ep-meta {
+      font-family: 'Jersey15', monospace;
+      font-size: 11px;
+      color: rgba(255,3,255,0.4);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 3px;
+      display: flex;
+      gap: 8px;
+    }
+
+    .ep-title {
+      font-family: 'Jersey25', monospace;
+      font-size: 18px;
+      color: #fff;
+      line-height: 1.1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: color 0.15s;
+    }
+
+    .ep-desc {
+      font-size: 12px;
+      color: rgba(255,255,255,0.35);
+      margin-top: 3px;
+      line-height: 1.4;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .ep-cursor {
+      font-family: 'Jersey15', monospace;
+      font-size: 14px;
+      color: var(--magenta);
+      opacity: 0;
+      flex-shrink: 0;
+    }
+
+    .s-sunbeams  { background: #f5924e; }
+    .s-fiftycent { background: #c9a227; }
+    .s-sapphire  { background: #6b7fd4; }
+    .s-hackway   { background: #c8791a; }
+    .s-analysis  { background: #2a9d9d; }
+
+    .player-panel { grid-column: 2; grid-row: 1; }
+
+    .player-inner {
+      padding: 18px 20px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      height: 100%;
+    }
+
+    .panel-label {
+      font-family: 'Jersey15', monospace;
+      font-size: 12px;
+      color: rgba(255,3,255,0.4);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .panel-label::before { content: '>'; color: var(--magenta); animation: blink 1.2s step-end infinite; }
+
+    .cp-episode-info { display: flex; gap: 12px; align-items: flex-start; }
+
+    .cp-art {
+      width: 58px;
+      height: 58px;
+      flex-shrink: 0;
+      border-radius: 3px;
+      overflow: hidden;
+      border: 1px solid rgba(255,3,255,0.25);
+    }
+
+    .cp-art img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .cp-meta { flex: 1; min-width: 0; }
+
+    .cp-season {
+      font-family: 'Jersey15', monospace;
+      font-size: 11px;
+      color: rgba(255,3,255,0.5);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .cp-title {
+      font-family: 'Jersey25', monospace;
+      font-size: 16px;
+      color: #fff;
+      line-height: 1.2;
+    }
+
+    .cp-ep {
+      font-family: 'Jersey15', monospace;
+      font-size: 11px;
+      color: rgba(255,255,255,0.3);
+      margin-top: 3px;
+    }
+
+    .cp-progress-wrap {
+      height: 4px;
+      background: rgba(255,3,255,0.1);
+      border-radius: 2px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .cp-progress {
+      height: 4px;
+      width: 0%;
+      background: linear-gradient(90deg, var(--magenta), rgba(255,3,255,0.6));
+      border-radius: 2px;
+      position: relative;
+      transition: width 0.1s;
+    }
+
+    .cp-progress::after {
+      content: '';
+      position: absolute;
+      right: -5px;
+      top: -3px;
+      width: 10px;
+      height: 10px;
+      background: var(--magenta);
+      border-radius: 50%;
+      box-shadow: 0 0 8px rgba(255,3,255,0.9);
+    }
+
+    .cp-times {
+      display: flex;
+      justify-content: space-between;
+      font-family: 'Jersey15', monospace;
+      font-size: 11px;
+      color: rgba(255,255,255,0.25);
+      margin-top: 3px;
+    }
+
+    .cp-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+    }
+
+    .cp-btn {
+      font-family: 'Jersey15', monospace;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: rgba(255,3,255,0.6);
+      font-size: 16px;
+      transition: all 0.15s;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cp-btn:hover { color: var(--magenta); text-shadow: 0 0 8px rgba(255,3,255,0.6); }
+
+    .cp-btn.play {
+      width: 38px;
+      height: 38px;
+      border: 1px solid rgba(255,3,255,0.4);
+      border-radius: 50%;
+      font-size: 14px;
+    }
+
+    .cp-btn.play:hover { border-color: var(--magenta); box-shadow: 0 0 14px rgba(255,3,255,0.35); }
+
+    .cp-speed {
+      font-family: 'Jersey15', monospace;
+      font-size: 11px;
+      color: rgba(255,3,255,0.4);
+      letter-spacing: 0.08em;
+      border: 1px solid rgba(255,3,255,0.2);
+      padding: 2px 7px;
+      cursor: pointer;
+      background: none;
+      transition: all 0.15s;
+    }
+
+    .cp-speed:hover { border-color: var(--magenta); color: var(--magenta); }
+
+    .cp-open-episode {
+      font-family: 'Jersey15', monospace;
+      font-size: 11px;
+      color: rgba(255,255,255,0.25);
+      text-align: center;
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      transition: color 0.15s;
+      display: block;
+    }
+
+    .cp-open-episode:hover { color: var(--magenta); }
+
+    .season-panel { grid-column: 2; grid-row: 2; overflow: hidden; }
+
+    .season-inner {
+      padding: 14px 16px 16px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .season-label {
+      font-family: 'Jersey15', monospace;
+      font-size: 12px;
+      color: rgba(255,3,255,0.4);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .season-label::before { content: '>'; color: var(--magenta); animation: blink 1.2s step-end infinite; }
+
+    .season-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      flex: 1;
+    }
+
+    .season-card {
+      border-radius: 4px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 2px solid rgba(198,198,198,0.2);
+      position: relative;
+      aspect-ratio: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .season-card:hover { transform: translateY(-2px); border-color: rgba(198,198,198,0.5); }
+    .season-card.is-active { border-color: var(--magenta); box-shadow: 0 0 16px rgba(255,3,255,0.25); }
+
+    .cover-art {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      position: relative;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .cover-art img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .cover-art::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.15) 3px, rgba(0,0,0,0.15) 4px);
+      pointer-events: none;
+    }
+
+    .cover-label {
+      font-family: 'Jersey25', monospace;
+      font-size: 10px;
+      text-align: center;
+      padding: 4px 4px;
+      line-height: 1.1;
+      transition: all 0.2s;
+    }
+
+    .card-sunbeams .cover-label  { background: #f5924e; color: #fff; }
+    .card-fiftycent .cover-label { background: #c9a227; color: #000; }
+    .card-sapphire .cover-label  { background: #6b7fd4; color: #fff; }
+    .card-hackway .cover-label   { background: #c8791a; color: #000; }
+    .card-analysis .cover-label  { background: #2a9d9d; color: #fff; }
+
+    .card-all { grid-column: 1 / 3; aspect-ratio: auto; height: 44px; flex-direction: row; }
+
+    .card-all .cover-art {
+      flex: 0 0 44px;
+      font-size: 16px;
+      background: linear-gradient(135deg, #0d0018, #001830);
+    }
+
+    .card-all .cover-label {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 10px;
+      font-size: 13px;
+      background: rgba(255,3,255,0.15);
+      color: #fff;
+    }
+
+    .card-all.is-active .cover-label,
+    .card-all:hover .cover-label { background: rgba(255,3,255,0.3); }
+
+    #player { display: none; }
+  </style>
+</head>
+<body>
+
+<aside class="sidebar" aria-label="Primary navigation">
+  <a class="brand-text" href="/">out of depth</a>
+  <nav class="nav">
+    <a class="nav-link" href="/">Home</a>
+    <a class="nav-link" href="/blog/">Blog</a>
+    <a class="nav-link" href="/fiction/">Fiction</a>
+    <a class="nav-link is-active" href="/podcast/">Podcast</a>
+    <a class="nav-link" href="/games/">Games</a>
+    <a class="nav-link" href="/about/">About</a>
+    <hr>
+  </nav>
+</aside>
+
+<audio id="player" preload="none"></audio>
+
+<main class="content">
+  <div class="page-grid">
+
+    <!-- ── EPISODE LIST ── -->
+    <div class="box episode-list">
+      <div class="list-header">
+        <span class="list-title">Out of Depth Plays</span>
+        <span class="list-filter-label">Showing <span id="filter-label">All</span></span>
+      </div>
+      <div class="episodes-scroll">
+
+        <a class="episode-row is-active" data-season="sapphire" data-season-name="Sapphire Doom" data-ep="6" data-audio="https://episodes.captivate.fm/episode/6a7742a0-38c6-4be1-883b-f7f24b565b81.mp3" href="/podcast/sapphire-doom/episode-6/">
+          <div class="ep-dot s-sapphire"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Sapphire Doom</span><span>Ep 6</span></div>
+            <div class="ep-title">sapphire doom episode 6</div>
+            <div class="ep-desc">Our heroes are met with peculiar puzzles that give insight to the mind of Ware'ik Sur. ...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="sapphire" data-season-name="Sapphire Doom" data-ep="5" data-audio="https://episodes.captivate.fm/episode/b34882be-9ab8-4c7f-9e05-3ee5775b78a0.mp3" href="/podcast/sapphire-doom/episode-5/">
+          <div class="ep-dot s-sapphire"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Sapphire Doom</span><span>Ep 5</span></div>
+            <div class="ep-title">sapphire doom episode 5</div>
+            <div class="ep-desc">Our heroes begin their journey up the Tower of Ware'ik Sur, but every turn they make al...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="sapphire" data-season-name="Sapphire Doom" data-ep="4" data-audio="https://episodes.captivate.fm/episode/a8b46172-b930-45b2-a611-0b7c816abf7c.mp3" href="/podcast/sapphire-doom/episode-4/">
+          <div class="ep-dot s-sapphire"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Sapphire Doom</span><span>Ep 4</span></div>
+            <div class="ep-title">sapphire doom episode 4</div>
+            <div class="ep-desc">Our heroes learn the sapphire mines have been exhausted. Their journey points them to A...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="sapphire" data-season-name="Sapphire Doom" data-ep="3" data-audio="https://episodes.captivate.fm/episode/c57ac10a-c858-4e77-a4d1-f9ab25a3c19c.mp3" href="/podcast/sapphire-doom/episode-3/">
+          <div class="ep-dot s-sapphire"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Sapphire Doom</span><span>Ep 3</span></div>
+            <div class="ep-title">sapphire doom episode 3</div>
+            <div class="ep-desc">Pim'wei and Loy try to battle a basilisk without their leader. Can they save Khorek fro...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="sapphire" data-season-name="Sapphire Doom" data-ep="2" data-audio="https://episodes.captivate.fm/episode/2c1d8f5e-15f0-4b4e-b2b4-4f3ce546a5c2.mp3" href="/podcast/sapphire-doom/episode-2/">
+          <div class="ep-dot s-sapphire"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Sapphire Doom</span><span>Ep 2</span></div>
+            <div class="ep-title">sapphire doom episode 2</div>
+            <div class="ep-desc">In order to make their child, Khorek and Pim'wei have been challenged by the Fellows to...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="sapphire" data-season-name="Sapphire Doom" data-ep="1" data-audio="https://episodes.captivate.fm/episode/ea1c08eb-b018-4629-9048-e6ba14147db6.mp3" href="/podcast/sapphire-doom/episode-1/">
+          <div class="ep-dot s-sapphire"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Sapphire Doom</span><span>Ep 1</span></div>
+            <div class="ep-title">sapphire doom episode 1</div>
+            <div class="ep-desc">A new season begins. Sapphire Doom is the story of three Ka'tek working together to bri...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="fiftycent" data-season-name="Fifty Cent Souls" data-ep="12" data-audio="https://podcasts.captivate.fm/media/53ed76fc-34ea-4257-98c0-89be54de3b57/50CentSouls-Episode12.mp3" href="/podcast/fifty-cent-souls/episode-12/">
+          <div class="ep-dot s-fiftycent"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Fifty Cent Souls</span><span>Ep 12</span></div>
+            <div class="ep-title">fifty cent souls episode 12</div>
+            <div class="ep-desc">In our final episode of Fifty Cent Souls, our characters find themselves at odds over h...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="fiftycent" data-season-name="Fifty Cent Souls" data-ep="11" data-audio="https://podcasts.captivate.fm/media/f5b90dba-8028-47a2-88b0-5f02cbb4d9a8/50CentSouls-Episode11.mp3" href="/podcast/fifty-cent-souls/episode-11/">
+          <div class="ep-dot s-fiftycent"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Fifty Cent Souls</span><span>Ep 11</span></div>
+            <div class="ep-title">fifty cent souls episode 11</div>
+            <div class="ep-desc">In penultimate episode of the season... Joanne Lamour runs amok. John Murphy Doritt tak...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="fiftycent" data-season-name="Fifty Cent Souls" data-ep="10" data-audio="https://podcasts.captivate.fm/media/e2b6be9a-f49f-433f-9f06-79c9363146d5/50CentSouls-Episode10.mp3" href="/podcast/fifty-cent-souls/episode-10/">
+          <div class="ep-dot s-fiftycent"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Fifty Cent Souls</span><span>Ep 10</span></div>
+            <div class="ep-title">fifty cent souls episode 10</div>
+            <div class="ep-desc">Our investigators decide to infiltrate the KTLU television studio, in hopes of finding ...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="fiftycent" data-season-name="Fifty Cent Souls" data-ep="9" data-audio="https://podcasts.captivate.fm/media/adddc792-69d8-461a-a0dd-4ac42c9e10a7/50CentSouls-Episode9.mp3" href="/podcast/fifty-cent-souls/episode-9/">
+          <div class="ep-dot s-fiftycent"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Fifty Cent Souls</span><span>Ep 9</span></div>
+            <div class="ep-title">fifty cent souls episode 9</div>
+            <div class="ep-desc">After a wild couple of days, our investigators take a moment to regroup and ask some to...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="fiftycent" data-season-name="Fifty Cent Souls" data-ep="8" data-audio="https://podcasts.captivate.fm/media/2d588f9e-270b-437c-bf92-f4a7767d9409/50Cent-Souls-Episode8.mp3" href="/podcast/fifty-cent-souls/episode-8/">
+          <div class="ep-dot s-fiftycent"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Fifty Cent Souls</span><span>Ep 8</span></div>
+            <div class="ep-title">fifty cent souls episode 8</div>
+            <div class="ep-desc">In the mood for some vehicular combat? Hallie Stone takes Joanne Lamour for the ride of...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="fiftycent" data-season-name="Fifty Cent Souls" data-ep="7" data-audio="https://podcasts.captivate.fm/media/7757e9e6-1db4-4c5c-b0f9-f14189453276/50CentSouls-Episode7.mp3" href="/podcast/fifty-cent-souls/episode-7/">
+          <div class="ep-dot s-fiftycent"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Fifty Cent Souls</span><span>Ep 7</span></div>
+            <div class="ep-title">fifty cent souls episode 7</div>
+            <div class="ep-desc">Our investigators find themselves face to face, or is it eye to eye, with Joseph Gilks....</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="fiftycent" data-season-name="Fifty Cent Souls" data-ep="6" data-audio="https://podcasts.captivate.fm/media/0c10a243-9ef9-4310-872a-7aab77d23298/50CentSouls-Episode-6.mp3" href="/podcast/fifty-cent-souls/episode-6/">
+          <div class="ep-dot s-fiftycent"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Fifty Cent Souls</span><span>Ep 6</span></div>
+            <div class="ep-title">fifty cent souls episode 6</div>
+            <div class="ep-desc">August Straume's life hangs by a thread. Hallie Stone finds herself on the receiving en...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="fiftycent" data-season-name="Fifty Cent Souls" data-ep="5" data-audio="https://podcasts.captivate.fm/media/5e62f172-a743-414b-bc92-3fbea84fe3f6/FiftyCentSouls-Episode5.mp3" href="/podcast/fifty-cent-souls/episode-5/">
+          <div class="ep-dot s-fiftycent"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Fifty Cent Souls</span><span>Ep 5</span></div>
+            <div class="ep-title">fifty cent souls episode 5</div>
+            <div class="ep-desc">Two lives are at stake in this episode as Joanne Lamour must fight back an assailant, w...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="fiftycent" data-season-name="Fifty Cent Souls" data-ep="4" data-audio="https://podcasts.captivate.fm/media/7dd5d5a7-5751-4887-a3e7-154029a2a0c4/FiftyCentSouls-Episode4.mp3" href="/podcast/fifty-cent-souls/episode-4/">
+          <div class="ep-dot s-fiftycent"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Fifty Cent Souls</span><span>Ep 4</span></div>
+            <div class="ep-title">fifty cent souls episode 4</div>
+            <div class="ep-desc">Hallie Stone figures her way into R.A. Goodrich's office, for an important conversation...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="fiftycent" data-season-name="Fifty Cent Souls" data-ep="3" data-audio="https://podcasts.captivate.fm/media/4199970d-8d10-4d68-9c39-f8a74407fed7/FiftyCentSouls-Episode3.mp3" href="/podcast/fifty-cent-souls/episode-3/">
+          <div class="ep-dot s-fiftycent"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Fifty Cent Souls</span><span>Ep 3</span></div>
+            <div class="ep-title">fifty cent souls episode 3</div>
+            <div class="ep-desc">After a brush with violence our Investigators go their separate ways. Their curiosity c...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="fiftycent" data-season-name="Fifty Cent Souls" data-ep="2" data-audio="https://podcasts.captivate.fm/media/9802052d-a199-4048-9762-c861e07130fd/FiftyCentSouls-Episode2.mp3" href="/podcast/fifty-cent-souls/episode-2/">
+          <div class="ep-dot s-fiftycent"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Fifty Cent Souls</span><span>Ep 2</span></div>
+            <div class="ep-title">fifty cent souls episode 2</div>
+            <div class="ep-desc">August Straume made a real splash at Zelda Grantham's party, but not everyone believes ...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="fiftycent" data-season-name="Fifty Cent Souls" data-ep="1" data-audio="https://podcasts.captivate.fm/media/fd2e5ba5-886c-4bdb-a9cf-db28c05fa0a8/Fifty-Cent-Souls-Episode1.mp3" href="/podcast/fifty-cent-souls/episode-1/">
+          <div class="ep-dot s-fiftycent"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Fifty Cent Souls</span><span>Ep 1</span></div>
+            <div class="ep-title">fifty cent souls episode 1</div>
+            <div class="ep-desc">SEASON PREMIERE! It's 1955 in Hollywood and we're using the Call of Cthulhu RPG system ...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="sunbeams" data-season-name="Sunbeams" data-ep="12" data-audio="https://podcasts.captivate.fm/media/2879dcb5-22c1-4a1b-9ad2-b58945705df9/Episode12.mp3" href="/podcast/sunbeams/episode-12/">
+          <div class="ep-dot s-sunbeams"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Sunbeams</span><span>Ep 12</span></div>
+            <div class="ep-title">sunbeams episode 12</div>
+            <div class="ep-desc">It's the SEASON FINALE of Sunbeams!!! We did it! If you want to learn more about the we...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="hackway" data-season-name="Hackway Heights" data-ep="1" data-audio="https://podcasts.captivate.fm/media/c9a641e6-dcd9-4bed-8d24-7a362015f019/hackwayheightsepisode1.mp3" href="/podcast/hackway-heights/episode-1/">
+          <div class="ep-dot s-hackway"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Hackway Heights</span><span>Ep 1</span></div>
+            <div class="ep-title">hackway heights episode 1</div>
+            <div class="ep-desc">Nezbit, Sallie, and Tremolo go on their first job for Mr. Dick, protecting a Mock Fox n...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="sunbeams" data-season-name="Sunbeams" data-ep="11" data-audio="https://podcasts.captivate.fm/media/7378f86b-7f7d-460e-9f06-211819e0f3d3/Episode11.mp3" href="/podcast/sunbeams/episode-11/">
+          <div class="ep-dot s-sunbeams"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Sunbeams</span><span>Ep 11</span></div>
+            <div class="ep-title">sunbeams episode 11</div>
+            <div class="ep-desc">Lazarus is under immense pressure and Labyrinth has nowhere to hide! It looks like Baro...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="sunbeams" data-season-name="Sunbeams" data-ep="10" data-audio="https://podcasts.captivate.fm/media/e3807020-11ca-449c-9d20-75ff58fae39b/Episode10.mp3" href="/podcast/sunbeams/episode-10/">
+          <div class="ep-dot s-sunbeams"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Sunbeams</span><span>Ep 10</span></div>
+            <div class="ep-title">sunbeams episode 10</div>
+            <div class="ep-desc">Labyrinth comes face to face with Baron Nightcloak and must fight to save herself and a...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="sunbeams" data-season-name="Sunbeams" data-ep="9" data-audio="https://podcasts.captivate.fm/media/5a76a03d-ac46-4e54-ae4c-7784396cd65b/Episode-209.mp3" href="/podcast/sunbeams/episode-9/">
+          <div class="ep-dot s-sunbeams"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Sunbeams</span><span>Ep 9</span></div>
+            <div class="ep-title">sunbeams episode 9</div>
+            <div class="ep-desc">Our heroes attempt to infiltrate the Church of Biologenesis with a bag of gyros and a p...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="sunbeams" data-season-name="Sunbeams" data-ep="8" data-audio="https://podcasts.captivate.fm/media/d057b2fe-72a8-49ca-9ddc-2ab1f6580ef8/Episode8.mp3" href="/podcast/sunbeams/episode-8/">
+          <div class="ep-dot s-sunbeams"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Sunbeams</span><span>Ep 8</span></div>
+            <div class="ep-title">sunbeams episode 8</div>
+            <div class="ep-desc">It's a pretty rotten day for Labyrinth! Not only is her personal life becoming a mess t...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="sunbeams" data-season-name="Sunbeams" data-ep="7" data-audio="https://podcasts.captivate.fm/media/57ebaaf0-cd7d-46bd-8454-8f1327d59bb7/Episode7.mp3" href="/podcast/sunbeams/episode-7/">
+          <div class="ep-dot s-sunbeams"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Sunbeams</span><span>Ep 7</span></div>
+            <div class="ep-title">sunbeams episode 7</div>
+            <div class="ep-desc">We're back!!!! Lazarus fights the transformed Jackson Jones while Labyrinth races after...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="sunbeams" data-season-name="Sunbeams" data-ep="6" data-audio="https://podcasts.captivate.fm/media/cc8adb6f-d34e-42c7-9076-a2b196659922/Episode6.mp3" href="/podcast/sunbeams/episode-6/">
+          <div class="ep-dot s-sunbeams"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Sunbeams</span><span>Ep 6</span></div>
+            <div class="ep-title">sunbeams episode 6</div>
+            <div class="ep-desc">Lazarus must deal with people knowing his secret identity, while his mom remains in the...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="sunbeams" data-season-name="Sunbeams" data-ep="5" data-audio="https://podcasts.captivate.fm/media/b1a9cf6f-deaa-48d0-aea3-faa44706471b/Episode5.mp3" href="/podcast/sunbeams/episode-5/">
+          <div class="ep-dot s-sunbeams"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Sunbeams</span><span>Ep 5</span></div>
+            <div class="ep-title">sunbeams episode 5</div>
+            <div class="ep-desc">It's a rumble in The Box as the dastardly Mishap faces off against Labyrinth and Lazaru...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="sunbeams" data-season-name="Sunbeams" data-ep="4" data-audio="https://podcasts.captivate.fm/media/00829a7f-d65c-43f8-9548-8cbf1e1259d8/Episode4.mp3" href="/podcast/sunbeams/episode-4/">
+          <div class="ep-dot s-sunbeams"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Sunbeams</span><span>Ep 4</span></div>
+            <div class="ep-title">sunbeams episode 4</div>
+            <div class="ep-desc">Lazarus and Labyrinth realize their team-up is far from over. Both realize there's some...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="sunbeams" data-season-name="Sunbeams" data-ep="3" data-audio="https://podcasts.captivate.fm/media/7bc142cf-7741-4da7-8544-a88ca844d721/Sunbeams-Ep3.mp3" href="/podcast/sunbeams/episode-3/">
+          <div class="ep-dot s-sunbeams"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Sunbeams</span><span>Ep 3</span></div>
+            <div class="ep-title">sunbeams episode 3</div>
+            <div class="ep-desc">Lazarus and Labyrinth interrogate a visitor from another time and galaxy, only to disco...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="sunbeams" data-season-name="Sunbeams" data-ep="2" data-audio="https://podcasts.captivate.fm/media/1212d614-7e1a-4755-ae66-1d278bc617a0/Sunbeams-Ep2-Final.mp3" href="/podcast/sunbeams/episode-2/">
+          <div class="ep-dot s-sunbeams"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Sunbeams</span><span>Ep 2</span></div>
+            <div class="ep-title">sunbeams episode 2</div>
+            <div class="ep-desc">Lazarus investigates the how and why of the Nick Northcutt fiasco, but finds herself in...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="sunbeams" data-season-name="Sunbeams" data-ep="1" data-audio="https://podcasts.captivate.fm/media/2d853376-1a8e-479a-b962-226d8d359b6d/Sunbeams-EP1.mp3" href="/podcast/sunbeams/episode-1/">
+          <div class="ep-dot s-sunbeams"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Sunbeams</span><span>Ep 1</span></div>
+            <div class="ep-title">sunbeams episode 1</div>
+            <div class="ep-desc">It's a new season which means a new game, new characters, and a new story! On the tragi...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="analysis" data-season-name="Analysis Complete" data-ep="12" data-audio="https://podcasts.captivate.fm/media/2879dcb5-22c1-4a1b-9ad2-b58945705df9/Episode12.mp3" href="/podcast/analysis-complete/episode-12/">
+          <div class="ep-dot s-analysis"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Analysis Complete</span><span>Ep 12</span></div>
+            <div class="ep-title">analysis complete episode 12</div>
+            <div class="ep-desc">It all comes down to this, the season finale of Analysis Complete! We complete our stor...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="analysis" data-season-name="Analysis Complete" data-ep="11" data-audio="https://podcasts.captivate.fm/media/7378f86b-7f7d-460e-9f06-211819e0f3d3/Episode11.mp3" href="/podcast/analysis-complete/episode-11/">
+          <div class="ep-dot s-analysis"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Analysis Complete</span><span>Ep 11</span></div>
+            <div class="ep-title">analysis complete episode 11</div>
+            <div class="ep-desc">Dr. Locke and Rook press on to confront The Analyst... and themselves. Elgon finds hims...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="analysis" data-season-name="Analysis Complete" data-ep="10" data-audio="https://podcasts.captivate.fm/media/e3807020-11ca-449c-9d20-75ff58fae39b/Episode10.mp3" href="/podcast/analysis-complete/episode-10/">
+          <div class="ep-dot s-analysis"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Analysis Complete</span><span>Ep 10</span></div>
+            <div class="ep-title">analysis complete episode 10</div>
+            <div class="ep-desc">Can a common enemy bring two sides together? Rook is about to find out. Meanwhile Dr. L...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="analysis" data-season-name="Analysis Complete" data-ep="9" data-audio="https://podcasts.captivate.fm/media/5a76a03d-ac46-4e54-ae4c-7784396cd65b/Episode-209.mp3" href="/podcast/analysis-complete/episode-9/">
+          <div class="ep-dot s-analysis"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Analysis Complete</span><span>Ep 9</span></div>
+            <div class="ep-title">analysis complete episode 9</div>
+            <div class="ep-desc">A reunion leads to dire complications as our crew is pulled in opposite directions. We ...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="analysis" data-season-name="Analysis Complete" data-ep="8" data-audio="https://podcasts.captivate.fm/media/d057b2fe-72a8-49ca-9ddc-2ab1f6580ef8/Episode8.mp3" href="/podcast/analysis-complete/episode-8/">
+          <div class="ep-dot s-analysis"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Analysis Complete</span><span>Ep 8</span></div>
+            <div class="ep-title">analysis complete episode 8</div>
+            <div class="ep-desc">Questions are answered but not everyone will be alive to learn the truth. We also start...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="analysis" data-season-name="Analysis Complete" data-ep="7" data-audio="https://podcasts.captivate.fm/media/57ebaaf0-cd7d-46bd-8454-8f1327d59bb7/Episode7.mp3" href="/podcast/analysis-complete/episode-7/">
+          <div class="ep-dot s-analysis"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Analysis Complete</span><span>Ep 7</span></div>
+            <div class="ep-title">analysis complete episode 7</div>
+            <div class="ep-desc">Castor uncovers the secrets of The Alter of Diocles but his curiosity comes at an incre...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="analysis" data-season-name="Analysis Complete" data-ep="6" data-audio="https://podcasts.captivate.fm/media/13b25fdd-e8fb-4c36-9758-647c7f1ccde6/episode6.mp3" href="/podcast/analysis-complete/episode-6/">
+          <div class="ep-dot s-analysis"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Analysis Complete</span><span>Ep 6</span></div>
+            <div class="ep-title">analysis complete episode 6</div>
+            <div class="ep-desc">The crew confront Martin Sapp at the bottom of the Parabola. Will it be a pleasant reun...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="analysis" data-season-name="Analysis Complete" data-ep="5" data-audio="https://podcasts.captivate.fm/media/b1a9cf6f-deaa-48d0-aea3-faa44706471b/Episode5.mp3" href="/podcast/analysis-complete/episode-5/">
+          <div class="ep-dot s-analysis"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Analysis Complete</span><span>Ep 5</span></div>
+            <div class="ep-title">analysis complete episode 5</div>
+            <div class="ep-desc">The crew try to discover what exactly happened to Cassidy Garland, as tensions boil ove...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="analysis" data-season-name="Analysis Complete" data-ep="4" data-audio="https://podcasts.captivate.fm/media/56a2193d-f4cb-4c72-a99c-9fa8ef7a1699/Episode4.mp3" href="/podcast/analysis-complete/episode-4/">
+          <div class="ep-dot s-analysis"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Analysis Complete</span><span>Ep 4</span></div>
+            <div class="ep-title">analysis complete episode 4</div>
+            <div class="ep-desc">Castor reveals his secret to Dr. Freya Locke. The group debate exploring Wolfram-16 for...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="analysis" data-season-name="Analysis Complete" data-ep="3" data-audio="https://podcasts.captivate.fm/media/6bcecd9c-d42d-4e95-bf8c-159d6f706d61/Episode3.mp3" href="/podcast/analysis-complete/episode-3/">
+          <div class="ep-dot s-analysis"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Analysis Complete</span><span>Ep 3</span></div>
+            <div class="ep-title">analysis complete episode 3</div>
+            <div class="ep-desc">Oh this one gets wild! While uncovering more clues about the past 267 days, the remaini...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="analysis" data-season-name="Analysis Complete" data-ep="2" data-audio="https://podcasts.captivate.fm/media/8622ad01-9d4b-460d-a559-427e6f199ef8/Episode2.mp3" href="/podcast/analysis-complete/episode-2/">
+          <div class="ep-dot s-analysis"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Analysis Complete</span><span>Ep 2</span></div>
+            <div class="ep-title">analysis complete episode 2</div>
+            <div class="ep-desc">The crew of the Belysa try to get their bearings in light of Castor's discovery. Dr. Fr...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="analysis" data-season-name="Analysis Complete" data-ep="1" data-audio="https://podcasts.captivate.fm/media/f85e4534-c88a-46a4-aab6-4e8c053934ee/AnalysisComplete-Ep1.mp3" href="/podcast/analysis-complete/episode-1/">
+          <div class="ep-dot s-analysis"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Analysis Complete</span><span>Ep 1</span></div>
+            <div class="ep-title">analysis complete episode 1</div>
+            <div class="ep-desc">Our new season is finally here! Come join us as our cast navigates to the distant plane...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="hackway" data-season-name="Hackway Heights" data-ep="12" data-audio="https://podcasts.captivate.fm/media/0a06ec82-f7c2-4b81-974f-917fedcd4133/Episode12.mp3" href="/podcast/hackway-heights/episode-12/">
+          <div class="ep-dot s-hackway"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Hackway Heights</span><span>Ep 12</span></div>
+            <div class="ep-title">hackway heights episode 12</div>
+            <div class="ep-desc">The Season Finale of Hackway Heights is here. Come listen to the end of our journey and...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="hackway" data-season-name="Hackway Heights" data-ep="11" data-audio="https://podcasts.captivate.fm/media/8dbcd5e7-9448-40a3-8ace-b2fb13984f9b/Episode11.mp3" href="/podcast/hackway-heights/episode-11/">
+          <div class="ep-dot s-hackway"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Hackway Heights</span><span>Ep 11</span></div>
+            <div class="ep-title">hackway heights episode 11</div>
+            <div class="ep-desc">The end is nigh! In this penultimate episode the gang are reunited with an old friend w...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="hackway" data-season-name="Hackway Heights" data-ep="10" data-audio="https://podcasts.captivate.fm/media/23fe91dc-4f96-4716-87dd-b947cf6962b4/Episode10.mp3" href="/podcast/hackway-heights/episode-10/">
+          <div class="ep-dot s-hackway"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Hackway Heights</span><span>Ep 10</span></div>
+            <div class="ep-title">hackway heights episode 10</div>
+            <div class="ep-desc">For the first time Nezbit finally speaks to Anita Indigo, as the group makes a visit to...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="hackway" data-season-name="Hackway Heights" data-ep="9" data-audio="https://podcasts.captivate.fm/media/7f7e37a1-c4eb-4991-83d2-5bd12cf8984c/episode9.mp3" href="/podcast/hackway-heights/episode-9/">
+          <div class="ep-dot s-hackway"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Hackway Heights</span><span>Ep 9</span></div>
+            <div class="ep-title">hackway heights episode 9</div>
+            <div class="ep-desc">Sallie has to use her new mind control powers! Nezbit has to use his poor dexterity to ...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="hackway" data-season-name="Hackway Heights" data-ep="8" data-audio="https://podcasts.captivate.fm/media/349f7838-2d92-4278-9747-9793a6c93063/episode8.mp3" href="/podcast/hackway-heights/episode-8/">
+          <div class="ep-dot s-hackway"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Hackway Heights</span><span>Ep 8</span></div>
+            <div class="ep-title">hackway heights episode 8</div>
+            <div class="ep-desc">While trying to find a way to the P.I.T.T., Sallie and Nezzy discover just how strange ...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="hackway" data-season-name="Hackway Heights" data-ep="7" data-audio="https://podcasts.captivate.fm/media/76415a71-b43a-4eec-88cf-024ca26d56ca/episode7final.mp3" href="/podcast/hackway-heights/episode-7/">
+          <div class="ep-dot s-hackway"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Hackway Heights</span><span>Ep 7</span></div>
+            <div class="ep-title">hackway heights episode 7</div>
+            <div class="ep-desc">Our gang finally sees Mr. Dick in action and it's...not pretty. Afraid for their lives,...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="hackway" data-season-name="Hackway Heights" data-ep="6" data-audio="https://podcasts.captivate.fm/media/bfaf7ad8-191a-41cd-8dd4-ce8e356a74fb/episode6.mp3" href="/podcast/hackway-heights/episode-6/">
+          <div class="ep-dot s-hackway"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Hackway Heights</span><span>Ep 6</span></div>
+            <div class="ep-title">hackway heights episode 6</div>
+            <div class="ep-desc">Sallie finally discovers what's buried in Gossamer Park, and it's nothing but trouble. ...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="hackway" data-season-name="Hackway Heights" data-ep="5" data-audio="https://podcasts.captivate.fm/media/05e1d94a-ba9e-4747-a569-57c8ca640014/episode5final.mp3" href="/podcast/hackway-heights/episode-5/">
+          <div class="ep-dot s-hackway"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Hackway Heights</span><span>Ep 5</span></div>
+            <div class="ep-title">hackway heights episode 5</div>
+            <div class="ep-desc">The group tries to get on the same page, but Anita Indigo is driving a wedge between Tr...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="hackway" data-season-name="Hackway Heights" data-ep="4" data-audio="https://podcasts.captivate.fm/media/fef5c8a6-5c21-4527-a6a1-eac671179f68/hackwayheightsepisode4.mp3" href="/podcast/hackway-heights/episode-4/">
+          <div class="ep-dot s-hackway"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Hackway Heights</span><span>Ep 4</span></div>
+            <div class="ep-title">hackway heights episode 4</div>
+            <div class="ep-desc">Can Nezbit escape the Hackway with his life?! Can Sallie and Tremolo navigate a convers...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="hackway" data-season-name="Hackway Heights" data-ep="3" data-audio="https://podcasts.captivate.fm/media/396941d4-5aea-410e-8c50-1e8ca9d4211a/episode3.mp3" href="/podcast/hackway-heights/episode-3/">
+          <div class="ep-dot s-hackway"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Hackway Heights</span><span>Ep 3</span></div>
+            <div class="ep-title">hackway heights episode 3</div>
+            <div class="ep-desc">Nezzy confronts The Banker over the treatment of his son, but unfortunately the party i...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+        <a class="episode-row" data-season="hackway" data-season-name="Hackway Heights" data-ep="2" data-audio="https://podcasts.captivate.fm/media/ea821156-d4e5-4577-a2e9-4ca36acc6fe6/hackwayheightsepisode2.mp3" href="/podcast/hackway-heights/episode-2/">
+          <div class="ep-dot s-hackway"></div>
+          <div class="ep-info">
+            <div class="ep-meta"><span>Hackway Heights</span><span>Ep 2</span></div>
+            <div class="ep-title">hackway heights episode 2</div>
+            <div class="ep-desc">The $20,000 in stolen money is burning a hole in everyone's pocket! The group purchases...</div>
+          </div>
+          <span class="ep-cursor">&#9654;</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- ── PLAYER PANEL ── -->
+    <div class="box player-panel">
+      <div class="player-inner">
+
+        <div class="panel-label">Now Playing</div>
+
+        <div class="cp-episode-info">
+          <div class="cp-art">
+            <img id="cp-cover" src="../assets/images/podcast/sapphire-doom.jpg" alt="Sapphire Doom cover art">
+          </div>
+          <div class="cp-meta">
+            <div class="cp-season" id="cp-season">Sapphire Doom &middot; Ep 6</div>
+            <div class="cp-title" id="cp-title">sapphire doom episode 6</div>
+            <div class="cp-ep">Out of Depth Plays</div>
+          </div>
+        </div>
+
+        <div>
+          <div class="cp-progress-wrap" id="cp-progress-wrap">
+            <div class="cp-progress" id="cp-progress"></div>
+          </div>
+          <div class="cp-times">
+            <span id="cp-current">0:00</span>
+            <span id="cp-duration">&#8211;:&#8211;&#8211;</span>
+          </div>
+        </div>
+
+        <div class="cp-controls">
+          <button class="cp-btn" id="btn-back" title="Back 15s">&#10216;15</button>
+          <button class="cp-btn" id="btn-prev" title="Previous">&#9198;</button>
+          <button class="cp-btn play" id="btn-play" title="Play/Pause">&#9654;</button>
+          <button class="cp-btn" id="btn-next" title="Next">&#9197;</button>
+          <button class="cp-btn" id="btn-fwd" title="Forward 15s">15&#10217;</button>
+          <button class="cp-speed" id="btn-speed">1&times;</button>
+        </div>
+
+        <a class="cp-open-episode" id="cp-link" href="/podcast/sapphire-doom/episode-6/">open episode page &#8599;</a>
+
+      </div>
+    </div>
+
+    <!-- ── SEASON GRID ── -->
+    <div class="box season-panel">
+      <div class="season-inner">
+        <div class="season-label">Seasons</div>
+        <div class="season-cards">
+
+          <div class="season-card card-all is-active" onclick="filterSeason('all', this)">
+            <div class="cover-art">&#10022;</div>
+            <div class="cover-label">All Seasons</div>
+          </div>
+
+          <div class="season-card card-hackway" onclick="filterSeason('hackway', this)">
+            <div class="cover-art">
+              <img src="../assets/images/podcast/hackway-heights.jpg" alt="Hackway Heights cover art">
+            </div>
+            <div class="cover-label">hackway heights</div>
+          </div>
+
+          <div class="season-card card-analysis" onclick="filterSeason('analysis', this)">
+            <div class="cover-art">
+              <img src="../assets/images/podcast/analysis-complete.jpg" alt="Analysis Complete cover art">
+            </div>
+            <div class="cover-label">analysis complete</div>
+          </div>
+
+          <div class="season-card card-sunbeams" onclick="filterSeason('sunbeams', this)">
+            <div class="cover-art">
+              <img src="../assets/images/podcast/sunbeams.jpg" alt="Sunbeams cover art">
+            </div>
+            <div class="cover-label">sunbeams</div>
+          </div>
+
+          <div class="season-card card-fiftycent" onclick="filterSeason('fiftycent', this)">
+            <div class="cover-art">
+              <img src="../assets/images/podcast/fifty-cent-souls.jpg" alt="Fifty Cent Souls cover art">
+            </div>
+            <div class="cover-label">fifty cent souls</div>
+          </div>
+
+          <div class="season-card card-sapphire" onclick="filterSeason('sapphire', this)">
+            <div class="cover-art">
+              <img src="../assets/images/podcast/sapphire-doom.jpg" alt="Sapphire Doom cover art">
+            </div>
+            <div class="cover-label">sapphire doom</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<script>
+  var audio = document.getElementById('player');
+  var btnPlay = document.getElementById('btn-play');
+  var btnBack = document.getElementById('btn-back');
+  var btnFwd  = document.getElementById('btn-fwd');
+  var btnPrev = document.getElementById('btn-prev');
+  var btnNext = document.getElementById('btn-next');
+  var btnSpeed = document.getElementById('btn-speed');
+  var progress = document.getElementById('cp-progress');
+  var progressWrap = document.getElementById('cp-progress-wrap');
+  var cpCurrent = document.getElementById('cp-current');
+  var cpDuration = document.getElementById('cp-duration');
+  var cpSeason = document.getElementById('cp-season');
+  var cpTitle = document.getElementById('cp-title');
+  var cpCover = document.getElementById('cp-cover');
+  var cpLink = document.getElementById('cp-link');
+  var filterLabel = document.getElementById('filter-label');
+
+  var speeds = [1, 1.25, 1.5, 2];
+  var speedIdx = 0;
+
+  var slugMap = {
+    'hackway':   'hackway-heights',
+    'analysis':  'analysis-complete',
+    'sunbeams':  'sunbeams',
+    'fiftycent': 'fifty-cent-souls',
+    'sapphire':  'sapphire-doom'
+  };
+
+  function fmt(s) {
+    if (!isFinite(s)) return '–:––';
+    var m = Math.floor(s / 60);
+    var ss = String(Math.floor(s % 60)).padStart(2, '0');
+    return m + ':' + ss;
+  }
+
+  function getVisibleRows() {
+    return Array.prototype.filter.call(document.querySelectorAll('.episode-row'), function(r) {
+      return r.style.display !== 'none';
+    });
+  }
+
+  function loadEpisode(row, autoplay) {
+    document.querySelectorAll('.episode-row').forEach(function(r) { r.classList.remove('is-active'); });
+    row.classList.add('is-active');
+    row.scrollIntoView({ block: 'nearest' });
+
+    var seasonKey = row.dataset.season;
+    var seasonName = row.dataset.seasonName;
+    var ep = row.dataset.ep;
+    var audioSrc = row.dataset.audio || '';
+    var slug = slugMap[seasonKey] || seasonKey;
+    var epUrl = '/podcast/' + slug + '/episode-' + ep + '/';
+    var rowTitle = row.querySelector('.ep-title').textContent;
+
+    cpSeason.textContent = seasonName + ' · Ep ' + ep;
+    cpTitle.textContent = rowTitle;
+    cpCover.src = '../assets/images/podcast/' + slug + '.jpg';
+    cpCover.alt = seasonName + ' cover art';
+    cpLink.href = epUrl;
+
+    if (audioSrc) {
+      var wasPlaying = !audio.paused;
+      audio.src = audioSrc;
+      audio.playbackRate = speeds[speedIdx];
+      if (autoplay || wasPlaying) {
+        audio.play().catch(function() {});
+        btnPlay.innerHTML = '&#9646;&#9646;';
+      } else {
+        btnPlay.innerHTML = '&#9654;';
+      }
+    }
+  }
+
+  document.querySelectorAll('.episode-row').forEach(function(row) {
+    row.addEventListener('click', function(e) {
+      e.preventDefault();
+      loadEpisode(row, true);
+    });
+  });
+
+  function filterSeason(season, card) {
+    document.querySelectorAll('.season-card').forEach(function(c) { c.classList.remove('is-active'); });
+    card.classList.add('is-active');
+    filterLabel.textContent = season === 'all' ? 'All' : card.querySelector('.cover-label').textContent.trim();
+    document.querySelectorAll('.episode-row').forEach(function(row) {
+      row.style.display = (season === 'all' || row.dataset.season === season) ? 'flex' : 'none';
+    });
+  }
+
+  btnPlay.addEventListener('click', function() {
+    if (!audio.src) return;
+    if (audio.paused) {
+      audio.play().catch(function() {});
+      btnPlay.innerHTML = '&#9646;&#9646;';
+    } else {
+      audio.pause();
+      btnPlay.innerHTML = '&#9654;';
+    }
+  });
+
+  btnBack.addEventListener('click', function() { audio.currentTime = Math.max(0, audio.currentTime - 15); });
+  btnFwd.addEventListener('click',  function() { audio.currentTime += 15; });
+
+  btnPrev.addEventListener('click', function() {
+    var rows = getVisibleRows();
+    var idx = rows.findIndex(function(r) { return r.classList.contains('is-active'); });
+    if (idx > 0) loadEpisode(rows[idx - 1], !audio.paused);
+  });
+
+  btnNext.addEventListener('click', function() {
+    var rows = getVisibleRows();
+    var idx = rows.findIndex(function(r) { return r.classList.contains('is-active'); });
+    if (idx < rows.length - 1) loadEpisode(rows[idx + 1], !audio.paused);
+  });
+
+  btnSpeed.addEventListener('click', function() {
+    speedIdx = (speedIdx + 1) % speeds.length;
+    audio.playbackRate = speeds[speedIdx];
+    btnSpeed.textContent = speeds[speedIdx] + '×';
+  });
+
+  audio.addEventListener('timeupdate', function() {
+    if (!audio.duration) return;
+    var pct = (audio.currentTime / audio.duration) * 100;
+    progress.style.width = pct + '%';
+    cpCurrent.textContent = fmt(audio.currentTime);
+  });
+
+  audio.addEventListener('loadedmetadata', function() {
+    cpDuration.textContent = fmt(audio.duration);
+  });
+
+  audio.addEventListener('ended', function() {
+    btnPlay.innerHTML = '&#9654;';
+    var rows = getVisibleRows();
+    var idx = rows.findIndex(function(r) { return r.classList.contains('is-active'); });
+    if (idx < rows.length - 1) loadEpisode(rows[idx + 1], true);
+  });
+
+  progressWrap.addEventListener('click', function(e) {
+    if (!audio.duration) return;
+    var rect = progressWrap.getBoundingClientRect();
+    audio.currentTime = ((e.clientX - rect.left) / rect.width) * audio.duration;
+  });
+</script>
+
+</body>
+</html>

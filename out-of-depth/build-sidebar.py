@@ -67,9 +67,9 @@ def replace_sidebar(content, active):
     sidebar_html = build_sidebar_html(active)
 
     # Match <nav class="sidebar"...>...</nav> or <aside class="sidebar"...>...</aside>
-    # Uses a non-greedy match across the whole sidebar block
+    # Uses greedy match so it reaches the outermost closing tag, not </nav> inside the sidebar.
     pattern = re.compile(
-        r'<(?:nav|aside)[^>]*class="sidebar"[^>]*>.*?</(?:nav|aside)>',
+        r'<(nav|aside)[^>]*class="sidebar"[^>]*>.*?</\1>',
         re.DOTALL
     )
 
