@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hackway Heights Episode 11 — out of depth plays</title>
+<style>
+
+/* ── FONTS ── */
+@font-face { font-family: 'Jersey15'; src: url('../../assets/fonts/Jersey15-Regular.ttf') format('truetype'); }
+@font-face { font-family: 'Jersey25'; src: url('../../assets/fonts/Jersey25-Regular.ttf') format('truetype'); }
+@font-face { font-family: 'AtkinsonHyperlegible'; src: url('../../assets/fonts/AtkinsonHyperlegible-Regular.ttf') format('truetype'); font-weight: 400; }
+@font-face { font-family: 'AtkinsonHyperlegible'; src: url('../../assets/fonts/AtkinsonHyperlegible-Bold.ttf') format('truetype'); font-weight: 700; }
+@font-face { font-family: 'Exo'; src: url('../../assets/fonts/exo-v25-latin-regular.woff2') format('woff2'); font-weight: 400; }
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── SEASON ACCENT — swap this one variable per season ── */
+:root {
+  --magenta: #ff03ff;
+  --teal: #005c63;
+  --cyan: #00e5ff;
+  --black: #000;
+  --body-text: rgba(255,255,255,0.83);
+  --dim-text: rgba(255,255,255,0.45);
+  --sidebar-w: 220px;
+
+  /* HACKWAY HEIGHTS accent */
+  --season: #c8791a;
+  --season-dim: rgba(200,121,26,0.45);
+  --season-glow: rgba(200,121,26,0.35);
+  --season-bg: rgba(200,121,26,0.07);
+  --season-border: rgba(200,121,26,0.25);
+}
+
+html, body { background: var(--black); color: var(--body-text); font-family: 'AtkinsonHyperlegible', sans-serif; min-height: 100vh; }
+
+/* scanlines */
+body::after {
+  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 9999;
+  background: repeating-linear-gradient(to bottom, transparent 0px, transparent 2px, rgba(0,0,0,0.07) 2px, rgba(0,0,0,0.07) 4px);
+}
+
+/* ── SIDEBAR ── */
+.sidebar {
+  position: fixed; top: 0; left: 0;
+  width: var(--sidebar-w); height: 100vh;
+  background: linear-gradient(160deg, #05427888 0%, #000 50%, #05427833 100%);
+  border-right: 1px solid #054278;
+  display: flex; flex-direction: column;
+  padding: 24px 0; z-index: 100;
+}
+.sidebar::after {
+  content: ''; position: absolute; top: 0; right: 0;
+  width: 1px; height: 100%;
+  background: linear-gradient(to bottom, transparent, var(--magenta), transparent);
+  opacity: 0.4;
+}
+.sidebar-brand {
+  font-family: 'Exo', sans-serif;
+  font-weight: 400;
+  font-size: 26px; color: #fff;
+  text-align: center; padding: 0 16px 24px;
+  border-bottom: 1px solid #054278;
+  line-height: 1.2; text-decoration: none; display: block;
+}
+.sidebar-nav {
+  display: flex; flex-direction: column;
+  padding: 20px 16px; gap: 6px;
+}
+.sidebar-nav a {
+  font-family: 'Jersey15', monospace;
+  font-size: 24px; display: block;
+  padding: 8px 14px; text-align: center;
+  border: 1px solid #054278; border-radius: 5px;
+  color: var(--magenta); text-decoration: none;
+  transition: all 0.2s;
+}
+.sidebar-nav a:hover { border-color: var(--magenta); box-shadow: 0 0 10px rgba(255,3,255,0.3); color: #fff; }
+.sidebar-nav a.active { background: linear-gradient(120deg, rgba(255,3,255,0.15), transparent); border-color: var(--magenta); color: #fff; }
+
+/* ── MAIN ── */
+.main { margin-left: var(--sidebar-w); padding: 40px 40px 80px; max-width: 1100px; }
+
+/* ── BREADCRUMB ── */
+.breadcrumb { font-family: 'Jersey15', monospace; font-size: 13px; color: var(--dim-text); margin-bottom: 32px; letter-spacing: 0.05em; }
+.breadcrumb a { color: var(--season); text-decoration: none; }
+.breadcrumb a:hover { color: #fff; }
+.breadcrumb span { margin: 0 6px; }
+
+/* ── EPISODE HEADER: info left, player right ── */
+.episode-header { display: grid; grid-template-columns: 1fr 340px; gap: 40px; margin-bottom: 48px; align-items: start; }
+
+/* LEFT: episode info */
+.season-tag {
+  font-family: 'Jersey15', monospace; font-size: 12px;
+  color: var(--season); letter-spacing: 0.12em; text-transform: uppercase;
+  display: flex; align-items: center; gap: 6px; margin-bottom: 14px;
+}
+.season-tag::before { content: '>'; animation: blink 1.2s step-end infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+.episode-title {
+  font-family: 'Jersey25', monospace; font-size: 36px;
+  color: var(--season); line-height: 1.1; margin-bottom: 10px;
+  text-shadow: 0 0 24px var(--season-glow);
+}
+
+.episode-meta {
+  font-family: 'Jersey15', monospace; font-size: 13px;
+  color: var(--dim-text); margin-bottom: 22px;
+  display: flex; gap: 20px; letter-spacing: 0.04em;
+}
+
+.episode-description { font-size: 15px; line-height: 1.75; color: var(--body-text); max-width: 580px; }
+
+/* prev/next nav */
+.episode-nav { display: flex; gap: 10px; margin-top: 28px; }
+.ep-nav-btn {
+  font-family: 'Jersey15', monospace; font-size: 13px;
+  color: var(--magenta); text-decoration: none;
+  border: 1px solid rgba(255,3,255,0.3); padding: 6px 14px;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+  letter-spacing: 0.05em;
+}
+.ep-nav-btn:hover { border-color: var(--magenta); color: #fff; background: rgba(255,3,255,0.08); }
+.ep-nav-btn.disabled { color: var(--dim-text); border-color: rgba(255,255,255,0.1); pointer-events: none; }
+
+/* ── PLAYER PANEL ── */
+.player-panel {
+  border: 2px solid #c6c6c6;
+  border-radius: 8px;
+  background: linear-gradient(160deg, var(--season-bg) 0%, rgba(0,0,0,0.8) 100%);
+  overflow: hidden;
+  position: sticky; top: 40px;
+}
+
+.player-cover { width: 100%; aspect-ratio: 1; position: relative; overflow: hidden; }
+.player-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.player-cover::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: repeating-linear-gradient(to bottom, transparent 0px, transparent 3px, rgba(0,0,0,0.1) 3px, rgba(0,0,0,0.1) 4px);
+}
+
+/* season-colored glow bar */
+.player-glow-bar {
+  height: 2px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    var(--season-dim) 20%,
+    var(--season) 50%,
+    var(--season-dim) 80%,
+    transparent 100%
+  );
+}
+
+.player-body { padding: 16px 18px 20px; }
+
+.player-label-row { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
+.player-label-row::before { content: '>'; color: var(--magenta); font-family: 'Jersey15', monospace; font-size: 12px; animation: blink 1.2s step-end infinite; }
+.player-label { font-family: 'Jersey15', monospace; font-size: 11px; color: rgba(255,3,255,0.5); letter-spacing: 0.12em; text-transform: uppercase; }
+.player-title { font-family: 'Jersey25', monospace; font-size: 16px; color: #fff; line-height: 1.2; margin-bottom: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* scrub */
+.scrub-wrap { position: relative; cursor: pointer; padding: 6px 0; margin-bottom: 4px; }
+.scrub-track { height: 4px; background: rgba(255,3,255,0.12); border-radius: 2px; }
+.scrub-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--magenta), rgba(255,3,255,0.6)); border-radius: 2px; position: relative; transition: width 0.1s linear; }
+.scrub-fill::after { content: ''; position: absolute; right: -5px; top: -3px; width: 10px; height: 10px; background: var(--magenta); border-radius: 50%; box-shadow: 0 0 8px rgba(255,3,255,0.9); opacity: 0; transition: opacity 0.15s; }
+.scrub-wrap:hover .scrub-fill::after { opacity: 1; }
+
+.player-time { display: flex; justify-content: space-between; font-family: 'Jersey15', monospace; font-size: 11px; color: rgba(255,255,255,0.25); margin-bottom: 14px; }
+
+.player-buttons { display: flex; align-items: center; justify-content: center; gap: 14px; }
+.skip-btn { background: none; border: none; cursor: pointer; color: rgba(255,3,255,0.6); font-size: 16px; display: flex; align-items: center; justify-content: center; padding: 4px; transition: color 0.15s, text-shadow 0.15s; }
+.skip-btn:hover { color: var(--magenta); text-shadow: 0 0 8px rgba(255,3,255,0.6); }
+.skip-btn svg { width: 22px; height: 22px; }
+.play-btn { width: 38px; height: 38px; border-radius: 50%; border: 1px solid rgba(255,3,255,0.4); background: none; color: rgba(255,3,255,0.6); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; transition: color 0.15s, border-color 0.15s, box-shadow 0.15s; }
+.play-btn:hover { color: var(--magenta); border-color: var(--magenta); box-shadow: 0 0 14px rgba(255,3,255,0.35); }
+.play-btn svg { width: 16px; height: 16px; }
+
+/* ── SHOW NOTES ── */
+.show-notes { border-top: 1px solid var(--season-border); padding-top: 36px; max-width: 680px; margin-bottom: 48px; }
+.section-heading {
+  font-family: 'Jersey15', monospace; font-size: 12px;
+  color: var(--season); letter-spacing: 0.12em; text-transform: uppercase;
+  display: flex; align-items: center; gap: 6px; margin-bottom: 18px;
+}
+.section-heading::before { content: '>'; animation: blink 1.2s step-end infinite; }
+.show-notes p { font-size: 15px; line-height: 1.75; color: var(--body-text); margin-bottom: 10px; }
+.show-notes a { color: var(--season); text-decoration: none; }
+.show-notes a:hover { color: #fff; }
+.show-notes hr { border: none; border-top: 1px solid rgba(255,255,255,0.07); margin: 16px 0; }
+
+/* ── EPISODE LIST ── */
+.ep-list-section { border-top: 1px solid var(--season-border); padding-top: 36px; }
+.ep-list { display: flex; flex-direction: column; gap: 2px; max-width: 680px; }
+
+.ep-list-item {
+  display: grid; grid-template-columns: 36px 1fr auto;
+  align-items: center; gap: 14px;
+  padding: 10px 12px;
+  border: 1px solid transparent; border-radius: 4px;
+  text-decoration: none; color: var(--body-text);
+  transition: background 0.15s, border-color 0.15s;
+}
+.ep-list-item:hover { background: var(--season-bg); border-color: var(--season-border); }
+.ep-list-item.current { background: var(--season-bg); border-color: rgba(200,121,26,0.45); }
+
+.ep-num { font-family: 'Jersey15', monospace; font-size: 13px; color: var(--dim-text); text-align: center; }
+.ep-list-item.current .ep-num { color: var(--season); }
+.ep-list-title { font-size: 14px; }
+.ep-list-item.current .ep-list-title { color: #fff; }
+.ep-duration { font-family: 'Jersey15', monospace; font-size: 12px; color: var(--dim-text); }
+
+</style>
+</head>
+<body>
+
+<nav class="sidebar">
+  <a href="/" class="sidebar-brand">out of depth</a>
+  <div class="sidebar-nav">
+    <a href="/blog">Blog</a>
+    <a href="/fiction">Fiction</a>
+    <a href="/podcast" class="active">Podcast</a>
+    <a href="/games">Games</a>
+    <a href="/about">About</a>
+  </div>
+</nav>
+
+<main class="main">
+
+  <div class="breadcrumb">
+    <a href="/podcast">podcast</a>
+    <span>&#8250;</span>
+    <a href="/podcast/hackway-heights">hackway heights</a>
+    <span>&#8250;</span>
+    episode 11
+  </div>
+
+  <div class="episode-header">
+
+    <!-- LEFT: info -->
+    <div class="episode-info">
+      <div class="season-tag">hackway heights &middot; episode 11</div>
+      <h1 class="episode-title">hackway heights episode 11</h1>
+      <div class="episode-meta">
+        <span>Jun 6, 2023</span>
+        <span>Electric Bastionland</span>
+      </div>
+      <p class="episode-description">Nezbit, Sallie, and Tremolo go on their first job for Mr. Dick, protecting a Mock Fox named Murken. Unfortunately a simple task turns into an explosive situation and our intrepid travelers will have to make some important decisions, all while one of their ally&#x27;s life hangs on by a thread. Bodies quickly pile up in the wild first episode of HACKWAY HEIGHTS, a twelve part actual play podcast using the Electric Bastionland RPG system.</p>
+      <div class="episode-nav">
+        <a href="../episode-10/" class="ep-nav-btn">&#9668; PREV</a>
+        <a href="../episode-12/" class="ep-nav-btn">NEXT &#9658;</a>
+      </div>
+    </div>
+
+    <!-- RIGHT: player -->
+    <div class="player-panel">
+      <div class="player-cover">
+        <img src="../../assets/images/podcast/hackway-heights.jpg" alt="Hackway Heights cover art">
+      </div>
+      <div class="player-glow-bar"></div>
+      <div class="player-body">
+        <div class="player-label-row">
+          <span class="player-label">HACKWAY HEIGHTS &middot; EP. 11</span>
+        </div>
+        <div class="player-title">hackway heights episode 11</div>
+        <div class="scrub-wrap" id="scrubWrap">
+          <div class="scrub-track"><div class="scrub-fill" id="scrubFill"></div></div>
+        </div>
+        <div class="player-time">
+          <span id="timeElapsed">0:00</span>
+          <span id="timeDuration">&#8212;:&#8212;&#8212;</span>
+        </div>
+        <div class="player-buttons">
+          <button class="skip-btn" id="btnBack">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 .49-3.93"></path></svg>
+          </button>
+          <button class="play-btn" id="btnPlay">
+            <svg id="iconPlay" viewBox="0 0 24 24" fill="currentColor"><polygon points="6,4 20,12 6,20"></polygon></svg>
+            <svg id="iconPause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+          </button>
+          <button class="skip-btn" id="btnFwd">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-.49-3.93"></path></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /episode-header -->
+
+  <!-- SHOW NOTES -->
+  <div class="show-notes">
+    <div class="section-heading">Show Notes</div>
+    <p>Support us at Patreon: <a href="https://www.patreon.com/getoutofdepth">www.patreon.com/getoutofdepth</a></p>
+    <hr>
+    <p>
+      Twitter: <a href="https://www.twitter.com/getoutofdepth">www.twitter.com/getoutofdepth</a><br>
+      Facebook: <a href="https://www.facebook.com/getoutofdepth">www.facebook.com/getoutofdepth</a><br>
+      instagram: <a href="https://www.instagram.com/getoutofdepth">www.instagram.com/getoutofdepth</a><br>
+      Twitch: <a href="https://www.twitch.tv/out_of_depth">https://www.twitch.tv/out_of_depth</a>
+    </p>
+    <hr>
+    <p>Check out ELECTRIC BASTIONLAND RPG here: <a href="https://www.bastionlandpress.com/">https://www.bastionlandpress.com/</a></p>
+    <hr>
+    <p>Music and SFX licensed by soundstripe.com</p>
+  </div>
+
+  <!-- EPISODE LIST -->
+  <div class="ep-list-section">
+    <div class="section-heading">All Episodes &#8212; Hackway Heights</div>
+    <div class="ep-list">
+      <a href="/podcast/hackway-heights/episode-1/" class="ep-list-item">
+        <span class="ep-num">01</span>
+        <span class="ep-list-title">hackway heights episode 1</span>
+        <span class="ep-duration">1:18:04</span>
+      </a>
+      <a href="/podcast/hackway-heights/episode-2/" class="ep-list-item">
+        <span class="ep-num">02</span>
+        <span class="ep-list-title">hackway heights episode 2</span>
+        <span class="ep-duration">1:24:11</span>
+      </a>
+      <a href="/podcast/hackway-heights/episode-3/" class="ep-list-item">
+        <span class="ep-num">03</span>
+        <span class="ep-list-title">hackway heights episode 3</span>
+        <span class="ep-duration">1:09:38</span>
+      </a>
+      <a href="/podcast/hackway-heights/episode-4/" class="ep-list-item">
+        <span class="ep-num">04</span>
+        <span class="ep-list-title">hackway heights episode 4</span>
+        <span class="ep-duration">1:31:55</span>
+      </a>
+      <a href="/podcast/hackway-heights/episode-5/" class="ep-list-item">
+        <span class="ep-num">05</span>
+        <span class="ep-list-title">hackway heights episode 5</span>
+        <span class="ep-duration">1:15:22</span>
+      </a>
+      <a href="/podcast/hackway-heights/episode-6/" class="ep-list-item">
+        <span class="ep-num">06</span>
+        <span class="ep-list-title">hackway heights episode 6</span>
+        <span class="ep-duration">1:22:47</span>
+      </a>
+      <a href="/podcast/hackway-heights/episode-7/" class="ep-list-item">
+        <span class="ep-num">07</span>
+        <span class="ep-list-title">hackway heights episode 7</span>
+      </a>
+      <a href="/podcast/hackway-heights/episode-8/" class="ep-list-item">
+        <span class="ep-num">08</span>
+        <span class="ep-list-title">hackway heights episode 8</span>
+      </a>
+      <a href="/podcast/hackway-heights/episode-9/" class="ep-list-item">
+        <span class="ep-num">09</span>
+        <span class="ep-list-title">hackway heights episode 9</span>
+      </a>
+      <a href="/podcast/hackway-heights/episode-10/" class="ep-list-item">
+        <span class="ep-num">10</span>
+        <span class="ep-list-title">hackway heights episode 10</span>
+      </a>
+      <a href="/podcast/hackway-heights/episode-11/" class="ep-list-item current">
+        <span class="ep-num">11</span>
+        <span class="ep-list-title">hackway heights episode 11</span>
+      </a>
+      <a href="/podcast/hackway-heights/episode-12/" class="ep-list-item">
+        <span class="ep-num">12</span>
+        <span class="ep-list-title">hackway heights episode 12</span>
+      </a>
+    </div>
+  </div>
+
+</main>
+
+<audio id="audio" preload="metadata">
+  <source src="https://podcasts.captivate.fm/media/8dbcd5e7-9448-40a3-8ace-b2fb13984f9b/Episode11.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const audio = document.getElementById('audio');
+const btnPlay = document.getElementById('btnPlay');
+const iconPlay = document.getElementById('iconPlay');
+const iconPause = document.getElementById('iconPause');
+const scrubWrap = document.getElementById('scrubWrap');
+const scrubFill = document.getElementById('scrubFill');
+const timeElapsed = document.getElementById('timeElapsed');
+const timeDuration = document.getElementById('timeDuration');
+
+function fmt(s) {
+  if (isNaN(s)) return '—:——';
+  const m = Math.floor(s/60), sec = Math.floor(s%60).toString().padStart(2,'0'), h = Math.floor(m/60);
+  return h > 0 ? h+':'+(m%60).toString().padStart(2,'0')+':'+sec : m+':'+sec;
+}
+function setPlaying(p) { iconPlay.style.display = p ? 'none' : ''; iconPause.style.display = p ? '' : 'none'; }
+
+btnPlay.addEventListener('click', () => audio.paused ? audio.play() : audio.pause());
+audio.addEventListener('play', () => setPlaying(true));
+audio.addEventListener('pause', () => setPlaying(false));
+audio.addEventListener('ended', () => setPlaying(false));
+
+document.getElementById('btnBack').addEventListener('click', () => { audio.currentTime = Math.max(0, audio.currentTime - 15); });
+document.getElementById('btnFwd').addEventListener('click',  () => { audio.currentTime = Math.min(audio.duration||0, audio.currentTime + 15); });
+
+audio.addEventListener('timeupdate', () => {
+  scrubFill.style.width = audio.duration ? (audio.currentTime/audio.duration*100)+'%' : '0%';
+  timeElapsed.textContent = fmt(audio.currentTime);
+});
+audio.addEventListener('durationchange', () => { timeDuration.textContent = fmt(audio.duration); });
+
+scrubWrap.addEventListener('click', e => {
+  if (!audio.duration) return;
+  audio.currentTime = ((e.clientX - scrubWrap.getBoundingClientRect().left) / scrubWrap.offsetWidth) * audio.duration;
+});
+let drag = false;
+scrubWrap.addEventListener('mousedown', () => drag = true);
+window.addEventListener('mousemove', e => {
+  if (!drag || !audio.duration) return;
+  const pct = Math.max(0, Math.min(1, (e.clientX - scrubWrap.getBoundingClientRect().left) / scrubWrap.offsetWidth));
+  scrubFill.style.width = (pct*100)+'%';
+  timeElapsed.textContent = fmt(pct * audio.duration);
+});
+window.addEventListener('mouseup', e => {
+  if (!drag || !audio.duration) return;
+  drag = false;
+  audio.currentTime = Math.max(0, Math.min(1, (e.clientX - scrubWrap.getBoundingClientRect().left) / scrubWrap.offsetWidth)) * audio.duration;
+});
+</script>
+</body>
+</html>
