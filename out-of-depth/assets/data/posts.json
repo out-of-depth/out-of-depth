@@ -1,6 +1,18 @@
 {
   "posts": [
     {
+      "slug":     "faith-in-rosemary-and-her-baby",
+      "title":    "faith in rosemary and her baby",
+      "type":     "blog",
+      "category": "Film & TV",
+      "excerpt":  "Rewatching Rosemary's Baby after some time away, and finding something new: what Rosemary believes, and what it means to be a shepherd.",
+      "date":     "2025-11-12",
+      "author":   "Jae",
+      "readTime": 12,
+      "path":     "/blog/faith-in-rosemary-and-her-baby/",
+      "featured": false
+    },
+    {
       "slug":     "everything-everywhere-all-at-once",
       "title":    "Everything Everywhere All At Once",
       "type":     "blog",

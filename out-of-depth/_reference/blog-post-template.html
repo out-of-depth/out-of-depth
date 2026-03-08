@@ -31,7 +31,7 @@
 
   <!-- ── Styles ── -->
   <!-- Paths are correct for posts at blog/post-slug/index.html (two levels deep).
-       Previewing post-template.html directly will have broken fonts — expected. -->
+       Previewing this template directly will have broken fonts — expected. -->
   <link rel="stylesheet" href="../../assets/css/base.css">
   <link rel="stylesheet" href="../../assets/css/components.css">
   <link rel="stylesheet" href="../../assets/css/blog-post.css">
@@ -69,7 +69,11 @@
       <!-- centered breadcrumb — update slug -->
       <span class="window-title-text">outofdepth.com // blog // POST-SLUG-HERE</span>
 
-      <!-- prev / next — update hrefs when post is live -->
+      <!-- prev / next navigation
+           PREV = older post (earlier date); NEXT = newer post (more recent date)
+           If no older post exists, use: <span class="amiga-btn disabled" aria-disabled="true">◄ PREV</span>
+           If no newer post exists, use: <span class="amiga-btn disabled" aria-disabled="true">NEXT ►</span>
+      -->
       <div class="nav-btns">
         <a class="amiga-btn" href="/blog/PREV-POST-SLUG/" title="Previous post">◄ PREV</a>
         <a class="amiga-btn" href="/blog/NEXT-POST-SLUG/" title="Next post">NEXT ►</a>
@@ -202,9 +206,9 @@
   // Add every post slug here as you publish them.
   // posts.json is the source of truth — keep these in sync.
   const allPosts = [
-    '/blog/everything-everywhere-all-at-once/',
-    '/blog/the-table-is-the-story/',
-    '/blog/organs/',
+    '/blog/5-mothership-android-variants/',
+    '/blog/reconsidering-alignment-language/',
+    '/blog/using-gold-to-level-up-in-5e/',
     // add more slugs here as you publish
   ];
 

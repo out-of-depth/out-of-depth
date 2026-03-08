@@ -340,6 +340,17 @@
         audio.currentTime = ((e.clientX - r.left) / r.width) * audio.duration;
       });
     }
+
+    // Episode row clicks → navigate to that episode's page
+    document.querySelectorAll('.episode-row').forEach(function (row) {
+      row.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelectorAll('.episode-row').forEach(function (r) { r.classList.remove('is-active'); });
+        row.classList.add('is-active');
+        var href = row.getAttribute('href');
+        if (href) window.location.href = href;
+      });
+    });
   }
 
   function updateIndexMeta(m) {
