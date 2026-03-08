@@ -15,40 +15,15 @@
       --header-height: 72px;
     }
 
-    body {
+    .blognav-content {
+      margin-left: var(--sidebar-width);
       height: 100vh;
       overflow: hidden;
-    }
-
-    .blognav-content {
-      flex: 1;
       display: grid;
       grid-template-columns: 1fr 320px;
       grid-template-rows: var(--header-height) 1fr 1fr;
       gap: 4px;
       padding: 4px;
-      height: 100vh;
-      overflow: hidden;
-    }
-
-    /* ── SHARED BOX PANEL ── */
-    .box {
-      background: linear-gradient(150deg, rgba(0,92,99,0.6), rgba(6,9,59,0.07) 60%);
-      border: 2px solid #c6c6c6;
-      border-radius: 8px;
-      box-shadow: inset 0 0 2px 2px rgba(0,0,0,0.3);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .box::before {
-      content: '';
-      position: absolute;
-      inset: 5px;
-      border: 1px solid rgba(255,255,255,0.05);
-      border-radius: 5px;
-      pointer-events: none;
-      z-index: 0;
     }
 
     /* ── HEADER ── */
@@ -61,7 +36,7 @@
     }
 
     .header-box h1 {
-      font-family: var(--font-display);
+      font-family: 'Jersey25', monospace;
       font-size: 44px;
       color: var(--magenta);
       text-shadow: 0 0 24px rgba(255,3,255,0.5);
@@ -120,11 +95,6 @@
       animation: blink 1s step-end infinite;
     }
 
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50%       { opacity: 0; }
-    }
-
     .post-portrait {
       width: 72px;
       height: 72px;
@@ -154,7 +124,7 @@
     .post-stats { flex: 1; min-width: 0; }
 
     .post-name {
-      font-family: var(--font-display);
+      font-family: 'Jersey25', monospace;
       font-size: 22px;
       color: #fff;
       line-height: 1.1;
@@ -172,7 +142,7 @@
     }
 
     .stat-label {
-      font-family: var(--font-ui);
+      font-family: 'Jersey15', monospace;
       font-size: 13px;
       color: var(--cyan);
       width: 52px;
@@ -180,7 +150,7 @@
     }
 
     .stat-value {
-      font-family: var(--font-ui);
+      font-family: 'Jersey15', monospace;
       font-size: 13px;
       color: rgba(255,255,255,0.8);
       white-space: nowrap;
@@ -210,7 +180,7 @@
     }
 
     .navhelp-box p {
-      font-family: var(--font-display);
+      font-family: 'Jersey25', monospace;
       font-size: 20px;
       color: rgba(255,255,255,0.7);
       line-height: 1.4;
@@ -289,7 +259,7 @@
     }
 
     .cat-name {
-      font-family: var(--font-ui);
+      font-family: 'Jersey15', monospace;
       font-size: 13px;
       color: rgba(255,255,255,0.75);
       text-align: center;
@@ -326,95 +296,7 @@
   <!-- ── POST LIST ── -->
   <div class="card-box box">
 
-    <a class="post-row active" href="/blog/everything-everywhere-all-at-once/" data-category="film-tv">
-      <div class="post-portrait">✦</div>
-      <div class="post-stats">
-        <div class="post-name">Everything Everywhere All At Once</div>
-        <div class="post-stat-line"><span class="stat-label">CAT</span><span class="stat-value">Film &amp; TV</span></div>
-        <div class="post-stat-line"><span class="stat-label">DATE</span><span class="stat-value">Feb 18, 2025</span></div>
-        <div class="post-stat-line"><span class="stat-label">ABOUT</span><span class="stat-value">What does it mean to be the worst version of yourself?</span></div>
-      </div>
-    </a>
-    <hr class="post-divider">
-
-    <a class="post-row" href="/blog/the-table-is-the-story/" data-category="ttrpg">
-      <div class="post-portrait">⚔</div>
-      <div class="post-stats">
-        <div class="post-name">The Table Is the Story</div>
-        <div class="post-stat-line"><span class="stat-label">CAT</span><span class="stat-value">TTRPGs</span></div>
-        <div class="post-stat-line"><span class="stat-label">DATE</span><span class="stat-value">Jan 31, 2025</span></div>
-        <div class="post-stat-line"><span class="stat-label">ABOUT</span><span class="stat-value">The best campaigns aren't about the world, but the people in it.</span></div>
-      </div>
-    </a>
-    <hr class="post-divider">
-
-    <a class="post-row" href="/blog/organs/" data-category="life">
-      <div class="post-portrait">♥</div>
-      <div class="post-stats">
-        <div class="post-name">That Time My Organs Fused Together</div>
-        <div class="post-stat-line"><span class="stat-label">CAT</span><span class="stat-value">Life</span></div>
-        <div class="post-stat-line"><span class="stat-label">DATE</span><span class="stat-value">Jan 12, 2025</span></div>
-        <div class="post-stat-line"><span class="stat-label">ABOUT</span><span class="stat-value">A story I keep getting asked to write down.</span></div>
-      </div>
-    </a>
-    <hr class="post-divider">
-
-    <a class="post-row" href="/blog/godzilla-minus-one/" data-category="film-tv">
-      <div class="post-portrait">✦</div>
-      <div class="post-stats">
-        <div class="post-name">Godzilla Minus One Earned Every Tear</div>
-        <div class="post-stat-line"><span class="stat-label">CAT</span><span class="stat-value">Film &amp; TV</span></div>
-        <div class="post-stat-line"><span class="stat-label">DATE</span><span class="stat-value">Dec 28, 2024</span></div>
-        <div class="post-stat-line"><span class="stat-label">ABOUT</span><span class="stat-value">A kaiju film shouldn't make you cry. And yet.</span></div>
-      </div>
-    </a>
-    <hr class="post-divider">
-
-    <a class="post-row" href="/blog/balatro/" data-category="games">
-      <div class="post-portrait">◈</div>
-      <div class="post-stats">
-        <div class="post-name">Balatro Broke My Brain</div>
-        <div class="post-stat-line"><span class="stat-label">CAT</span><span class="stat-value">Games</span></div>
-        <div class="post-stat-line"><span class="stat-label">DATE</span><span class="stat-value">Dec 10, 2024</span></div>
-        <div class="post-stat-line"><span class="stat-label">ABOUT</span><span class="stat-value">I don't even like poker. 40 hours later...</span></div>
-      </div>
-    </a>
-    <hr class="post-divider">
-
-    <a class="post-row" href="/blog/horror-ttrpg/" data-category="ttrpg">
-      <div class="post-portrait">⚔</div>
-      <div class="post-stats">
-        <div class="post-name">Running Horror Without Ruining the Night</div>
-        <div class="post-stat-line"><span class="stat-label">CAT</span><span class="stat-value">TTRPGs</span></div>
-        <div class="post-stat-line"><span class="stat-label">DATE</span><span class="stat-value">Nov 22, 2024</span></div>
-        <div class="post-stat-line"><span class="stat-label">ABOUT</span><span class="stat-value">Safety tools, tone, and real terror at the table.</span></div>
-      </div>
-    </a>
-    <hr class="post-divider">
-
-    <a class="post-row" href="/blog/witch-from-mercury/" data-category="film-tv">
-      <div class="post-portrait">◉</div>
-      <div class="post-stats">
-        <div class="post-name">Witch from Mercury Is a Miracle</div>
-        <div class="post-stat-line"><span class="stat-label">CAT</span><span class="stat-value">Film &amp; TV</span></div>
-        <div class="post-stat-line"><span class="stat-label">DATE</span><span class="stat-value">Nov 05, 2024</span></div>
-        <div class="post-stat-line"><span class="stat-label">ABOUT</span><span class="stat-value">A show that shouldn't work this well.</span></div>
-      </div>
-    </a>
-    <hr class="post-divider">
-
-    <a class="post-row" href="/blog/starting-over/" data-category="life">
-      <div class="post-portrait">♥</div>
-      <div class="post-stats">
-        <div class="post-name">On Starting Over for the Fourth Time</div>
-        <div class="post-stat-line"><span class="stat-label">CAT</span><span class="stat-value">Life</span></div>
-        <div class="post-stat-line"><span class="stat-label">DATE</span><span class="stat-value">Oct 19, 2024</span></div>
-        <div class="post-stat-line"><span class="stat-label">ABOUT</span><span class="stat-value">Reinvention, failure, and why I keep doing this.</span></div>
-      </div>
-    </a>
-    <hr class="post-divider">
-
-    <a class="post-row" href="/blog/using-gold-to-level-up-in-5e/" data-category="ttrpg">
+    <a class="post-row active" href="/blog/using-gold-to-level-up-in-5e/" data-category="ttrpg">
       <div class="post-portrait">◈</div>
       <div class="post-stats">
         <div class="post-name">Using Gold to Level Up in 5e</div>
@@ -437,7 +319,7 @@
     <hr class="post-divider">
 
     <a class="post-row" href="/blog/5-mothership-android-variants/" data-category="ttrpg">
-      <div class="post-portrait">✦</div>
+      <div class="post-portrait">⚔</div>
       <div class="post-stats">
         <div class="post-name">5 Mothership Android Variants</div>
         <div class="post-stat-line"><span class="stat-label">CAT</span><span class="stat-value">TTRPGs</span></div>
