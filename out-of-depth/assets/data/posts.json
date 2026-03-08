@@ -42,10 +42,22 @@
       "type":     "blog",
       "category": "TTRPGs",
       "excerpt":  "A deep dive into what Alignment Languages could actually mean -- and how redefining them reshapes what it means to be a Cleric.",
-      "date":     "2023-01-15",
+      "date":     "2023-01-10",
       "author":   "Jae",
       "readTime": 15,
       "path":     "/blog/reconsidering-alignment-language/",
+      "featured": false
+    },
+    {
+      "slug":     "using-gold-to-level-up-in-5e",
+      "title":    "Using Gold to Level Up in 5e",
+      "type":     "blog",
+      "category": "TTRPGs",
+      "excerpt":  "An experiment in replacing XP with gold pieces, making character advancement feel diegetic, tangible, and properly expensive.",
+      "date":     "2023-08-18",
+      "author":   "Jae",
+      "readTime": 8,
+      "path":     "/blog/using-gold-to-level-up-in-5e/",
       "featured": false
     }
   ],

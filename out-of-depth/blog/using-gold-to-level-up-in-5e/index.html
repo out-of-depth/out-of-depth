@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- ── SEO ── -->
+  <title>Using Gold to Level Up in 5e | Out of Depth</title>
+  <meta name="description" content="An experiment in replacing XP with gold pieces, making character advancement feel diegetic, tangible, and properly expensive.">
+  <meta name="author" content="Jae">
+
+  <!-- ── Open Graph ── -->
+  <meta property="og:type"        content="article">
+  <meta property="og:title"       content="Using Gold to Level Up in 5e | Out of Depth">
+  <meta property="og:description" content="An experiment in replacing XP with gold pieces, making character advancement feel diegetic, tangible, and properly expensive.">
+  <meta property="og:url"         content="https://outofdepth.com/blog/using-gold-to-level-up-in-5e/">
+  <meta property="og:site_name"   content="Out of Depth">
+
+  <!-- ── Schema.org JSON-LD ── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Using Gold to Level Up in 5e",
+    "author": { "@type": "Person", "name": "Jae", "url": "https://outofdepth.com/about/" },
+    "datePublished": "2023-08-18",
+    "description": "An experiment in replacing XP with gold pieces, making character advancement feel diegetic, tangible, and properly expensive.",
+    "url": "https://outofdepth.com/blog/using-gold-to-level-up-in-5e/"
+  }
+  </script>
+
+  <!-- ── Styles ── -->
+  <link rel="stylesheet" href="../../assets/css/base.css">
+  <link rel="stylesheet" href="../../assets/css/components.css">
+  <link rel="stylesheet" href="../../assets/css/blog-post.css">
+  <style>
+    /* ── Gold Level Table ── */
+    .level-table-wrap {
+      margin: 32px 0;
+      overflow-x: auto;
+    }
+    .level-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--font-ui);
+      font-size: 14px;
+    }
+    .level-table thead tr {
+      background: rgba(255,3,255,0.15);
+      border-bottom: 2px solid var(--magenta);
+    }
+    .level-table thead th {
+      padding: 10px 16px;
+      text-align: left;
+      color: var(--magenta);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 12px;
+    }
+    .level-table tbody tr {
+      border-bottom: 1px solid rgba(255,3,255,0.08);
+      transition: background 0.15s;
+    }
+    .level-table tbody tr:hover {
+      background: rgba(255,3,255,0.06);
+    }
+    /* tier accent rows */
+    .level-table tbody tr.tier-break {
+      border-top: 2px solid rgba(255,3,255,0.25);
+    }
+    .level-table tbody td {
+      padding: 9px 16px;
+      color: rgba(255,255,255,0.87);
+      vertical-align: middle;
+    }
+    .level-table tbody td:first-child {
+      font-family: var(--font-display);
+      font-size: 18px;
+      color: var(--magenta);
+      width: 60px;
+    }
+    .level-table tbody td.gp {
+      font-family: var(--font-display);
+      font-size: 16px;
+      color: #f5c71a;
+    }
+    .level-table tbody td.months {
+      color: rgba(255,255,255,0.6);
+      font-size: 13px;
+    }
+    /* time-change badge */
+    .time-badge {
+      display: inline-block;
+      background: rgba(255,3,255,0.12);
+      border: 1px solid rgba(255,3,255,0.3);
+      border-radius: 4px;
+      padding: 1px 7px;
+      font-size: 11px;
+      color: var(--magenta);
+      letter-spacing: 0.05em;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════
+     SIDEBAR — same on every page
+     Update is-active class only
+════════════════════════════════ -->
+<aside class="sidebar" aria-label="Primary navigation">
+  <a class="brand-text" href="/">out of depth</a>
+  <nav class="nav">
+    <a class="nav-link" href="/">Home</a>
+    <a class="nav-link is-active" href="/blog/">Blog</a>
+    <a class="nav-link" href="/fiction/">Fiction</a>
+    <a class="nav-link" href="/podcast/">Podcast</a>
+    <a class="nav-link" href="/games/">Games</a>
+    <a class="nav-link" href="/about/">About</a>
+    <hr>
+  </nav>
+</aside>
+
+<!-- ══════════════════════════════
+     MAIN CONTENT
+════════════════════════════════ -->
+<main class="content">
+  <article class="post-window h-entry">
+
+    <!-- ── TITLE BAR ── -->
+    <div class="window-titlebar">
+      <a class="amiga-btn" href="/blog/" title="Back to Blog">✕</a>
+      <span class="window-title-text">outofdepth.com // blog // using-gold-to-level-up-in-5e</span>
+      <div class="nav-btns">
+        <a class="amiga-btn" href="/blog/reconsidering-alignment-language/" title="Previous post">◄ PREV</a>
+        <span class="amiga-btn" style="opacity:0.3;cursor:default;">NEXT ►</span>
+      </div>
+    </div>
+
+    <!-- ── WINDOW BODY ── -->
+    <div class="window-body">
+
+      <header class="post-header">
+
+        <a class="u-url u-uid" href="https://outofdepth.com/blog/using-gold-to-level-up-in-5e/" style="display:none;"></a>
+
+        <p class="p-summary" style="display:none;">An experiment in replacing XP with gold pieces, making character advancement feel diegetic, tangible, and properly expensive.</p>
+
+        <div class="post-category p-category">TTRPGs</div>
+        <h1 class="post-title p-name" data-text="Using Gold to Level Up in 5e">Using Gold to Level Up in 5e</h1>
+
+        <div class="post-byline">
+          <div class="byline-item">
+            <span class="lbl">BY</span>
+            <span class="p-author h-card">
+              <a class="p-name u-url" href="https://outofdepth.com/about/" rel="author">Jae</a>
+            </span>
+          </div>
+          <div class="byline-item">
+            <span class="lbl">DATE</span>
+            <time class="dt-published" datetime="2023-08-18">August 18, 2023</time>
+          </div>
+          <div class="byline-item">
+            <span class="lbl">READ</span>
+            <span>8 min</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- ── POST CONTENT ── -->
+      <div class="post-body e-content">
+
+        <p>GOALS –</p>
+
+        <ol>
+          <li><p>I want leveling up to feel more diegetic. Something that happens from an activity like research or training. It's not enough for me that you just kill enough orcs and now you know fireball.</p></li>
+          <li><p>I also want to replace XP with something that has a value in the game world. I've experimented with Milestones, but I didn't like that it was basically "my call" when players leveled up. So I want something that is more tangible and provides players with a little more agency over their progression.</p></li>
+        </ol>
+
+        <p>Gold is an obvious answer for this. Gold means you don't have to kill anything, unless you're into it, but it also means you can think of other ways to gain money besides looting. Hit those gambling halls. Create an organized crime ring that shakes down local businesses for "protection" money. Become a baron of a local area and collect taxes. Or stick to what you know, dungeon delving and slaying dragons for their hoard. It's all good.</p>
+
+        <p>This is not a new idea. This is how they did it in the olden times. However, asking the google machine "XP for Gold in 5e?" yielded me a lot of discussions that devolved into "But that's not what 5e is!" And I don't have time sorting through all that bullshit.</p>
+
+        <ol start="3">
+          <li><p>I want leveling up to take time. With this format you will spend 58 months just training to get to level 20. Add in adventuring time to acquire the funds necessary, and we're looking at well over 5+ years of in game time to max yourself out. That sounds reasonable to me. Lebron James was in the NBA for 6 years before he was voted MVP and 9 years before he won a title. So in D&amp;D terms it's like it took him 9 years before he learned the Wish Spell.</p></li>
+        </ol>
+
+        <p>Before reading on, keep in mind… I haven't even used these yet - but I'm gonna.</p>
+
+        <h2>Gold Based Rules For Leveling Up (v 0.1)</h2>
+
+        <p>When you're ready to level up, consult the chart to left to determine how much gold and how much time you need to reach your desired level.</p>
+
+        <div class="level-table-wrap">
+          <table class="level-table" aria-label="Gold and time cost per level">
+            <thead>
+              <tr>
+                <th>Level</th>
+                <th>Funds</th>
+                <th>Time</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>2</td><td class="gp">100 gp</td><td class="months">1 month</td></tr>
+              <tr><td>3</td><td class="gp">150 gp</td><td class="months">1 month</td></tr>
+              <tr><td>4</td><td class="gp">200 gp</td><td class="months">1 month</td></tr>
+              <tr><td>5</td><td class="gp">400 gp</td><td class="months">1 month</td></tr>
+              <tr class="tier-break"><td>6</td><td class="gp">2,000 gp</td><td class="months">2 months <span class="time-badge">↑</span></td></tr>
+              <tr><td>7</td><td class="gp">2,500 gp</td><td class="months">2 months</td></tr>
+              <tr><td>8</td><td class="gp">3,000 gp</td><td class="months">2 months</td></tr>
+              <tr><td>9</td><td class="gp">3,500 gp</td><td class="months">2 months</td></tr>
+              <tr><td>10</td><td class="gp">4,000 gp</td><td class="months">2 months</td></tr>
+              <tr><td>11</td><td class="gp">4,500 gp</td><td class="months">2 months</td></tr>
+              <tr class="tier-break"><td>12</td><td class="gp">9,000 gp</td><td class="months">3 months <span class="time-badge">↑</span></td></tr>
+              <tr><td>13</td><td class="gp">10,000 gp</td><td class="months">3 months</td></tr>
+              <tr><td>14</td><td class="gp">14,000 gp</td><td class="months">3 months</td></tr>
+              <tr><td>15</td><td class="gp">18,000 gp</td><td class="months">3 months</td></tr>
+              <tr><td>16</td><td class="gp">22,000 gp</td><td class="months">3 months</td></tr>
+              <tr><td>17</td><td class="gp">26,000 gp</td><td class="months">3 months</td></tr>
+              <tr class="tier-break"><td>18</td><td class="gp">80,000 gp</td><td class="months">6 months <span class="time-badge">↑</span></td></tr>
+              <tr class="tier-break"><td>19</td><td class="gp">160,000 gp</td><td class="months">9 months <span class="time-badge">↑</span></td></tr>
+              <tr><td>20</td><td class="gp">180,000 gp</td><td class="months">9 months</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>Time spent must be in an appropriate place. Usually around civilization or spent around someone that can train you. Druids hang with druids. Clerics and paladins hang out at a church. You get the idea. Wizards and Sorcerers need a place to experiment. Maybe that's in a tower you built(which cost money) or maybe that's in a room at an inn, like the Invisible Man did. What could go wrong?</p>
+
+        <p>During this time you're not exploring the world, you're just… exploring yourself. Zoinks.</p>
+
+        <p>However Leveling Time is not just a passive period in which your character goes into stasis and comes out with new skills.</p>
+
+        <p>We'll make rolls to determine what other trouble you got into. Maybe your rogue made an enemy of a neighboring crime lord. Maybe your wizard unknowingly opened a wormhole to another plane of existence. Or maybe something great happened. Maybe your Paladin gained some new cult member curates who will assist them on their adventures.  Maybe your Warlock's Patron sent them a fucking dire bat to ride around on.  The Old Ones were Pleased.</p>
+
+        <p>Additionally the world changes around you for better and worse. Maybe witnesses of your epic deeds are spreading the word of your exploits. Maybe a neighboring town got raided by Mer-Wraiths. You didn't even know Mer-Wraiths existed!</p>
+
+        <h2>Methodology</h2>
+
+        <p>These numbers were derived from someone else's math. They looked at the treasure hoard tables  in the DMG and averaged out how much Gold heroes started each level with. I took those numbers and found the difference between each level. I then raised or lowered that number to something round.  I then fiddled with those numbers until I thought it sounded good. That's it.</p>
+
+        <p>The time element coincides with major leaps in monetary value. It looks like after 5th, you're expected to start pulling in some major coin. So let's spread that 2000g over two months instead of one. Same at level 12. Again at 18.</p>
+
+        <p>These felt like a good place to start….I guess. I just wanted to not do math. These numbers also give me a method of determining treasure levels for rewards.</p>
+
+        <h2>Initial Thoughts</h2>
+
+        <p>Yes you'll have to choose between spending money on equipment or leveling up. You might hate this. I think it's hilarious.</p>
+
+        <p>Yes you'll eventually need to find a place to store your money while you earn enough to level up. That will probably also cost you money – money you could've spent on leveling up. How bad do you want that plate mail that costs 1500gp? You might hate this. I think it's hilarious.</p>
+
+        <p>Not every treasure you get is coin. Paintings. Antique furniture. Jewels. You'll need to sell those. And if you don't have a fence you can trust… you might not get fair market value.</p>
+
+        <p>Bartering might be an interesting way to get items without paying coin for them. Maybe you know your local blacksmith needs a new horse for his daughter's dowry. Maybe you could find one, and trade it for that chain mail you were looking at. Hopefully that horse didn't belong to someone...alive.</p>
+
+        <p>You might also find a sweet spot in terms of level and game play. You choose when it's time to stop and get better, which means you can hang out at any level you want and enjoy it as long as you want.</p>
+
+        <p>It's possible that you and your party want to level up at different times. That could work. Let's say you've been frugal because you really want to be a 6th level character, but everyone else blew their money on a silvered weapons. Take your two months off. Roll up a new character to adventure with the gang during your main character's time off. Try out a new class. Maybe you'll like the new character better. Who knows.</p>
+
+        <h2>BUT THE ECONOMY</h2>
+
+        <p>4 characters dropping a combined 88,000 gold over three months just changed the entire GDP of this small town!</p>
+
+        <p>Yeah. I know. It's awesome.</p>
+
+      </div>
+
+      <!-- ── SIGNATURE ── -->
+      <div class="post-signature">
+        <p>Safe Travels,</p>
+        <p class="signature">jae</p>
+      </div>
+
+    </div>
+  </article>
+
+  <!-- ── DISCOVERY FOOTER ── -->
+  <div class="discovery">
+    <div class="discovery-label">Keep Exploring</div>
+    <div class="discovery-grid">
+
+      <a class="file-icon" href="/blog/reconsidering-alignment-language/">
+        <div class="file-body-wrap">
+          <div class="file-body"></div>
+          <div class="file-scan"></div>
+          <div class="file-header-strip">TTRPGs</div>
+          <div class="fold-h"></div>
+          <div class="fold-v"></div>
+          <span class="file-glyph">⚖</span>
+        </div>
+        <div class="file-name">Reconsidering Alignment Languages</div>
+        <div class="file-date">January 10, 2023</div>
+      </a>
+
+      <a class="file-icon" href="/blog/5-mothership-android-variants/">
+        <div class="file-body-wrap">
+          <div class="file-body"></div>
+          <div class="file-scan"></div>
+          <div class="file-header-strip">TTRPGs</div>
+          <div class="fold-h"></div>
+          <div class="fold-v"></div>
+          <span class="file-glyph">✦</span>
+        </div>
+        <div class="file-name">5 Mothership Android Variants</div>
+        <div class="file-date">August 14, 2022</div>
+      </a>
+
+      <div class="file-icon random" onclick="goRandom()">
+        <div class="file-body-wrap">
+          <div class="file-body"></div>
+          <div class="file-scan"></div>
+          <div class="file-header-strip">???</div>
+          <div class="fold-h"></div>
+          <div class="fold-v"></div>
+          <span class="file-glyph">?</span>
+        </div>
+        <div class="file-name">Take me somewhere</div>
+        <div class="file-date">unknown</div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<script>
+  const allPosts = [
+    '/blog/everything-everywhere-all-at-once/',
+    '/blog/the-table-is-the-story/',
+    '/blog/organs/',
+    '/blog/5-mothership-android-variants/',
+    '/blog/reconsidering-alignment-language/',
+    '/blog/using-gold-to-level-up-in-5e/',
+  ];
+
+  function goRandom() {
+    const icon    = document.querySelector('.file-icon.random');
+    const glyph   = icon.querySelector('.file-glyph');
+    const name    = icon.querySelector('.file-name');
+    const current = window.location.pathname;
+
+    const others = allPosts.filter(p => p !== current);
+
+    glyph.textContent = '...';
+    name.textContent  = 'searching';
+
+    setTimeout(() => {
+      window.location.href = others[Math.floor(Math.random() * others.length)];
+    }, 450);
+  }
+</script>
+
+</body>
+</html>
