@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Out of Depth</title>
+  <style>
+    @font-face { font-family:'AtkinsonHyperlegible';  font-weight:normal; }
+    @font-face { font-family:'AtkinsonHyperlegible';  format('truetype');
+font-weight:bold; }
+    @font-face { font-family:'Jersey15';  }
+    @font-face { font-family:'Jersey25'; }
+
+    :root {
+      --magenta: #ff03ff;
+      --magenta-dim: rgba(255,3,255,0.45);
+      --cyan: #00e5ff;
+      --teal: #005c63;
+      --blue-mid: #054278;
+      --bg: #000;
+      --white: #fff;
+      --sidebar-width: 220px;
+      --content-max: 900px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'AtkinsonHyperlegible', sans-serif;
+      background: var(--bg);
+      color: var(--white);
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.07) 2px, rgba(0,0,0,0.07) 4px);
+      pointer-events: none; z-index: 9999;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      position: fixed; top: 0; left: 0;
+      width: var(--sidebar-width); height: 100vh;
+      background: linear-gradient(160deg, #05427888 0%, #000 50%, #05427833 100%);
+      border-right: 1px solid #054278;
+      display: flex; flex-direction: column;
+      padding: 24px 0; z-index: 100;
+    }
+
+    .sidebar::after {
+      content: '';
+      position: absolute; top: 0; right: 0;
+      width: 1px; height: 100%;
+      background: linear-gradient(to bottom, transparent, var(--magenta), transparent);
+      opacity: 0.4;
+    }
+
+    .brand-text {
+      font-family: 'SymphonyOfTheNight', sans-serif;
+      font-size: 26px; color: var(--white);
+      text-align: center;
+      padding: 0 16px 24px;
+      border-bottom: 1px solid #054278;
+      line-height: 1.2;
+      text-decoration: none; display: block;
+    }
+
+    .nav {
+      display: flex; flex-direction: column;
+      padding: 20px 16px; gap: 6px; flex: 1;
+    }
+
+    .nav-link {
+      font-family: 'Jersey15', monospace;
+      font-size: 24px; display: block;
+      padding: 8px 14px; text-align: center;
+      border: 1px solid #054278; border-radius: 5px;
+      color: var(--magenta); text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .nav-link:hover {
+      border-color: var(--magenta);
+      box-shadow: 0 0 10px rgba(255,3,255,0.3);
+      color: #fff;
+    }
+
+    .nav-link.is-active {
+      background: linear-gradient(120deg, rgba(255,3,255,0.15), transparent);
+      border-color: var(--magenta); color: #fff;
+    }
+
+    .nav hr { border: none; border-top: 1px solid #054278; margin: 8px 0; }
+
+    /* ── CONTENT ── */
+    .content {
+      margin-left: var(--sidebar-width);
+      padding: 40px 40px 80px;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* ambient glows */
+    .content::before {
+      content: '';
+      position: fixed;
+      top: 5%; left: calc(var(--sidebar-width) + 5%);
+      width: 800px; height: 800px;
+      background: radial-gradient(ellipse, rgba(0,92,99,0.1) 0%, transparent 65%);
+      pointer-events: none; z-index: 0;
+    }
+
+    .content::after {
+      content: '';
+      position: fixed;
+      bottom: 0; right: 5%;
+      width: 500px; height: 500px;
+      background: radial-gradient(ellipse, rgba(255,3,255,0.05) 0%, transparent 65%);
+      pointer-events: none; z-index: 0;
+    }
+
+    .inner {
+      max-width: var(--content-max);
+      margin: 0 auto;
+      position: relative; z-index: 1;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes blink { 0%,100% { opacity:1; } 50% { opacity:0; } }
+
+    /* ══════════════════════════════
+       FEATURED ITEM — large hero
+    ══════════════════════════════ */
+    .featured {
+      display: block;
+      text-decoration: none;
+      border: 1px solid rgba(255,3,255,0.25);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 16px;
+      position: relative;
+      background: linear-gradient(150deg, rgba(0,92,99,0.35) 0%, rgba(6,9,59,0.15) 60%);
+      transition: all 0.2s;
+    }
+
+    .featured:hover {
+      border-color: var(--magenta);
+      box-shadow: 0 0 40px rgba(255,3,255,0.1), 0 0 80px rgba(0,92,99,0.1);
+    }
+
+    /* glitch stripe */
+    .featured::before {
+      content: '';
+      position: absolute; top: 0; left: 0;
+      width: 2px; height: 100%;
+      background: linear-gradient(to bottom,
+        transparent 0%, rgba(255,3,255,0.7) 20%,
+        transparent 40%, rgba(255,3,255,0.4) 65%,
+        transparent 80%, rgba(255,3,255,0.6) 93%, transparent 100%);
+      animation: glitch 7s ease-in-out infinite;
+    }
+
+    @keyframes glitch {
+      0%,100% { opacity:1; transform:none; }
+      44% { opacity:1; } 45% { opacity:0.2; transform:translateY(3px); } 46% { opacity:1; transform:none; }
+      79% { opacity:1; } 80% { opacity:0.3; transform:translateY(-2px); } 81% { opacity:1; transform:none; }
+    }
+
+    /* grid texture */
+    .featured::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,3,255,0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,3,255,0.015) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+    }
+
+    .featured-inner {
+      padding: 36px 44px 40px;
+      position: relative; z-index: 1;
+    }
+
+    .featured-eyebrow {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .featured-type {
+      font-family: 'Jersey15', monospace; font-size: 12px;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: rgba(255,3,255,0.5);
+      display: flex; align-items: center; gap: 6px;
+    }
+
+    .featured-type::before {
+      content: '>';
+      color: var(--magenta);
+      animation: blink 1.2s step-end infinite;
+    }
+
+    .featured-badge {
+      font-family: 'Jersey15', monospace; font-size: 11px;
+      color: rgba(255,255,255,0.3); letter-spacing: 0.1em;
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 2px 8px; border-radius: 2px;
+    }
+
+    .featured-title {
+      font-family: 'Jersey25', monospace;
+      font-size: 52px; line-height: 1.05;
+      color: var(--magenta);
+      text-shadow: 0 0 30px rgba(255,3,255,0.4), 0 0 80px rgba(255,3,255,0.1);
+      margin-bottom: 16px;
+      position: relative;
+    }
+
+    /* chromatic aberration */
+    .featured-title::before {
+      content: attr(data-text);
+      position: absolute; left: 2px; top: 1px;
+      color: rgba(0,229,255,0.08); pointer-events: none;
+    }
+
+    .featured-excerpt {
+      font-size: 16px; line-height: 1.7;
+      color: rgba(255,255,255,0.6);
+      max-width: 620px; margin-bottom: 24px;
+    }
+
+    .featured-meta {
+      display: flex; align-items: center; gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .featured-meta-item {
+      font-family: 'Jersey15', monospace; font-size: 12px;
+      color: rgba(255,255,255,0.25);
+      display: flex; align-items: center; gap: 5px;
+    }
+
+    .featured-meta-item .lbl { color: rgba(255,3,255,0.4); }
+
+    .featured-cta {
+      font-family: 'Jersey15', monospace; font-size: 14px;
+      color: rgba(255,3,255,0.6); letter-spacing: 0.08em;
+      display: flex; align-items: center; gap: 6px;
+      margin-left: auto;
+      transition: all 0.2s;
+    }
+
+    .featured:hover .featured-cta {
+      color: var(--magenta);
+      gap: 10px;
+    }
+
+    /* ══════════════════════════════
+       RECENT ITEMS — smaller row
+    ══════════════════════════════ */
+    .recent-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .recent-card {
+      display: block;
+      text-decoration: none;
+      border: 1px solid #1a1a2e;
+      border-radius: 4px;
+      padding: 20px 22px;
+      background: linear-gradient(150deg, rgba(0,92,99,0.18) 0%, rgba(6,9,59,0.08) 60%);
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .recent-card:nth-child(1) { animation-delay: 0.08s; }
+    .recent-card:nth-child(2) { animation-delay: 0.14s; }
+    .recent-card:nth-child(3) { animation-delay: 0.20s; }
+
+    .recent-card:hover {
+      border-color: rgba(255,3,255,0.35);
+      background: linear-gradient(150deg, rgba(0,92,99,0.28) 0%, rgba(6,9,59,0.15) 60%);
+      transform: translateY(-3px);
+      box-shadow: 0 0 24px rgba(255,3,255,0.07);
+    }
+
+    /* win 3.1 notch on recent cards — smaller */
+    .recent-card::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 0; height: 0;
+      border-style: solid;
+      border-width: 0 14px 14px 0;
+      border-color: transparent #054278 transparent transparent;
+      transition: border-color 0.2s;
+    }
+
+    .recent-card:hover::before {
+      border-color: transparent rgba(255,3,255,0.5) transparent transparent;
+    }
+
+    .recent-type {
+      font-family: 'Jersey15', monospace; font-size: 11px;
+      color: rgba(255,3,255,0.4); letter-spacing: 0.1em;
+      text-transform: uppercase; margin-bottom: 8px;
+    }
+
+    /* content-type tint variations */
+    .recent-card.podcast .recent-type { color: rgba(0,229,255,0.5); }
+    .recent-card.podcast:hover { border-color: rgba(0,229,255,0.35); }
+    .recent-card.podcast::before { border-color: transparent #054278 transparent transparent; }
+    .recent-card.podcast:hover::before { border-color: transparent rgba(0,229,255,0.5) transparent transparent; }
+
+    .recent-card.game .recent-type { color: rgba(0,255,128,0.5); }
+    .recent-card.game:hover { border-color: rgba(0,255,128,0.3); }
+    .recent-card.game:hover::before { border-color: transparent rgba(0,255,128,0.5) transparent transparent; }
+
+    .recent-title {
+      font-family: 'Jersey25', monospace; font-size: 20px;
+      color: #fff; line-height: 1.2; margin-bottom: 10px;
+    }
+
+    .recent-excerpt {
+      font-size: 13px; line-height: 1.6;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 14px;
+    }
+
+    .recent-footer {
+      display: flex; justify-content: space-between;
+      align-items: center;
+    }
+
+    .recent-date {
+      font-family: 'Jersey15', monospace; font-size: 11px;
+      color: rgba(255,255,255,0.2);
+    }
+
+    .recent-arrow {
+      font-family: 'Jersey15', monospace; font-size: 13px;
+      color: rgba(255,3,255,0.3);
+      transition: all 0.2s;
+    }
+
+    .recent-card:hover .recent-arrow { color: var(--magenta); transform: translateX(3px); }
+    .recent-card.podcast:hover .recent-arrow { color: var(--cyan); }
+    .recent-card.game:hover .recent-arrow { color: rgba(0,255,128,0.8); }
+
+  </style>
+</head>
+<body>
+
+<aside class="sidebar" aria-label="Primary">
+  <a class="brand-text" href="/">Out of Depth</a>
+  <nav class="nav">
+    <a class="nav-link is-active" href="/">Home</a>
+    <a class="nav-link" href="/blog/">Blog</a>
+    <a class="nav-link" href="/writing/">Everything</a>
+    <a class="nav-link" href="/podcasts/">Podcast</a>
+    <a class="nav-link" href="/games/">Games</a>
+    <a class="nav-link" href="/about/">About</a>
+    <hr>
+  </nav>
+</aside>
+
+<main class="content">
+  <div class="inner">
+
+    <!-- FEATURED -->
+    <a class="featured" href="/blog/everything-everywhere/">
+      <div class="featured-inner">
+        <div class="featured-eyebrow">
+          <span class="featured-type">Blog · Film</span>
+          <span class="featured-badge">LATEST</span>
+        </div>
+        <h1 class="featured-title" data-text="Everything Everywhere All At Once">Everything Everywhere All At Once</h1>
+        <p class="featured-excerpt">I did not expect to cry at a film about a woman doing her taxes. That is, I think, the joke and also the entire point.</p>
+        <div class="featured-meta">
+          <div class="featured-meta-item"><span class="lbl">BY</span><span>Jae</span></div>
+          <div class="featured-meta-item"><span class="lbl">DATE</span><span>Feb 18, 2025</span></div>
+          <div class="featured-meta-item"><span class="lbl">READ</span><span>8 min</span></div>
+          <span class="featured-cta">Read → </span>
+        </div>
+      </div>
+    </a>
+
+    <!-- RECENT -->
+    <div class="recent-grid">
+
+      <a class="recent-card" href="/blog/the-table-is-the-story/">
+        <div class="recent-type">Blog · TTRPG</div>
+        <div class="recent-title">The Table Is the Story</div>
+        <div class="recent-excerpt">Why the best campaigns aren't about the world you build, but the people sitting around it.</div>
+        <div class="recent-footer">
+          <span class="recent-date">Jan 31, 2025</span>
+          <span class="recent-arrow">→</span>
+        </div>
+      </a>
+
+      <a class="recent-card podcast" href="/podcasts/season-5/episode-12/">
+        <div class="recent-type">Podcast · S05E12</div>
+        <div class="recent-title">Out of Depth Plays</div>
+        <div class="recent-excerpt">The season finale. Everything comes together — or falls apart. Possibly both.</div>
+        <div class="recent-footer">
+          <span class="recent-date">Jan 20, 2025</span>
+          <span class="recent-arrow">→</span>
+        </div>
+      </a>
+
+      <a class="recent-card" href="/blog/organs/">
+        <div class="recent-type">Blog · Life</div>
+        <div class="recent-title">That Time My Organs Fused Together</div>
+        <div class="recent-excerpt">A story I keep getting asked to write down. Here it finally is.</div>
+        <div class="recent-footer">
+          <span class="recent-date">Jan 12, 2025</span>
+          <span class="recent-arrow">→</span>
+        </div>
+      </a>
+
+    </div>
+
+  </div>
+</main>
+
+</body>
+</html>
