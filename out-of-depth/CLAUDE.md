@@ -11,15 +11,20 @@ There is one build script: `build-sidebar.py`. Run it with `python3 build-sideba
 ```
 /
 ├── index.html                          ← home page (not yet built)
+├── _reference/
+│   ├── blog-post-template.html         ← REFERENCE — copy this for every new blog post
+│   └── episode-template.html           ← REFERENCE — copy this for every new podcast episode
 ├── blog/
-│   ├── index.html                      ← blog index (not yet built)
-│   ├── post-template.html              ← REFERENCE — copy this for every new post
+│   ├── index.html                      ← live
 │   └── post-slug/
-│       └── index.html
+│       └── index.html                  ← pattern for all blog posts
 ├── fiction/
 │   └── index.html                      ← not yet built
 ├── podcast/
-│   └── index.html                      ← not yet built
+│   ├── index.html                      ← live
+│   └── season-slug/
+│       └── episode-N/
+│           └── index.html              ← pattern for all episodes
 ├── games/
 │   └── index.html                      ← not yet built
 ├── about/
@@ -29,10 +34,12 @@ There is one build script: `build-sidebar.py`. Run it with `python3 build-sideba
     ├── css/
     │   ├── base.css                    ← variables, reset, fonts, sidebar, nav, animations
     │   ├── components.css              ← box panels, amiga buttons, win3.1 file icons, discovery footer
-    │   └── blog-post.css              ← post window, header, body, blockquote, signature
+    │   ├── blog-post.css               ← post window, header, body, blockquote, signature
+    │   └── podcast-episode.css         ← episode page layout and player panel
     ├── partials/
     │   └── sidebar.html               ← canonical sidebar — edit only this, then run build-sidebar.py
     ├── js/
+    │   └── player.js                   ← global audio player (episode pages, podcast index, bar)
     ├── fonts/                          ← all font files live here, already in place
     ├── images/
     │   └── podcast/                    ← season cover art goes here
@@ -126,7 +133,7 @@ CSS for the sidebar lives in `base.css` (`.sidebar`, `.brand-text`, `.nav-link`,
 
 ## Blog post structure
 
-Every blog post lives at `blog/post-slug/index.html`. Use `blog/post-template.html` as the base. Key things to fill in per post:
+Every blog post lives at `blog/post-slug/index.html`. Use `_reference/blog-post-template.html` as the base. Key things to fill in per post:
 
 - `<title>`, `og:title`, `og:description`, `og:url`
 - JSON-LD: `headline`, `datePublished`, `description`, `url`
@@ -197,8 +204,6 @@ The old site uses Squarespace. Images from the old site are hosted on Squarespac
 
 ## Pages still to build
 - `index.html` — home page (build last, after content is in place)
-- `blog/index.html` — FF7-style post index with filtering
-- `podcast/index.html` — episode list, custom audio player, season grid
 - `fiction/index.html` — unique design, different feel from blog
 - `games/index.html`
 - `about/index.html`
@@ -208,7 +213,8 @@ The old site uses Squarespace. Images from the old site are hosted on Squarespac
 ## What Claude Code should and should not do
 
 **Do:**
-- Port blog posts when instructed, using `blog/post-template.html` as the base
+- Port blog posts when instructed, using `_reference/blog-post-template.html` as the base
+- Create new podcast episodes using `_reference/episode-template.html` as the base
 - Update `posts.json` whenever a post is added
 - Keep the `allPosts` array in each post's script block in sync
 - Maintain consistent sidebar HTML across all pages

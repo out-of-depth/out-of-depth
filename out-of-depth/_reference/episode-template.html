@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEASON NAME Episode N — out of depth plays</title>
+<!-- Paths are correct for episodes at podcast/season-slug/episode-N/index.html (three levels deep). -->
+<link rel="stylesheet" href="../../../assets/css/base.css">
+<link rel="stylesheet" href="../../../assets/css/podcast-episode.css">
+<style>
+  :root {
+  /* Season accent color — replace with the correct season hex values */
+  /* sapphire-doom:    #6b7fd4  */
+  /* fifty-cent-souls: #c9a227  */
+  /* sunbeams:         #e8a030  */
+  /* analysis-complete:#7ecba1  */
+  /* hackway-heights:  #d45f5f  */
+  --season: #SEASON-HEX;
+  --season-dim: rgba(R,G,B,0.45);
+  --season-glow: rgba(R,G,B,0.35);
+  --season-bg: rgba(R,G,B,0.07);
+  --season-border: rgba(R,G,B,0.25);
+  }
+</style>
+</head>
+<body>
+<aside class="sidebar" aria-label="Primary navigation">
+  <a class="brand-text" href="/">out of depth</a>
+  <nav class="nav">
+    <a class="nav-link" href="/">Home</a>
+    <a class="nav-link" href="/blog/">Blog</a>
+    <a class="nav-link" href="/fiction/">Fiction</a>
+    <a class="nav-link is-active" href="/podcast/">Podcast</a>
+    <a class="nav-link" href="/games/">Games</a>
+    <a class="nav-link" href="/about/">About</a>
+    <hr>
+  </nav>
+</aside>
+<main class="main">
+  <div class="breadcrumb"><a href="/podcast">podcast</a><span>›</span><a href="/podcast/SEASON-SLUG">SEASON NAME</a><span>›</span>episode N</div>
+  <div class="episode-header">
+    <div class="episode-info">
+      <div class="season-tag">SEASON NAME &middot; episode N</div>
+      <h1 class="episode-title">SEASON NAME episode N</h1>
+      <div class="episode-meta"><span>Month DD, YYYY</span><span>SYSTEM NAME</span></div>
+      <p class="episode-description">Episode description goes here.</p>
+      <div class="episode-nav">
+        <!-- If episode 1 (no previous): use the disabled span below -->
+        <!-- <span class="ep-nav-btn disabled">&#9668; PREV</span> -->
+        <a href="/podcast/SEASON-SLUG/episode-PREV/" class="ep-nav-btn">&#9668; PREV</a>
+        <!-- If last episode (no next): use the disabled span below -->
+        <!-- <span class="ep-nav-btn disabled">NEXT &#9658;</span> -->
+        <a href="/podcast/SEASON-SLUG/episode-NEXT/" class="ep-nav-btn">NEXT &#9658;</a>
+      </div>
+    </div>
+    <div class="player-panel">
+      <div class="player-cover"><img src="../../../assets/images/podcast/SEASON-SLUG.jpg" alt="SEASON NAME cover art"></div>
+      <div class="player-glow-bar"></div>
+      <div class="player-body">
+        <div class="player-label-row"><span class="player-label">SEASON NAME &middot; EP. N</span></div>
+        <div class="player-title">SEASON NAME episode N</div>
+        <div class="scrub-wrap" id="scrubWrap"><div class="scrub-track"><div class="scrub-fill" id="scrubFill"></div></div></div>
+        <div class="player-time"><span id="timeElapsed">0:00</span><span id="timeDuration">&mdash;:&mdash;&mdash;</span></div>
+        <div class="player-buttons">
+          <button class="skip-btn" id="btnBack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 .49-3.93"></path></svg></button>
+          <button class="play-btn" id="btnPlay"><svg id="iconPlay" viewBox="0 0 24 24" fill="currentColor"><polygon points="6,4 20,12 6,20"></polygon></svg><svg id="iconPause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg></button>
+          <button class="skip-btn" id="btnFwd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-.49-3.93"></path></svg></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="show-notes">
+    <div class="section-heading">Show Notes</div>
+    <!-- Paste show notes here as <p> tags -->
+    <p>Show notes go here.</p>
+  </div>
+  <div class="ep-list-section">
+    <div class="section-heading">All Episodes &mdash; SEASON NAME</div>
+    <div class="ep-list">
+      <!-- Add one .ep-list-item per episode. Mark the current episode with class="ep-list-item current" -->
+      <a href="/podcast/SEASON-SLUG/episode-1/" class="ep-list-item current"><span class="ep-num">01</span><span class="ep-list-title">SEASON NAME episode 1</span></a>
+      <a href="/podcast/SEASON-SLUG/episode-2/" class="ep-list-item"><span class="ep-num">02</span><span class="ep-list-title">SEASON NAME episode 2</span></a>
+      <!-- continue for each episode... -->
+    </div>
+  </div>
+</main>
+<audio id="audio" preload="metadata"><source src="AUDIO-URL.mp3" type="audio/mpeg"></audio>
+
+<!-- ── Global player bar ── -->
+<div id="ood-bar" class="ood-bar" hidden>
+  <a class="ood-bar-ep-link" id="ood-bar-link" href="">
+    <img class="ood-bar-cover" id="ood-bar-cover" src="" alt="">
+  </a>
+  <div class="ood-bar-info">
+    <div class="ood-bar-season" id="ood-bar-season"></div>
+    <div class="ood-bar-title"  id="ood-bar-title"></div>
+  </div>
+  <div class="ood-bar-main">
+    <div class="ood-bar-controls">
+      <button class="ood-bar-btn"            id="ood-bar-back"  title="Back 15s">&#10216;15</button>
+      <button class="ood-bar-btn ood-bar-play-btn" id="ood-bar-play"  title="Play/Pause">&#9654;</button>
+      <button class="ood-bar-btn"            id="ood-bar-fwd"   title="Forward 15s">15&#10217;</button>
+      <button class="ood-bar-speed"          id="ood-bar-speed">1&times;</button>
+    </div>
+    <div class="ood-bar-scrub-row">
+      <span class="ood-bar-time" id="ood-bar-current">0:00</span>
+      <div class="ood-bar-scrub" id="ood-bar-scrub">
+        <div class="ood-bar-fill" id="ood-bar-fill"></div>
+      </div>
+      <span class="ood-bar-time" id="ood-bar-duration">&ndash;:&ndash;&ndash;</span>
+    </div>
+  </div>
+</div>
+<script src="../../../assets/js/player.js"></script>
+</body>
+</html>
