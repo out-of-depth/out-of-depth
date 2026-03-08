@@ -182,9 +182,9 @@
     <div class="window-titlebar">
       <a class="amiga-btn" href="/blog/" title="Back to Blog">✕</a>
       <span class="window-title-text">outofdepth.com // blog // 5-mothership-android-variants</span>
-      <div class="nav-btns">
-        <span class="amiga-btn disabled" aria-disabled="true">◄ PREV</span>
-        <a class="amiga-btn" href="/blog/reconsidering-alignment-language/" title="Next post">NEXT ►</a>
+      <div class="nav-btns" id="post-nav">
+        <span class="amiga-btn disabled" aria-disabled="true">&#9668; PREV</span>
+        <span class="amiga-btn disabled" aria-disabled="true">NEXT &#9658;</span>
       </div>
     </div>
 
@@ -380,7 +380,7 @@
         <div class="file-name">Related Post Title</div>
         <div class="file-date">Month DD, YYYY</div>
       </a>
-      <div class="file-icon random" onclick="goRandom()">
+      <div class="file-icon random">
         <div class="file-body-wrap">
           <div class="file-body"></div><div class="file-scan"></div>
           <div class="file-header-strip">???</div>
@@ -394,26 +394,7 @@
   </div>
 </main>
 
-<script>
-  const allPosts = [
-    '/blog/5-mothership-android-variants/',
-    '/blog/reconsidering-alignment-language/',
-    '/blog/using-gold-to-level-up-in-5e/',
-    '/blog/faith-in-rosemary-and-her-baby/',
-  ];
-  function goRandom() {
-    const icon    = document.querySelector('.file-icon.random');
-    const glyph   = icon.querySelector('.file-glyph');
-    const name    = icon.querySelector('.file-name');
-    const current = window.location.pathname;
-    const others  = allPosts.filter(p => p !== current);
-    glyph.textContent = '...';
-    name.textContent  = 'searching';
-    setTimeout(() => {
-      window.location.href = others[Math.floor(Math.random() * others.length)];
-    }, 450);
-  }
-</script>
+<script src="../../assets/js/blog-post.js"></script>
 
 </body>
 </html>

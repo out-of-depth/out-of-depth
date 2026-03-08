@@ -10,19 +10,21 @@
       "author":   "Jae",
       "readTime": 12,
       "path":     "/blog/faith-in-rosemary-and-her-baby/",
-      "featured": false
+      "featured": false,
+      "live":     true
     },
     {
       "slug":     "everything-everywhere-all-at-once",
       "title":    "Everything Everywhere All At Once",
       "type":     "blog",
-      "category": "Film",
+      "category": "Film & TV",
       "excerpt":  "I did not expect to cry at a film about a woman doing her taxes.",
       "date":     "2025-02-18",
       "author":   "Jae",
       "readTime": 8,
       "path":     "/blog/everything-everywhere-all-at-once/",
-      "featured": true
+      "featured": true,
+      "live":     false
     },
     {
       "slug":     "the-table-is-the-story",
@@ -34,7 +36,8 @@
       "author":   "Jae",
       "readTime": 6,
       "path":     "/blog/the-table-is-the-story/",
-      "featured": false
+      "featured": false,
+      "live":     false
     },
     {
       "slug":     "organs",
@@ -46,7 +49,21 @@
       "author":   "Jae",
       "readTime": 10,
       "path":     "/blog/organs/",
-      "featured": false
+      "featured": false,
+      "live":     false
+    },
+    {
+      "slug":     "5-mothership-android-variants",
+      "title":    "5 Mothership Android Variants",
+      "type":     "blog",
+      "category": "TTRPGs",
+      "excerpt":  "Five unofficial android variants for Mothership RPG, each with unique stats, skills, and bugs. No playtesting was done. I don't even know what that means.",
+      "date":     "2022-08-14",
+      "author":   "Jae",
+      "readTime": 8,
+      "path":     "/blog/5-mothership-android-variants/",
+      "featured": false,
+      "live":     true
     },
     {
       "slug":     "reconsidering-alignment-language",
@@ -58,7 +75,8 @@
       "author":   "Jae",
       "readTime": 15,
       "path":     "/blog/reconsidering-alignment-language/",
-      "featured": false
+      "featured": false,
+      "live":     true
     },
     {
       "slug":     "using-gold-to-level-up-in-5e",
@@ -70,7 +88,8 @@
       "author":   "Jae",
       "readTime": 8,
       "path":     "/blog/using-gold-to-level-up-in-5e/",
-      "featured": false
+      "featured": false,
+      "live":     true
     }
   ],
 
