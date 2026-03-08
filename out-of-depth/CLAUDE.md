@@ -10,7 +10,7 @@ There is one build script: `build-sidebar.py`. Run it with `python3 build-sideba
 ## File structure
 ```
 /
-├── index.html                          ← home page (not yet built)
+├── index.html                          ← home page (live)
 ├── _reference/
 │   ├── blog-post-template.html         ← REFERENCE — copy this for every new blog post
 │   └── episode-template.html           ← REFERENCE — copy this for every new podcast episode
@@ -142,10 +142,9 @@ Every blog post lives at `blog/post-slug/index.html`. Use `_reference/blog-post-
 - `p-category` — the post category
 - `p-name` on the `<h1>` — post title (also set `data-text` attribute to same value for chromatic aberration effect)
 - `dt-published` — datetime attribute in `YYYY-MM-DD` format, display text as `Month DD, YYYY`
-- PREV/NEXT slugs in the title bar nav buttons
 - Post body inside `<div class="post-body e-content">`
 - Discovery footer: two related post file icons + random post button
-- `allPosts` array in the script block — add every published slug here
+- **PREV/NEXT and random navigation are automatic** — `assets/js/blog-post.js` reads `posts.json` at runtime; no slugs to maintain in the HTML
 
 ### IndieWeb / microformat checklist per post
 - `h-entry` on `<article>` ✓ (already in template)
@@ -161,7 +160,9 @@ Every blog post lives at `blog/post-slug/index.html`. Use `_reference/blog-post-
 
 ## posts.json schema
 
-Update this file every time a post is published. It drives the home page, blog index filtering, and discovery footer random pool.
+Update this file every time a post is published. It drives PREV/NEXT navigation, the random post button, the blog index, and the home page.
+
+`"live": true` tells `blog-post.js` the HTML page exists and is safe to link to. Set it to `false` for draft entries (they won't appear in nav or random pool).
 
 ```json
 {
@@ -176,7 +177,8 @@ Update this file every time a post is published. It drives the home page, blog i
       "author":   "Jae",
       "readTime": 8,
       "path":     "/blog/post-slug-here/",
-      "featured": false
+      "featured": false,
+      "live":     true
     }
   ]
 }
@@ -203,7 +205,6 @@ The old site uses Squarespace. Images from the old site are hosted on Squarespac
 ---
 
 ## Pages still to build
-- `index.html` — home page (build last, after content is in place)
 - `fiction/index.html` — unique design, different feel from blog
 - `games/index.html`
 - `about/index.html`
@@ -215,8 +216,7 @@ The old site uses Squarespace. Images from the old site are hosted on Squarespac
 **Do:**
 - Port blog posts when instructed, using `_reference/blog-post-template.html` as the base
 - Create new podcast episodes using `_reference/episode-template.html` as the base
-- Update `posts.json` whenever a post is added
-- Keep the `allPosts` array in each post's script block in sync
+- Update `posts.json` whenever a post is added — set `"live": true` when the HTML page is published
 - Maintain consistent sidebar HTML across all pages
 - Follow the CSS path depth rules carefully
 
