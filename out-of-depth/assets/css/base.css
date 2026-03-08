@@ -41,7 +41,7 @@ body {
 /* ── FONT FACES ── */
 @font-face {
   font-family: 'AtkinsonHyperlegible';
-  src: url('../fonts/AtkinsonHyperlegible-Regular.ttf') format('truetype');
+  src: url('../fonts/AtkinsonHyperlegible-Regular.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -49,7 +49,7 @@ body {
 
 @font-face {
   font-family: 'AtkinsonHyperlegible';
-  src: url('../fonts/AtkinsonHyperlegible-Bold.ttf') format('truetype');
+  src: url('../fonts/AtkinsonHyperlegible-Bold.woff2') format('woff2');
   font-weight: bold;
   font-style: normal;
   font-display: swap;
@@ -57,7 +57,7 @@ body {
 
 @font-face {
   font-family: 'AtkinsonHyperlegible';
-  src: url('../fonts/AtkinsonHyperlegible-Italic.ttf') format('truetype');
+  src: url('../fonts/AtkinsonHyperlegible-Italic.woff2') format('woff2');
   font-weight: normal;
   font-style: italic;
   font-display: swap;
@@ -65,7 +65,7 @@ body {
 
 @font-face {
   font-family: 'AtkinsonHyperlegible';
-  src: url('../fonts/AtkinsonHyperlegible-BoldItalic.ttf') format('truetype');
+  src: url('../fonts/AtkinsonHyperlegible-BoldItalic.woff2') format('woff2');
   font-weight: bold;
   font-style: italic;
   font-display: swap;
@@ -73,14 +73,14 @@ body {
 
 @font-face {
   font-family: 'Jersey15';
-  src: url('../fonts/Jersey15-Regular.ttf') format('truetype');
+  src: url('../fonts/Jersey15-Regular.woff2') format('woff2');
   font-weight: normal;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'Jersey25';
-  src: url('../fonts/Jersey25-Regular.ttf') format('truetype');
+  src: url('../fonts/Jersey25-Regular.woff2') format('woff2');
   font-weight: normal;
   font-display: swap;
 }
@@ -97,7 +97,7 @@ body {
    Do not use it in structural UI elements. */
 @font-face {
   font-family: 'SymphonyOfTheNight';
-  src: url('../fonts/SymphonyoftheNightfont.ttf') format('truetype');
+  src: url('../fonts/SymphonyoftheNightfont.woff2') format('woff2');
   font-weight: normal;
   font-display: swap;
 }
@@ -277,4 +277,152 @@ body::before {
   }
 
   .nav-link { font-size: 16px; padding: 4px 10px; }
+}
+
+/* ── GLOBAL PLAYER BAR ────────────────────────────────────────────────────── */
+
+.ood-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: 64px;
+  background: #030303;
+  border-top: 1px solid var(--blue-mid);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 20px 0 calc(var(--sidebar-width) + 20px);
+  z-index: 200;
+}
+
+.ood-bar[hidden] { display: none; }
+
+/* shift page content up so nothing hides behind the bar */
+body.has-player-bar .content { padding-bottom: 80px; }
+
+.ood-bar-ep-link {
+  text-decoration: none;
+  flex-shrink: 0;
+  display: flex;
+}
+
+.ood-bar-cover {
+  width: 42px;
+  height: 42px;
+  object-fit: cover;
+  border-radius: 4px;
+  display: block;
+}
+
+.ood-bar-info {
+  flex-shrink: 0;
+  min-width: 110px;
+  max-width: 190px;
+  overflow: hidden;
+}
+
+.ood-bar-season {
+  color: #888;
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ood-bar-title {
+  color: #ddd;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ood-bar-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+
+.ood-bar-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ood-bar-btn {
+  background: none;
+  border: 1px solid #333;
+  border-radius: 4px;
+  color: #bbb;
+  cursor: pointer;
+  font-size: 0.68rem;
+  padding: 2px 8px;
+  line-height: 1.5;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.ood-bar-btn:hover { background: var(--blue-mid); border-color: var(--blue-mid); color: #fff; }
+
+.ood-bar-play-btn {
+  border-color: var(--blue-mid);
+  color: #fff;
+  padding: 2px 14px;
+}
+
+.ood-bar-speed {
+  background: none;
+  border: 1px solid #2a2a2a;
+  border-radius: 4px;
+  color: #666;
+  cursor: pointer;
+  font-size: 0.65rem;
+  padding: 2px 5px;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.ood-bar-speed:hover { color: #aaa; border-color: #555; }
+
+.ood-bar-scrub-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ood-bar-time {
+  color: #666;
+  font-size: 0.67rem;
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.ood-bar-scrub {
+  flex: 1;
+  height: 4px;
+  background: #1e1e1e;
+  border-radius: 2px;
+  cursor: pointer;
+  position: relative;
+}
+
+.ood-bar-fill {
+  height: 100%;
+  background: var(--blue-mid);
+  border-radius: 2px;
+  width: 0%;
+  pointer-events: none;
+  transition: width 0.1s linear;
+}
+
+/* On mobile the sidebar collapses to top, so bar left-padding resets */
+@media (max-width: 680px) {
+  .ood-bar {
+    padding: 0 12px;
+    gap: 10px;
+    height: 60px;
+  }
+
+  .ood-bar-info { display: none; }
 }

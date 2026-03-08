@@ -441,8 +441,6 @@
   </nav>
 </aside>
 
-<audio id="player" preload="none"></audio>
-
 <main class="content">
   <div class="page-grid">
 
@@ -972,9 +970,7 @@
 
         <div class="cp-controls">
           <button class="cp-btn" id="btn-back" title="Back 15s">&#10216;15</button>
-          <button class="cp-btn" id="btn-prev" title="Previous">&#9198;</button>
           <button class="cp-btn play" id="btn-play" title="Play/Pause">&#9654;</button>
-          <button class="cp-btn" id="btn-next" title="Next">&#9197;</button>
           <button class="cp-btn" id="btn-fwd" title="Forward 15s">15&#10217;</button>
           <button class="cp-speed" id="btn-speed">1&times;</button>
         </div>
@@ -1037,152 +1033,45 @@
   </div>
 </main>
 
-<script>
-  var audio = document.getElementById('player');
-  var btnPlay = document.getElementById('btn-play');
-  var btnBack = document.getElementById('btn-back');
-  var btnFwd  = document.getElementById('btn-fwd');
-  var btnPrev = document.getElementById('btn-prev');
-  var btnNext = document.getElementById('btn-next');
-  var btnSpeed = document.getElementById('btn-speed');
-  var progress = document.getElementById('cp-progress');
-  var progressWrap = document.getElementById('cp-progress-wrap');
-  var cpCurrent = document.getElementById('cp-current');
-  var cpDuration = document.getElementById('cp-duration');
-  var cpSeason = document.getElementById('cp-season');
-  var cpTitle = document.getElementById('cp-title');
-  var cpCover = document.getElementById('cp-cover');
-  var cpLink = document.getElementById('cp-link');
-  var filterLabel = document.getElementById('filter-label');
 
-  var speeds = [1, 1.25, 1.5, 2];
-  var speedIdx = 0;
 
-  var slugMap = {
-    'hackway':   'hackway-heights',
-    'analysis':  'analysis-complete',
-    'sunbeams':  'sunbeams',
-    'fiftycent': 'fifty-cent-souls',
-    'sapphire':  'sapphire-doom'
-  };
-
-  function fmt(s) {
-    if (!isFinite(s)) return '–:––';
-    var m = Math.floor(s / 60);
-    var ss = String(Math.floor(s % 60)).padStart(2, '0');
-    return m + ':' + ss;
-  }
-
-  function getVisibleRows() {
-    return Array.prototype.filter.call(document.querySelectorAll('.episode-row'), function(r) {
-      return r.style.display !== 'none';
-    });
-  }
-
-  function loadEpisode(row, autoplay) {
-    document.querySelectorAll('.episode-row').forEach(function(r) { r.classList.remove('is-active'); });
-    row.classList.add('is-active');
-    row.scrollIntoView({ block: 'nearest' });
-
-    var seasonKey = row.dataset.season;
-    var seasonName = row.dataset.seasonName;
-    var ep = row.dataset.ep;
-    var audioSrc = row.dataset.audio || '';
-    var slug = slugMap[seasonKey] || seasonKey;
-    var epUrl = '/podcast/' + slug + '/episode-' + ep + '/';
-    var rowTitle = row.querySelector('.ep-title').textContent;
-
-    cpSeason.textContent = seasonName + ' · Ep ' + ep;
-    cpTitle.textContent = rowTitle;
-    cpCover.src = '../assets/images/podcast/' + slug + '.jpg';
-    cpCover.alt = seasonName + ' cover art';
-    cpLink.href = epUrl;
-
-    if (audioSrc) {
-      var wasPlaying = !audio.paused;
-      audio.src = audioSrc;
-      audio.playbackRate = speeds[speedIdx];
-      if (autoplay || wasPlaying) {
-        audio.play().catch(function() {});
-        btnPlay.innerHTML = '&#9646;&#9646;';
-      } else {
-        btnPlay.innerHTML = '&#9654;';
-      }
+  <!-- ── Global player bar ── -->
+  <div id="ood-bar" class="ood-bar" hidden>
+    <a class="ood-bar-ep-link" id="ood-bar-link" href="">
+      <img class="ood-bar-cover" id="ood-bar-cover" src="" alt="">
+    </a>
+    <div class="ood-bar-info">
+      <div class="ood-bar-season" id="ood-bar-season"></div>
+      <div class="ood-bar-title"  id="ood-bar-title"></div>
+    </div>
+    <div class="ood-bar-main">
+      <div class="ood-bar-controls">
+        <button class="ood-bar-btn"            id="ood-bar-back"  title="Back 15s">&#10216;15</button>
+        <button class="ood-bar-btn ood-bar-play-btn" id="ood-bar-play"  title="Play/Pause">&#9654;</button>
+        <button class="ood-bar-btn"            id="ood-bar-fwd"   title="Forward 15s">15&#10217;</button>
+        <button class="ood-bar-speed"          id="ood-bar-speed">1&times;</button>
+      </div>
+      <div class="ood-bar-scrub-row">
+        <span class="ood-bar-time" id="ood-bar-current">0:00</span>
+        <div class="ood-bar-scrub" id="ood-bar-scrub">
+          <div class="ood-bar-fill" id="ood-bar-fill"></div>
+        </div>
+        <span class="ood-bar-time" id="ood-bar-duration">&ndash;:&ndash;&ndash;</span>
+      </div>
+    </div>
+  </div>
+  <script src="../assets/js/player.js"></script>
+  <script>
+    // Season filter (index-page only)
+    var filterLabel = document.getElementById('filter-label');
+    function filterSeason(season, card) {
+      document.querySelectorAll('.season-card').forEach(function (c) { c.classList.remove('is-active'); });
+      card.classList.add('is-active');
+      filterLabel.textContent = season === 'all' ? 'All' : card.querySelector('.cover-label').textContent.trim();
+      document.querySelectorAll('.episode-row').forEach(function (row) {
+        row.style.display = (season === 'all' || row.dataset.season === season) ? 'flex' : 'none';
+      });
     }
-  }
-
-  document.querySelectorAll('.episode-row').forEach(function(row) {
-    row.addEventListener('click', function(e) {
-      e.preventDefault();
-      loadEpisode(row, true);
-    });
-  });
-
-  function filterSeason(season, card) {
-    document.querySelectorAll('.season-card').forEach(function(c) { c.classList.remove('is-active'); });
-    card.classList.add('is-active');
-    filterLabel.textContent = season === 'all' ? 'All' : card.querySelector('.cover-label').textContent.trim();
-    document.querySelectorAll('.episode-row').forEach(function(row) {
-      row.style.display = (season === 'all' || row.dataset.season === season) ? 'flex' : 'none';
-    });
-  }
-
-  btnPlay.addEventListener('click', function() {
-    if (!audio.src) return;
-    if (audio.paused) {
-      audio.play().catch(function() {});
-      btnPlay.innerHTML = '&#9646;&#9646;';
-    } else {
-      audio.pause();
-      btnPlay.innerHTML = '&#9654;';
-    }
-  });
-
-  btnBack.addEventListener('click', function() { audio.currentTime = Math.max(0, audio.currentTime - 15); });
-  btnFwd.addEventListener('click',  function() { audio.currentTime += 15; });
-
-  btnPrev.addEventListener('click', function() {
-    var rows = getVisibleRows();
-    var idx = rows.findIndex(function(r) { return r.classList.contains('is-active'); });
-    if (idx > 0) loadEpisode(rows[idx - 1], !audio.paused);
-  });
-
-  btnNext.addEventListener('click', function() {
-    var rows = getVisibleRows();
-    var idx = rows.findIndex(function(r) { return r.classList.contains('is-active'); });
-    if (idx < rows.length - 1) loadEpisode(rows[idx + 1], !audio.paused);
-  });
-
-  btnSpeed.addEventListener('click', function() {
-    speedIdx = (speedIdx + 1) % speeds.length;
-    audio.playbackRate = speeds[speedIdx];
-    btnSpeed.textContent = speeds[speedIdx] + '×';
-  });
-
-  audio.addEventListener('timeupdate', function() {
-    if (!audio.duration) return;
-    var pct = (audio.currentTime / audio.duration) * 100;
-    progress.style.width = pct + '%';
-    cpCurrent.textContent = fmt(audio.currentTime);
-  });
-
-  audio.addEventListener('loadedmetadata', function() {
-    cpDuration.textContent = fmt(audio.duration);
-  });
-
-  audio.addEventListener('ended', function() {
-    btnPlay.innerHTML = '&#9654;';
-    var rows = getVisibleRows();
-    var idx = rows.findIndex(function(r) { return r.classList.contains('is-active'); });
-    if (idx < rows.length - 1) loadEpisode(rows[idx + 1], true);
-  });
-
-  progressWrap.addEventListener('click', function(e) {
-    if (!audio.duration) return;
-    var rect = progressWrap.getBoundingClientRect();
-    audio.currentTime = ((e.clientX - rect.left) / rect.width) * audio.duration;
-  });
-</script>
-
+  </script>
 </body>
 </html>
