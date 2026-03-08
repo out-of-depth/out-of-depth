@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Out of Depth</title>
+  <meta name="description" content="Out of Depth — writing, actual-play TTRPG podcast, and games by Jae.">
+  <meta property="og:title"       content="Out of Depth">
+  <meta property="og:description" content="Writing, actual-play TTRPG podcast, and games by Jae.">
+  <meta property="og:url"         content="https://outofdepth.com/">
+  <meta property="og:site_name"   content="Out of Depth">
+
+  <link rel="stylesheet" href="assets/css/base.css">
+
+  <style>
+    /* ── PAGE LAYOUT ── */
+    .content { padding: 40px 40px 80px; }
+
+    .inner {
+      max-width: 920px;
+      margin: 0 auto;
+      position: relative; z-index: 1;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    /* ══════════════════════════════
+       FEATURED — large hero card
+    ══════════════════════════════ */
+    .featured {
+      display: block;
+      text-decoration: none;
+      border: 1px solid rgba(255,3,255,0.25);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 16px;
+      position: relative;
+      background: linear-gradient(150deg, rgba(0,92,99,0.35) 0%, rgba(6,9,59,0.15) 60%);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .featured:hover {
+      border-color: var(--magenta);
+      box-shadow: 0 0 40px rgba(255,3,255,0.1), 0 0 80px rgba(0,92,99,0.1);
+    }
+
+    /* left glitch stripe */
+    .featured::before {
+      content: '';
+      position: absolute; top: 0; left: 0;
+      width: 2px; height: 100%;
+      background: linear-gradient(to bottom,
+        transparent 0%, rgba(255,3,255,0.7) 20%,
+        transparent 40%, rgba(255,3,255,0.4) 65%,
+        transparent 80%, rgba(255,3,255,0.6) 93%, transparent 100%);
+      animation: glitch 7s ease-in-out infinite;
+    }
+
+    @keyframes glitch {
+      0%,100% { opacity:1; transform:none; }
+      44% { opacity:1; } 45% { opacity:0.2; transform:translateY(3px); } 46% { opacity:1; transform:none; }
+      79% { opacity:1; } 80% { opacity:0.3; transform:translateY(-2px); } 81% { opacity:1; transform:none; }
+    }
+
+    /* subtle grid texture */
+    .featured::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,3,255,0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,3,255,0.015) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+    }
+
+    .featured-inner {
+      padding: 36px 44px 40px;
+      position: relative; z-index: 1;
+    }
+
+    .featured-eyebrow {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .featured-type {
+      font-family: 'Jersey15', monospace; font-size: 12px;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: rgba(255,3,255,0.5);
+      display: flex; align-items: center; gap: 6px;
+    }
+
+    .featured-type::before {
+      content: '>';
+      color: var(--magenta);
+      animation: blink 1.2s step-end infinite;
+    }
+
+    .featured-badge {
+      font-family: 'Jersey15', monospace; font-size: 11px;
+      color: rgba(255,255,255,0.3); letter-spacing: 0.1em;
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 2px 8px; border-radius: 2px;
+    }
+
+    .featured-title {
+      font-family: 'Jersey25', monospace;
+      font-size: 52px; line-height: 1.05;
+      color: var(--magenta);
+      text-shadow: 0 0 30px rgba(255,3,255,0.4), 0 0 80px rgba(255,3,255,0.1);
+      margin-bottom: 16px;
+      position: relative;
+    }
+
+    /* chromatic aberration */
+    .featured-title::before {
+      content: attr(data-text);
+      position: absolute; left: 2px; top: 1px;
+      color: rgba(0,229,255,0.08); pointer-events: none;
+    }
+
+    .featured-excerpt {
+      font-size: 16px; line-height: 1.7;
+      color: rgba(255,255,255,0.6);
+      max-width: 620px; margin-bottom: 24px;
+    }
+
+    .featured-meta {
+      display: flex; align-items: center; gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .featured-meta-item {
+      font-family: 'Jersey15', monospace; font-size: 12px;
+      color: rgba(255,255,255,0.25);
+      display: flex; align-items: center; gap: 5px;
+    }
+
+    .featured-meta-item .lbl { color: rgba(255,3,255,0.4); }
+
+    .featured-cta {
+      font-family: 'Jersey15', monospace; font-size: 14px;
+      color: rgba(255,3,255,0.6); letter-spacing: 0.08em;
+      display: flex; align-items: center; gap: 6px;
+      margin-left: auto;
+      transition: color 0.2s, gap 0.2s;
+    }
+
+    .featured:hover .featured-cta { color: var(--magenta); gap: 10px; }
+
+    /* ══════════════════════════════
+       RECENT — three-column grid
+    ══════════════════════════════ */
+    .recent-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .recent-card {
+      display: block;
+      text-decoration: none;
+      border: 1px solid #1a1a2e;
+      border-radius: 4px;
+      padding: 20px 22px;
+      background: linear-gradient(150deg, rgba(0,92,99,0.18) 0%, rgba(6,9,59,0.08) 60%);
+      transition: border-color 0.2s, background 0.2s, transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .recent-card:nth-child(1) { animation-delay: 0.08s; }
+    .recent-card:nth-child(2) { animation-delay: 0.14s; }
+    .recent-card:nth-child(3) { animation-delay: 0.20s; }
+
+    .recent-card:hover {
+      border-color: rgba(255,3,255,0.35);
+      background: linear-gradient(150deg, rgba(0,92,99,0.28) 0%, rgba(6,9,59,0.15) 60%);
+      transform: translateY(-3px);
+      box-shadow: 0 0 24px rgba(255,3,255,0.07);
+    }
+
+    /* win 3.1 notch */
+    .recent-card::before {
+      content: '';
+      position: absolute; top: 0; right: 0;
+      width: 0; height: 0;
+      border-style: solid;
+      border-width: 0 14px 14px 0;
+      border-color: transparent #054278 transparent transparent;
+      transition: border-color 0.2s;
+    }
+
+    .recent-card:hover::before { border-color: transparent rgba(255,3,255,0.5) transparent transparent; }
+
+    /* podcast tint */
+    .recent-card.podcast .recent-type  { color: rgba(0,229,255,0.5); }
+    .recent-card.podcast:hover         { border-color: rgba(0,229,255,0.35); box-shadow: 0 0 24px rgba(0,229,255,0.07); }
+    .recent-card.podcast:hover::before { border-color: transparent rgba(0,229,255,0.5) transparent transparent; }
+    .recent-card.podcast:hover         { background: linear-gradient(150deg, rgba(0,92,99,0.28) 0%, rgba(6,9,59,0.15) 60%); }
+
+    .recent-type {
+      font-family: 'Jersey15', monospace; font-size: 11px;
+      color: rgba(255,3,255,0.4); letter-spacing: 0.1em;
+      text-transform: uppercase; margin-bottom: 8px;
+    }
+
+    .recent-title {
+      font-family: 'Jersey25', monospace; font-size: 20px;
+      color: #fff; line-height: 1.2; margin-bottom: 10px;
+    }
+
+    .recent-excerpt {
+      font-size: 13px; line-height: 1.6;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 14px;
+    }
+
+    .recent-footer {
+      display: flex; justify-content: space-between; align-items: center;
+    }
+
+    .recent-date {
+      font-family: 'Jersey15', monospace; font-size: 11px;
+      color: rgba(255,255,255,0.2);
+    }
+
+    .recent-arrow {
+      font-family: 'Jersey15', monospace; font-size: 13px;
+      color: rgba(255,3,255,0.3);
+      transition: color 0.2s, transform 0.2s;
+    }
+
+    .recent-card:hover .recent-arrow         { color: var(--magenta); transform: translateX(3px); }
+    .recent-card.podcast:hover .recent-arrow { color: var(--cyan); }
+  </style>
+</head>
+<body>
+
+<aside class="sidebar" aria-label="Primary navigation">
+  <a class="brand-text" href="/">out of depth</a>
+  <nav class="nav">
+    <a class="nav-link is-active" href="/">Home</a>
+    <a class="nav-link"           href="/blog/">Blog</a>
+    <a class="nav-link"           href="/fiction/">Fiction</a>
+    <a class="nav-link"           href="/podcast/">Podcast</a>
+    <a class="nav-link"           href="/games/">Games</a>
+    <a class="nav-link"           href="/about/">About</a>
+    <hr>
+  </nav>
+</aside>
+
+<main class="content">
+  <div class="inner">
+
+    <!-- ── FEATURED ── -->
+    <a class="featured" href="/blog/faith-in-rosemary-and-her-baby/">
+      <div class="featured-inner">
+        <div class="featured-eyebrow">
+          <span class="featured-type">Blog &middot; Film &amp; TV</span>
+          <span class="featured-badge">LATEST</span>
+        </div>
+        <h1 class="featured-title" data-text="faith in rosemary and her baby">faith in rosemary and her baby</h1>
+        <p class="featured-excerpt">Rewatching Rosemary's Baby after some time away, and finding something new: what Rosemary believes, and what it means to be a shepherd.</p>
+        <div class="featured-meta">
+          <div class="featured-meta-item"><span class="lbl">BY</span><span>Jae</span></div>
+          <div class="featured-meta-item"><span class="lbl">DATE</span><span>Nov 12, 2025</span></div>
+          <div class="featured-meta-item"><span class="lbl">READ</span><span>12 min</span></div>
+          <span class="featured-cta">Read &#8594;</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- ── RECENT ── -->
+    <div class="recent-grid">
+
+      <a class="recent-card" href="/blog/using-gold-to-level-up-in-5e/">
+        <div class="recent-type">Blog &middot; TTRPGs</div>
+        <div class="recent-title">Using Gold to Level Up in 5e</div>
+        <div class="recent-excerpt">An experiment in replacing XP with gold pieces, making character advancement feel diegetic, tangible, and properly expensive.</div>
+        <div class="recent-footer">
+          <span class="recent-date">Aug 18, 2023</span>
+          <span class="recent-arrow">&#8594;</span>
+        </div>
+      </a>
+
+      <a class="recent-card podcast" href="/podcast/sapphire-doom/episode-6/">
+        <div class="recent-type">Podcast &middot; Sapphire Doom</div>
+        <div class="recent-title">Sapphire Doom Episode 6</div>
+        <div class="recent-excerpt">Our heroes are met with peculiar puzzles that give insight to the mind of Ware'ik Sur.</div>
+        <div class="recent-footer">
+          <span class="recent-date">Mar 5, 2026</span>
+          <span class="recent-arrow">&#8594;</span>
+        </div>
+      </a>
+
+      <a class="recent-card" href="/blog/reconsidering-alignment-language/">
+        <div class="recent-type">Blog &middot; TTRPGs</div>
+        <div class="recent-title">Reconsidering Alignment Languages</div>
+        <div class="recent-excerpt">Redefining Alignment Languages to reshape what it means to be a Cleric.</div>
+        <div class="recent-footer">
+          <span class="recent-date">Jan 10, 2023</span>
+          <span class="recent-arrow">&#8594;</span>
+        </div>
+      </a>
+
+    </div>
+
+  </div>
+</main>
+
+</body>
+</html>

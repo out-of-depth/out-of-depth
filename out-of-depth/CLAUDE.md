@@ -10,7 +10,7 @@ There is one build script: `build-sidebar.py`. Run it with `python3 build-sideba
 ## File structure
 ```
 /
-├── index.html                          ← home page (not yet built)
+├── index.html                          ← home page (live)
 ├── _reference/
 │   ├── blog-post-template.html         ← REFERENCE — copy this for every new blog post
 │   └── episode-template.html           ← REFERENCE — copy this for every new podcast episode
@@ -205,7 +205,6 @@ The old site uses Squarespace. Images from the old site are hosted on Squarespac
 ---
 
 ## Pages still to build
-- `index.html` — home page (build last, after content is in place)
 - `fiction/index.html` — unique design, different feel from blog
 - `games/index.html`
 - `about/index.html`
