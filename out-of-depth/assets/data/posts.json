@@ -35,6 +35,18 @@
       "readTime": 10,
       "path":     "/blog/organs/",
       "featured": false
+    },
+    {
+      "slug":     "reconsidering-alignment-language",
+      "title":    "Reconsidering Alignment Languages",
+      "type":     "blog",
+      "category": "TTRPGs",
+      "excerpt":  "A deep dive into what Alignment Languages could actually mean -- and how redefining them reshapes what it means to be a Cleric.",
+      "date":     "2023-01-15",
+      "author":   "Jae",
+      "readTime": 15,
+      "path":     "/blog/reconsidering-alignment-language/",
+      "featured": false
     }
   ],
 
