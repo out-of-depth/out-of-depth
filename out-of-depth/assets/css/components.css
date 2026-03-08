@@ -66,6 +66,13 @@
   border-right-color:  rgba(255, 3, 255, 0.55);
 }
 
+/* disabled state — used for PREV/NEXT when no adjacent post exists */
+.amiga-btn.disabled {
+  opacity: 0.3;
+  cursor: default;
+  pointer-events: none;
+}
+
 /* ── POST WINDOW TITLE BAR ── */
 .window-titlebar {
   background:
