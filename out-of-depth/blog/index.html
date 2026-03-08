@@ -18,12 +18,14 @@
     .blognav-content {
       margin-left: var(--sidebar-width);
       height: 100vh;
+      box-sizing: border-box;
       overflow: hidden;
       display: grid;
       grid-template-columns: 1fr 320px;
       grid-template-rows: var(--header-height) 1fr 1fr;
-      gap: 4px;
-      padding: 4px;
+      gap: 12px;
+      padding: 32px 28px 80px;
+      max-width: calc(1100px + var(--sidebar-width));
     }
 
     /* ── HEADER ── */
@@ -32,7 +34,7 @@
       grid-row: 1;
       display: flex;
       align-items: center;
-      padding: 0 28px;
+      padding: 0 8px;
     }
 
     .header-box h1 {
