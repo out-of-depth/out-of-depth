@@ -99,18 +99,32 @@
   </div>
 </main>
 <audio id="audio" preload="metadata"><source src="https://podcasts.captivate.fm/media/cc8adb6f-d34e-42c7-9076-a2b196659922/Episode6.mp3" type="audio/mpeg"></audio>
-<script>
-const audio=document.getElementById("audio"),btnPlay=document.getElementById("btnPlay"),iconPlay=document.getElementById("iconPlay"),iconPause=document.getElementById("iconPause"),scrubWrap=document.getElementById("scrubWrap"),scrubFill=document.getElementById("scrubFill"),timeElapsed=document.getElementById("timeElapsed"),timeDuration=document.getElementById("timeDuration");
-function fmt(s){if(isNaN(s))return"—:——";const m=Math.floor(s/60),sec=Math.floor(s%60).toString().padStart(2,"0"),h=Math.floor(m/60);return h>0?h+":"+(m%60).toString().padStart(2,"0")+":"+sec:m+":"+sec;}
-function setPlaying(p){iconPlay.style.display=p?"none":"";iconPause.style.display=p?"":"none";}
-btnPlay.addEventListener("click",()=>audio.paused?audio.play():audio.pause());
-audio.addEventListener("play",()=>setPlaying(true));audio.addEventListener("pause",()=>setPlaying(false));audio.addEventListener("ended",()=>setPlaying(false));
-document.getElementById("btnBack").addEventListener("click",()=>{audio.currentTime=Math.max(0,audio.currentTime-15);});
-document.getElementById("btnFwd").addEventListener("click",()=>{audio.currentTime=Math.min(audio.duration||0,audio.currentTime+15);});
-audio.addEventListener("timeupdate",()=>{scrubFill.style.width=audio.duration?(audio.currentTime/audio.duration*100)+"%":"0%";timeElapsed.textContent=fmt(audio.currentTime);});
-audio.addEventListener("durationchange",()=>{timeDuration.textContent=fmt(audio.duration);});
-scrubWrap.addEventListener("click",e=>{if(!audio.duration)return;audio.currentTime=((e.clientX-scrubWrap.getBoundingClientRect().left)/scrubWrap.offsetWidth)*audio.duration;});
-let drag=false;scrubWrap.addEventListener("mousedown",()=>drag=true);window.addEventListener("mousemove",e=>{if(!drag||!audio.duration)return;const pct=Math.max(0,Math.min(1,(e.clientX-scrubWrap.getBoundingClientRect().left)/scrubWrap.offsetWidth));scrubFill.style.width=(pct*100)+"%";timeElapsed.textContent=fmt(pct*audio.duration);});window.addEventListener("mouseup",e=>{if(!drag||!audio.duration)return;drag=false;audio.currentTime=Math.max(0,Math.min(1,(e.clientX-scrubWrap.getBoundingClientRect().left)/scrubWrap.offsetWidth))*audio.duration;});
-</script>
+
+  <!-- ── Global player bar ── -->
+  <div id="ood-bar" class="ood-bar" hidden>
+    <a class="ood-bar-ep-link" id="ood-bar-link" href="">
+      <img class="ood-bar-cover" id="ood-bar-cover" src="" alt="">
+    </a>
+    <div class="ood-bar-info">
+      <div class="ood-bar-season" id="ood-bar-season"></div>
+      <div class="ood-bar-title"  id="ood-bar-title"></div>
+    </div>
+    <div class="ood-bar-main">
+      <div class="ood-bar-controls">
+        <button class="ood-bar-btn"            id="ood-bar-back"  title="Back 15s">&#10216;15</button>
+        <button class="ood-bar-btn ood-bar-play-btn" id="ood-bar-play"  title="Play/Pause">&#9654;</button>
+        <button class="ood-bar-btn"            id="ood-bar-fwd"   title="Forward 15s">15&#10217;</button>
+        <button class="ood-bar-speed"          id="ood-bar-speed">1&times;</button>
+      </div>
+      <div class="ood-bar-scrub-row">
+        <span class="ood-bar-time" id="ood-bar-current">0:00</span>
+        <div class="ood-bar-scrub" id="ood-bar-scrub">
+          <div class="ood-bar-fill" id="ood-bar-fill"></div>
+        </div>
+        <span class="ood-bar-time" id="ood-bar-duration">&ndash;:&ndash;&ndash;</span>
+      </div>
+    </div>
+  </div>
+  <script src="../../assets/js/player.js"></script>
 </body>
 </html>

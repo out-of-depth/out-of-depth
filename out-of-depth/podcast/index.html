@@ -441,8 +441,6 @@
   </nav>
 </aside>
 
-<audio id="player" preload="none"></audio>
-
 <main class="content">
   <div class="page-grid">
 
@@ -1035,84 +1033,45 @@
   </div>
 </main>
 
-<script>
-  var audio = document.getElementById('player');
-  var btnPlay = document.getElementById('btn-play');
-  var btnBack = document.getElementById('btn-back');
-  var btnFwd  = document.getElementById('btn-fwd');
-  var btnSpeed = document.getElementById('btn-speed');
-  var progress = document.getElementById('cp-progress');
-  var progressWrap = document.getElementById('cp-progress-wrap');
-  var cpCurrent = document.getElementById('cp-current');
-  var cpDuration = document.getElementById('cp-duration');
-  var filterLabel = document.getElementById('filter-label');
 
-  var speeds = [1, 1.25, 1.5, 2];
-  var speedIdx = 0;
 
-  function fmt(s) {
-    if (!isFinite(s)) return '–:––';
-    var m = Math.floor(s / 60);
-    var ss = String(Math.floor(s % 60)).padStart(2, '0');
-    return m + ':' + ss;
-  }
-
-  // Load the most recent episode into the player on page load
-  var firstRow = document.querySelector('.episode-row');
-  if (firstRow && firstRow.dataset.audio) {
-    audio.src = firstRow.dataset.audio;
-  }
-
-  function filterSeason(season, card) {
-    document.querySelectorAll('.season-card').forEach(function(c) { c.classList.remove('is-active'); });
-    card.classList.add('is-active');
-    filterLabel.textContent = season === 'all' ? 'All' : card.querySelector('.cover-label').textContent.trim();
-    document.querySelectorAll('.episode-row').forEach(function(row) {
-      row.style.display = (season === 'all' || row.dataset.season === season) ? 'flex' : 'none';
-    });
-  }
-
-  btnPlay.addEventListener('click', function() {
-    if (!audio.src) return;
-    if (audio.paused) {
-      audio.play().catch(function() {});
-      btnPlay.innerHTML = '&#9646;&#9646;';
-    } else {
-      audio.pause();
-      btnPlay.innerHTML = '&#9654;';
+  <!-- ── Global player bar ── -->
+  <div id="ood-bar" class="ood-bar" hidden>
+    <a class="ood-bar-ep-link" id="ood-bar-link" href="">
+      <img class="ood-bar-cover" id="ood-bar-cover" src="" alt="">
+    </a>
+    <div class="ood-bar-info">
+      <div class="ood-bar-season" id="ood-bar-season"></div>
+      <div class="ood-bar-title"  id="ood-bar-title"></div>
+    </div>
+    <div class="ood-bar-main">
+      <div class="ood-bar-controls">
+        <button class="ood-bar-btn"            id="ood-bar-back"  title="Back 15s">&#10216;15</button>
+        <button class="ood-bar-btn ood-bar-play-btn" id="ood-bar-play"  title="Play/Pause">&#9654;</button>
+        <button class="ood-bar-btn"            id="ood-bar-fwd"   title="Forward 15s">15&#10217;</button>
+        <button class="ood-bar-speed"          id="ood-bar-speed">1&times;</button>
+      </div>
+      <div class="ood-bar-scrub-row">
+        <span class="ood-bar-time" id="ood-bar-current">0:00</span>
+        <div class="ood-bar-scrub" id="ood-bar-scrub">
+          <div class="ood-bar-fill" id="ood-bar-fill"></div>
+        </div>
+        <span class="ood-bar-time" id="ood-bar-duration">&ndash;:&ndash;&ndash;</span>
+      </div>
+    </div>
+  </div>
+  <script src="../assets/js/player.js"></script>
+  <script>
+    // Season filter (index-page only)
+    var filterLabel = document.getElementById('filter-label');
+    function filterSeason(season, card) {
+      document.querySelectorAll('.season-card').forEach(function (c) { c.classList.remove('is-active'); });
+      card.classList.add('is-active');
+      filterLabel.textContent = season === 'all' ? 'All' : card.querySelector('.cover-label').textContent.trim();
+      document.querySelectorAll('.episode-row').forEach(function (row) {
+        row.style.display = (season === 'all' || row.dataset.season === season) ? 'flex' : 'none';
+      });
     }
-  });
-
-  btnBack.addEventListener('click', function() { audio.currentTime = Math.max(0, audio.currentTime - 15); });
-  btnFwd.addEventListener('click',  function() { audio.currentTime += 15; });
-
-  btnSpeed.addEventListener('click', function() {
-    speedIdx = (speedIdx + 1) % speeds.length;
-    audio.playbackRate = speeds[speedIdx];
-    btnSpeed.textContent = speeds[speedIdx] + '×';
-  });
-
-  audio.addEventListener('timeupdate', function() {
-    if (!audio.duration) return;
-    var pct = (audio.currentTime / audio.duration) * 100;
-    progress.style.width = pct + '%';
-    cpCurrent.textContent = fmt(audio.currentTime);
-  });
-
-  audio.addEventListener('loadedmetadata', function() {
-    cpDuration.textContent = fmt(audio.duration);
-  });
-
-  audio.addEventListener('ended', function() {
-    btnPlay.innerHTML = '&#9654;';
-  });
-
-  progressWrap.addEventListener('click', function(e) {
-    if (!audio.duration) return;
-    var rect = progressWrap.getBoundingClientRect();
-    audio.currentTime = ((e.clientX - rect.left) / rect.width) * audio.duration;
-  });
-</script>
-
+  </script>
 </body>
 </html>
