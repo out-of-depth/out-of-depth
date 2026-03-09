@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About | Out of Depth</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Exo:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+
+    /* ── SITE VARIABLES (from base.css) ── */
+    :root {
+      --magenta:        #ff03ff;
+      --magenta-dim:    rgba(255,3,255,0.45);
+      --cyan:           #00e5ff;
+      --teal:           #005c63;
+      --blue-mid:       #054278;
+      --bg:             #000;
+      --white:          #fff;
+      --sidebar-width:  220px;
+      --box-bg:         linear-gradient(150deg, #005c6399, #06093B11 60%);
+      --box-border:     2px solid #c6c6c6;
+      --box-radius:     8px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'AtkinsonHyperlegible', 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--white);
+      min-height: 100vh;
+    }
+
+    /* scanlines */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background: repeating-linear-gradient(
+        0deg, transparent, transparent 2px,
+        rgba(0,0,0,0.07) 2px, rgba(0,0,0,0.07) 4px
+      );
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* ambient glow */
+    .content::before {
+      content: '';
+      position: fixed;
+      top: 10%;
+      left: calc(var(--sidebar-width) + 5%);
+      width: 700px; height: 700px;
+      background: radial-gradient(ellipse, rgba(0,92,99,0.1) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      position: fixed;
+      top: 0; left: 0;
+      width: var(--sidebar-width);
+      height: 100vh;
+      background: linear-gradient(160deg, #05427888 0%, #000 50%, #05427833 100%);
+      border-right: 1px solid #054278;
+      display: flex;
+      flex-direction: column;
+      padding: 24px 0;
+      z-index: 100;
+    }
+    .sidebar::after {
+      content: '';
+      position: absolute; top: 0; right: 0;
+      width: 1px; height: 100%;
+      background: linear-gradient(to bottom, transparent, var(--magenta), transparent);
+      opacity: 0.4;
+    }
+    .brand-text {
+      font-family: 'Exo', sans-serif;
+      font-weight: 300; font-size: 28px;
+      color: var(--white);
+      text-align: center;
+      padding: 0 16px 24px;
+      border-bottom: 1px solid #054278;
+      line-height: 1.2;
+      text-decoration: none;
+      display: block;
+      letter-spacing: 0.04em;
+      text-transform: lowercase;
+    }
+    .nav {
+      display: flex; flex-direction: column;
+      padding: 20px 16px; gap: 6px; flex: 1;
+    }
+    .nav-link {
+      font-family: 'Jersey15', 'Courier New', monospace;
+      font-size: 24px;
+      display: block; padding: 8px 14px;
+      text-align: center;
+      border: 1px solid #054278;
+      border-radius: 5px;
+      color: var(--magenta);
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .nav-link:hover { border-color: var(--magenta); box-shadow: 0 0 10px rgba(255,3,255,0.3); color: #fff; }
+    .nav-link.is-active {
+      background: linear-gradient(120deg, rgba(255,3,255,0.15), transparent);
+      border-color: var(--magenta); color: #fff;
+    }
+    .nav hr { border: none; border-top: 1px solid #054278; margin: 8px 0; }
+
+    /* ── CONTENT AREA ── */
+    .content {
+      margin-left: var(--sidebar-width);
+      padding: 48px 48px 100px;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    .inner {
+      max-width: 820px;
+      margin: 0 auto;
+      position: relative; z-index: 1;
+      animation: fadeUp 0.45s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
+    }
+
+    /* ── ABOUT BOX ── */
+    .about-box {
+      background-image: var(--box-bg);
+      border: var(--box-border);
+      border-radius: var(--box-radius);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* inner inset highlight */
+    .about-box::before {
+      content: '';
+      position: absolute; inset: 0;
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: var(--box-radius);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .about-box-inner {
+      padding: 40px 48px 48px;
+      position: relative; z-index: 1;
+    }
+
+    /* ── EYEBROW ── */
+    .about-eyebrow {
+      font-family: 'Jersey15', 'Courier New', monospace;
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--magenta-dim);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .about-eyebrow::before {
+      content: '>';
+      color: var(--magenta);
+      animation: blink 1.4s step-end infinite;
+    }
+
+    /* ── TITLE ── */
+    .about-title {
+      font-family: 'Jersey25', monospace;
+      font-size: clamp(44px, 6.5vw, 68px);
+      line-height: 1;
+      letter-spacing: 0.04em;
+      text-transform: lowercase;
+      margin-bottom: 32px;
+      color: var(--magenta);
+      text-shadow:
+        0 0 28px rgba(255,3,255,0.4),
+        0 0 60px rgba(255,3,255,0.1);
+    }
+
+    /* ── BODY TEXT ── */
+    .about-body {
+      border-top: 1px solid rgba(255,3,255,0.1);
+      padding-top: 28px;
+    }
+
+    .about-body p {
+      font-size: 16px;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.83);
+      margin-bottom: 20px;
+      max-width: 640px;
+    }
+
+    .about-body p:last-of-type {
+      margin-bottom: 0;
+    }
+
+    /* ── SIGNATURE — same as blog posts ── */
+    .about-signature {
+      margin-top: 36px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(255,3,255,0.1);
+    }
+
+    .about-signature p {
+      font-size: 15px;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 2px;
+    }
+
+    .signature {
+      font-family: 'Jersey25', monospace;
+      font-size: 38px;
+      color: var(--magenta);
+      text-shadow: 0 0 20px rgba(255,3,255,0.35);
+    }
+
+  </style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <a class="brand-text" href="/">out of depth</a>
+  <nav class="nav">
+    <a class="nav-link" href="/">Home</a>
+    <a class="nav-link" href="/blog/">Blog</a>
+    <a class="nav-link" href="/fiction/">Fiction</a>
+    <a class="nav-link" href="/podcast/">Podcast</a>
+    <a class="nav-link" href="/games/">Games</a>
+    <a class="nav-link is-active" href="/about/">About</a>
+    <hr>
+  </nav>
+</aside>
+
+<main class="content">
+  <div class="inner">
+
+    <div class="about-box">
+      <div class="about-box-inner">
+
+        <div class="about-eyebrow">About</div>
+        <h1 class="about-title">about me</h1>
+
+        <div class="about-body">
+          <p>I don't really know what to say, other than I've been writing since I was a kid. I grew up thinking I'd be a storyteller. Writing comics and scary stories. I got into acting as I was leaving high school, and spent a large chunk of my life as a stage actor in Chicago. Even then I generally described myself as a storyteller.</p>
+          <p>A few years ago, I started Out of Depth as a place where all the different creative ideas I had could live. It started with a podcast called Out of Depth Plays, where me and my actor friends played different Role Playing Games, and told cool stories. I'm very proud of that show, and spent a lot of time editing and sound designing it so it was a fun experience for the listener. My goal was for it to kind of sound like an improvised old time radio show, and I think I mostly achieved that.</p>
+          <p>During that time I got really excited about writing and creating stuff but I wanted a fun space on the internet to host it all. I wanted my own little digital garden where I can play and express myself the best way I know how - through my creativity in whatever form that may take. I hope you enjoy exploring my corner of the internet. I'm going to enjoy working on it.</p>
+        </div>
+
+        <div class="about-signature">
+          <p>safe travels,</p>
+          <p class="signature">jae.</p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</main>
+
+</body>
+</html>
