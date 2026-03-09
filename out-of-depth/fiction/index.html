@@ -4,177 +4,45 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fiction | Out of Depth</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Exo:wght@300;400&display=swap" rel="stylesheet">
-  <!-- Exo still used for sidebar brand-text -->
+  <meta name="description" content="Short fiction by Jae — horror, literary, sci-fi.">
+
+  <link rel="stylesheet" href="../assets/css/base.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+
   <style>
-
-    /* ── SITE VARIABLES (from base.css) ── */
+    /* ── FICTION GENRE ACCENT VARIABLES ── */
     :root {
-      --magenta:        #ff03ff;
-      --magenta-dim:    rgba(255,3,255,0.45);
-      --cyan:           #00e5ff;
-      --teal:           #005c63;
-      --blue-mid:       #054278;
-      --bg:             #000;
-      --white:          #fff;
-      --sidebar-width:  220px;
-      --box-bg:         linear-gradient(150deg, #005c6399, #06093B11 60%);
-      --box-border:     2px solid #c6c6c6;
-      --box-radius:     8px;
+      --horror:          #D21404;
+      --horror-dim:      rgba(210,20,4,0.6);
+      --horror-glow:     rgba(210,20,4,0.28);
+      --horror-border:   rgba(210,20,4,0.35);
+      --horror-bg:       rgba(210,20,4,0.07);
 
-      /* ── FICTION GENRE ACCENTS ──────────────────────────────
-         sci-fi    → --cyan (#00e5ff) — already in base.css
-         horror    → --crimson        — new; nothing close enough
-         literary  → --sunrise        — new; the coral/vaporwave hue
-         ──────────────────────────────────────────────────── */
-      /* horror — Candy Apple #D21404 */
-      --horror:         #D21404;
-      --horror-dim:     rgba(210,20,4,0.6);
-      --horror-glow:    rgba(210,20,4,0.28);
-      --horror-border:  rgba(210,20,4,0.35);
-      --horror-bg:      rgba(210,20,4,0.07);
+      --literary:        #fb9648;
+      --literary-dim:    rgba(251,150,72,0.6);
+      --literary-glow:   rgba(251,150,72,0.28);
+      --literary-border: rgba(251,150,72,0.35);
+      --literary-bg:     rgba(251,150,72,0.07);
 
-      /* literary — warm amber #fb9648 */
-      --literary:       #fb9648;
-      --literary-dim:   rgba(251,150,72,0.6);
-      --literary-glow:  rgba(251,150,72,0.28);
-      --literary-border:rgba(251,150,72,0.35);
-      --literary-bg:    rgba(251,150,72,0.07);
-
-      /* sci-fi — site teal rgba(42,157,157) */
-      --scifi:          #2a9d9d;
-      --scifi-dim:      rgba(42,157,157,0.6);
-      --scifi-glow:     rgba(42,157,157,0.28);
-      --scifi-border:   rgba(42,157,157,0.35);
-      --scifi-bg:       rgba(42,157,157,0.07);
+      --scifi:           #2a9d9d;
+      --scifi-dim:       rgba(42,157,157,0.6);
+      --scifi-glow:      rgba(42,157,157,0.28);
+      --scifi-border:    rgba(42,157,157,0.35);
+      --scifi-bg:        rgba(42,157,157,0.07);
     }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'AtkinsonHyperlegible', 'Segoe UI', sans-serif;
-      background: var(--bg);
-      color: var(--white);
-      min-height: 100vh;
-    }
-
-    /* scanlines */
-    body::before {
-      content: '';
-      position: fixed; inset: 0;
-      background: repeating-linear-gradient(
-        0deg, transparent, transparent 2px,
-        rgba(0,0,0,0.07) 2px, rgba(0,0,0,0.07) 4px
-      );
-      pointer-events: none;
-      z-index: 9999;
-    }
-
-    /* ambient glow */
-    .content::before {
-      content: '';
-      position: fixed;
-      top: 10%;
-      left: calc(var(--sidebar-width) + 5%);
-      width: 700px; height: 700px;
-      background: radial-gradient(ellipse,
-        rgba(0,92,99,0.1) 0%, transparent 70%
-      );
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* ── SIDEBAR ── */
-    .sidebar {
-      position: fixed;
-      top: 0; left: 0;
-      width: var(--sidebar-width);
-      height: 100vh;
-      background: linear-gradient(160deg, #05427888 0%, #000 50%, #05427833 100%);
-      border-right: 1px solid #054278;
-      display: flex;
-      flex-direction: column;
-      padding: 24px 0;
-      z-index: 100;
-    }
-    .sidebar::after {
-      content: '';
-      position: absolute; top: 0; right: 0;
-      width: 1px; height: 100%;
-      background: linear-gradient(to bottom, transparent, var(--magenta), transparent);
-      opacity: 0.4;
-    }
-    .brand-text {
-      font-family: 'Exo', sans-serif;
-      font-weight: 300; font-size: 28px;
-      color: var(--white);
-      text-align: center;
-      padding: 0 16px 24px;
-      border-bottom: 1px solid #054278;
-      line-height: 1.2;
-      text-decoration: none;
-      display: block;
-      letter-spacing: 0.04em;
-      text-transform: lowercase;
-    }
-    .nav {
-      display: flex; flex-direction: column;
-      padding: 20px 16px; gap: 6px; flex: 1;
-    }
-    .nav-link {
-      font-family: 'Jersey15', 'Courier New', monospace;
-      font-size: 24px;
-      display: block; padding: 8px 14px;
-      text-align: center;
-      border: 1px solid #054278;
-      border-radius: 5px;
-      color: var(--magenta);
-      text-decoration: none;
-      transition: all 0.2s;
-    }
-    .nav-link:hover { border-color: var(--magenta); box-shadow: 0 0 10px rgba(255,3,255,0.3); color: #fff; }
-    .nav-link.is-active {
-      background: linear-gradient(120deg, rgba(255,3,255,0.15), transparent);
-      border-color: var(--magenta); color: #fff;
-    }
-    .nav hr { border: none; border-top: 1px solid #054278; margin: 8px 0; }
-
-    /* ── CONTENT AREA ── */
-    .content {
-      margin-left: var(--sidebar-width);
-      padding: 48px 48px 100px;
-      min-height: 100vh;
-      position: relative;
-    }
-
+    /* ── INNER WRAPPER ── */
     .inner {
       max-width: 900px;
       margin: 0 auto;
-      position: relative; z-index: 1;
+      position: relative;
+      z-index: 1;
       animation: fadeUp 0.45s ease both;
     }
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50%       { opacity: 0; }
-    }
-
-    /* ─────────────────────────────────────────────
-       FICTION HEADER BOX
-       Background matches --box-bg exactly.
-       Border matches --box-border exactly.
-       Inner inset highlight matches .box::before.
-       Left stripe is the sunrise gradient — the
-       one distinctive fiction touch.
-    ───────────────────────────────────────────── */
+    /* ── FICTION HEADER BOX ── */
     .fiction-header {
-      background-image: var(--box-bg); /* identical to podcast/blog boxes */
+      background-image: var(--box-bg);
       border: var(--box-border);
       border-radius: var(--box-radius);
       position: relative;
@@ -182,18 +50,18 @@
       margin-bottom: 28px;
     }
 
-    /* inner inset highlight — same as .box::before in components.css */
+    /* inner inset highlight — matches .box::before in components.css */
     .fiction-header::before {
       content: '';
-      position: absolute; inset: 0;
+      position: absolute;
+      inset: 0;
       border: 1px solid rgba(255,255,255,0.05);
       border-radius: var(--box-radius);
       pointer-events: none;
       z-index: 2;
     }
 
-    /* left stripe: the site's signature edge detail,
-       colored with the vaporwave sunrise gradient */
+    /* left stripe: sci-fi → literary → horror genre gradient */
     .fiction-header-stripe {
       position: absolute;
       top: 0; left: 0;
@@ -208,11 +76,12 @@
 
     .fiction-header-inner {
       padding: 36px 44px 38px;
-      position: relative; z-index: 1;
+      position: relative;
+      z-index: 1;
     }
 
     .header-eyebrow {
-      font-family: 'Jersey15', 'Courier New', monospace;
+      font-family: 'Jersey15', monospace;
       font-size: 12px;
       letter-spacing: 0.15em;
       text-transform: uppercase;
@@ -222,6 +91,7 @@
       align-items: center;
       gap: 8px;
     }
+
     .header-eyebrow::before {
       content: '>';
       color: var(--magenta);
@@ -255,31 +125,30 @@
       gap: 14px;
       margin-bottom: 18px;
     }
+
     .shelf-label-text {
-      font-family: 'Jersey15', 'Courier New', monospace;
+      font-family: 'Jersey15', monospace;
       font-size: 11px;
       letter-spacing: 0.22em;
       text-transform: uppercase;
       color: rgba(255,255,255,0.75);
       white-space: nowrap;
     }
+
     .shelf-rule {
-      flex: 1; height: 1px;
+      flex: 1;
+      height: 1px;
       background: linear-gradient(to right, rgba(255,255,255,0.35), transparent);
     }
 
-    /* ─────────────────────────────────────────────
-       FICTION CARDS — genre accent color system
-       Each genre class sets four local properties.
-       The card structure is identical throughout;
-       only the color values change per genre.
-    ───────────────────────────────────────────── */
+    /* ── FICTION GRID ── */
     .fiction-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(262px, 1fr));
       gap: 10px;
     }
 
+    /* ── FICTION CARD — genre accent color system ── */
     .fiction-card {
       display: block;
       text-decoration: none;
@@ -302,7 +171,6 @@
       border: 1px solid var(--g-border);
     }
 
-    /* ── genre modifiers ── */
     .fiction-card.horror {
       --g:        var(--horror);
       --g-dim:    var(--horror-dim);
@@ -310,6 +178,7 @@
       --g-border: var(--horror-border);
       --g-bg:     var(--horror-bg);
     }
+
     .fiction-card.scifi {
       --g:        var(--scifi);
       --g-dim:    var(--scifi-dim);
@@ -327,7 +196,8 @@
     /* top-right corner notch */
     .fiction-card::before {
       content: '';
-      position: absolute; top: 0; right: 0;
+      position: absolute;
+      top: 0; right: 0;
       width: 0; height: 0;
       border-style: solid;
       border-width: 0 14px 14px 0;
@@ -346,11 +216,9 @@
       box-shadow: 0 0 28px var(--g-glow), 0 0 60px color-mix(in srgb, var(--g-glow) 50%, transparent);
     }
 
-    .fiction-card:hover::before {
-      filter: brightness(2.5);
-    }
+    .fiction-card:hover::before { filter: brightness(2.5); }
 
-    /* accent dot — the genre signal in its purest form */
+    /* accent dot — genre signal */
     .card-dot {
       width: 7px; height: 7px;
       border-radius: 50%;
@@ -362,7 +230,7 @@
     }
 
     .card-title {
-      font-family: 'Jersey25', 'Courier New', monospace;
+      font-family: 'Jersey25', monospace;
       font-size: 20px;
       color: #fff;
       line-height: 1.2;
@@ -391,13 +259,13 @@
     }
 
     .card-date {
-      font-family: 'Jersey15', 'Courier New', monospace;
+      font-family: 'Jersey15', monospace;
       font-size: 11px;
       color: rgba(255,255,255,0.4);
     }
 
     .card-cta {
-      font-family: 'Jersey15', 'Courier New', monospace;
+      font-family: 'Jersey15', monospace;
       font-size: 13px;
       color: var(--g-dim);
       transition: color 0.2s, transform 0.2s;
@@ -418,6 +286,7 @@
       border-radius: 4px;
       background: rgba(255,255,255,0.02);
     }
+
     .empty-glyph {
       font-family: 'Jersey25', monospace;
       font-size: 32px;
@@ -425,12 +294,12 @@
       margin-bottom: 14px;
       display: block;
     }
+
     .empty-text {
       font-size: 15px;
       line-height: 1.7;
       color: rgba(255,255,255,0.55);
     }
-
   </style>
 </head>
 <body>
@@ -438,9 +307,9 @@
 <aside class="sidebar" aria-label="Primary navigation">
   <a class="brand-text" href="/">out of depth</a>
   <nav class="nav">
-    <a class="nav-link is-active" href="/">Home</a>
+    <a class="nav-link" href="/">Home</a>
     <a class="nav-link" href="/blog/">Blog</a>
-    <a class="nav-link" href="/fiction/">Fiction</a>
+    <a class="nav-link is-active" href="/fiction/">Fiction</a>
     <a class="nav-link" href="/podcast/">Podcast</a>
     <a class="nav-link" href="/games/">Games</a>
     <a class="nav-link" href="/about/">About</a>
@@ -469,7 +338,7 @@
 
     <div class="fiction-grid">
 
-      <!-- literary / general: default, no extra class -->
+      <!-- literary (default) -->
       <a class="fiction-card" href="#">
         <div class="card-dot"></div>
         <div class="card-title">The Cartographer's Daughter</div>
