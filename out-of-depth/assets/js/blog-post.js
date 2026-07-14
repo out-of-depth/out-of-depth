@@ -1,7 +1,7 @@
 /**
  * blog-post.js — shared logic for every blog post page
  *
- * - Reads posts.json once (cached in sessionStorage for the tab session)
+ * - Fetches posts.json
  * - Populates #post-nav with PREV / NEXT buttons based on chronological order
  * - Powers the "Take me somewhere" random post button in the discovery footer
  *
@@ -11,20 +11,10 @@
 (function () {
   'use strict';
 
-  var CACHE_KEY = 'ood_posts_json';
-
   function getPosts(cb) {
-    try {
-      var cached = sessionStorage.getItem(CACHE_KEY);
-      if (cached) { cb(JSON.parse(cached)); return; }
-    } catch (e) {}
-
     fetch('/assets/data/posts.json')
       .then(function (r) { return r.json(); })
-      .then(function (data) {
-        try { sessionStorage.setItem(CACHE_KEY, JSON.stringify(data)); } catch (e) {}
-        cb(data);
-      })
+      .then(cb)
       .catch(function () {});   // silently fail — static disabled placeholders remain
   }
 

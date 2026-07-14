@@ -1,5 +1,4 @@
 (function () {
-  var CACHE_KEY = 'ood_posts_json';
   var MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   var CAT_SLUG = {
     'Film & TV': 'film-tv',
@@ -85,15 +84,7 @@
     buildRows(posts);
   }
 
-  var cached = sessionStorage.getItem(CACHE_KEY);
-  if (cached) {
-    init(JSON.parse(cached));
-  } else {
-    fetch('/assets/data/posts.json')
-      .then(function (r) { return r.json(); })
-      .then(function (data) {
-        sessionStorage.setItem(CACHE_KEY, JSON.stringify(data));
-        init(data);
-      });
-  }
+  fetch('/assets/data/posts.json')
+    .then(function (r) { return r.json(); })
+    .then(init);
 }());
