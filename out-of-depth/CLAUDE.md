@@ -19,16 +19,16 @@ There is one build script: `build-sidebar.py`. Run it with `python3 build-sideba
 │   └── post-slug/
 │       └── index.html                  ← pattern for all blog posts
 ├── fiction/
-│   └── index.html                      ← not yet built
+│   └── index.html                      ← live
 ├── podcast/
 │   ├── index.html                      ← live
 │   └── season-slug/
 │       └── episode-N/
 │           └── index.html              ← pattern for all episodes
 ├── games/
-│   └── index.html                      ← not yet built
+│   └── index.html                      ← live
 ├── about/
-│   └── index.html                      ← not yet built
+│   └── index.html                      ← live
 ├── build-sidebar.py                    ← run this when nav changes; stamps sidebar into all pages
 └── assets/
     ├── css/
@@ -203,11 +203,6 @@ The old site lives at `https://www.getoutofdepth.com`. Content can be fetched fr
 The old site uses Squarespace. Images from the old site are hosted on Squarespace CDN and should not be hotlinked. If a post references images, flag it for Jae to provide new assets.
 
 ---
-
-## Pages still to build
-- `fiction/index.html` — unique design, different feel from blog
-- `games/index.html`
-- `about/index.html`
 
 ---
 
