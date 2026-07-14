@@ -1,6 +1,20 @@
 {
   "posts": [
     {
+      "slug":     "katek-fantasy-dwarves-part-3",
+      "title":    "Ka’tek: Making My Own Fantasy Dwarves (Pt. 3)",
+      "type":     "blog",
+      "category": "TTRPGs",
+      "excerpt":  "Part three of the Ka'tek worldbuilding series -- how a species with furnace hearts feels about water, and what cricket flour, eel sausage, and mushroom tea taste like underground.",
+      "date":     "2025-01-18",
+      "author":   "Jae",
+      "readTime": 4,
+      "path":     "/blog/katek-fantasy-dwarves-part-3/",
+      "featured": false,
+      "live":     true,
+      "glyph":    "≈"
+    },
+    {
       "slug":     "katek-fantasy-dwarves-part-2",
       "title":    "Ka’tek: Making My Own Fantasy Dwarves (Pt. 2)",
       "type":     "blog",
