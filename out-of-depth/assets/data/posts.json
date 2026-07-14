@@ -1,6 +1,20 @@
 {
   "posts": [
     {
+      "slug":     "katek-fantasy-dwarves-part-4",
+      "title":    "Ka’tek: Making My Own Fantasy Dwarves (Pt. 4)",
+      "type":     "blog",
+      "category": "TTRPGs",
+      "excerpt":  "Part four of the Ka'tek worldbuilding series -- a creation myth for the Fellows, the seven gods of the Ka'tek, and what they mean to the species today.",
+      "date":     "2025-02-06",
+      "author":   "Jae",
+      "readTime": 9,
+      "path":     "/blog/katek-fantasy-dwarves-part-4/",
+      "featured": false,
+      "live":     true,
+      "glyph":    "✺"
+    },
+    {
       "slug":     "katek-fantasy-dwarves-part-3",
       "title":    "Ka’tek: Making My Own Fantasy Dwarves (Pt. 3)",
       "type":     "blog",
