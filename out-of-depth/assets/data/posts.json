@@ -1,6 +1,62 @@
 {
   "posts": [
     {
+      "slug":     "katek-fantasy-dwarves-part-4",
+      "title":    "Ka’tek: Making My Own Fantasy Dwarves (Pt. 4)",
+      "type":     "blog",
+      "category": "TTRPGs",
+      "excerpt":  "Part four of the Ka'tek worldbuilding series -- a creation myth for the Fellows, the seven gods of the Ka'tek, and what they mean to the species today.",
+      "date":     "2025-02-06",
+      "author":   "Jae",
+      "readTime": 9,
+      "path":     "/blog/katek-fantasy-dwarves-part-4/",
+      "featured": false,
+      "live":     true,
+      "glyph":    "✺"
+    },
+    {
+      "slug":     "katek-fantasy-dwarves-part-3",
+      "title":    "Ka’tek: Making My Own Fantasy Dwarves (Pt. 3)",
+      "type":     "blog",
+      "category": "TTRPGs",
+      "excerpt":  "Part three of the Ka'tek worldbuilding series -- how a species with furnace hearts feels about water, and what cricket flour, eel sausage, and mushroom tea taste like underground.",
+      "date":     "2025-01-18",
+      "author":   "Jae",
+      "readTime": 4,
+      "path":     "/blog/katek-fantasy-dwarves-part-3/",
+      "featured": false,
+      "live":     true,
+      "glyph":    "≈"
+    },
+    {
+      "slug":     "katek-fantasy-dwarves-part-2",
+      "title":    "Ka’tek: Making My Own Fantasy Dwarves (Pt. 2)",
+      "type":     "blog",
+      "category": "TTRPGs",
+      "excerpt":  "Part two of the Ka'tek worldbuilding series -- how the dwarf-like species of Sapphire Doom see art, religion, and identity through seven sacred metals.",
+      "date":     "2024-09-27",
+      "author":   "Jae",
+      "readTime": 7,
+      "path":     "/blog/katek-fantasy-dwarves-part-2/",
+      "featured": false,
+      "live":     true,
+      "glyph":    "☿"
+    },
+    {
+      "slug":     "katek-fantasy-dwarves-part-1",
+      "title":    "Ka’tek: Making My Own Fantasy Dwarves (Pt. 1)",
+      "type":     "blog",
+      "category": "TTRPGs",
+      "excerpt":  "Building a fantasy dwarf species from scratch for the Sapphire Doom podcast season -- starting with reproduction, gender, and how the Ka'tek measure time underground.",
+      "date":     "2024-09-24",
+      "author":   "Jae",
+      "readTime": 6,
+      "path":     "/blog/katek-fantasy-dwarves-part-1/",
+      "featured": false,
+      "live":     true,
+      "glyph":    "⛏"
+    },
+    {
       "slug":     "how-gold-for-xp-changed-my-game",
       "title":    "How Using Gold for XP Changed My Game",
       "type":     "blog",
