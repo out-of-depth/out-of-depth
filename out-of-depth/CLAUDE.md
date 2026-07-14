@@ -214,6 +214,7 @@ The old site uses Squarespace. Images from the old site are hosted on Squarespac
 - Update `posts.json` whenever a post is added — set `"live": true` when the HTML page is published
 - Maintain consistent sidebar HTML across all pages
 - Follow the CSS path depth rules carefully
+- Include `<link rel="webmention" href="https://webmention.io/www.outofdepth.com/webmention">` in the `<head>` of every page — already present in both `_reference` templates, so posts/episodes built from them inherit it automatically. If a new page type is ever created outside those templates, add the tag manually. Do not add a `rel="pingback"` tag — pingback support is intentionally left disabled.
 
 **Do not:**
 - Change the color palette
