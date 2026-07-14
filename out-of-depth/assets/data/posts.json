@@ -1,6 +1,20 @@
 {
   "posts": [
     {
+      "slug":     "katek-fantasy-dwarves-part-2",
+      "title":    "Ka’tek: Making My Own Fantasy Dwarves (Pt. 2)",
+      "type":     "blog",
+      "category": "TTRPGs",
+      "excerpt":  "Part two of the Ka'tek worldbuilding series -- how the dwarf-like species of Sapphire Doom see art, religion, and identity through seven sacred metals.",
+      "date":     "2024-09-27",
+      "author":   "Jae",
+      "readTime": 7,
+      "path":     "/blog/katek-fantasy-dwarves-part-2/",
+      "featured": false,
+      "live":     true,
+      "glyph":    "☿"
+    },
+    {
       "slug":     "katek-fantasy-dwarves-part-1",
       "title":    "Ka’tek: Making My Own Fantasy Dwarves (Pt. 1)",
       "type":     "blog",
