@@ -297,52 +297,7 @@
   </div>
 
   <!-- ── POST LIST ── -->
-  <div class="card-box box">
-
-    <a class="post-row active" href="/blog/faith-in-rosemary-and-her-baby/" data-category="film-tv">
-      <div class="post-portrait">✦</div>
-      <div class="post-stats">
-        <div class="post-name">faith in rosemary and her baby</div>
-        <div class="post-stat-line"><span class="stat-label">CAT</span><span class="stat-value">Film &amp; TV</span></div>
-        <div class="post-stat-line"><span class="stat-label">DATE</span><span class="stat-value">Nov 12, 2025</span></div>
-        <div class="post-stat-line"><span class="stat-label">ABOUT</span><span class="stat-value">Rewatching Rosemary's Baby and finding something new.</span></div>
-      </div>
-    </a>
-    <hr class="post-divider">
-
-    <a class="post-row" href="/blog/using-gold-to-level-up-in-5e/" data-category="ttrpg">
-      <div class="post-portrait">◈</div>
-      <div class="post-stats">
-        <div class="post-name">Using Gold to Level Up in 5e</div>
-        <div class="post-stat-line"><span class="stat-label">CAT</span><span class="stat-value">TTRPGs</span></div>
-        <div class="post-stat-line"><span class="stat-label">DATE</span><span class="stat-value">Aug 18, 2023</span></div>
-        <div class="post-stat-line"><span class="stat-label">ABOUT</span><span class="stat-value">An experiment in replacing XP with gold pieces.</span></div>
-      </div>
-    </a>
-    <hr class="post-divider">
-
-    <a class="post-row" href="/blog/reconsidering-alignment-language/" data-category="ttrpg">
-      <div class="post-portrait">⚖</div>
-      <div class="post-stats">
-        <div class="post-name">Reconsidering Alignment Languages</div>
-        <div class="post-stat-line"><span class="stat-label">CAT</span><span class="stat-value">TTRPGs</span></div>
-        <div class="post-stat-line"><span class="stat-label">DATE</span><span class="stat-value">Jan 10, 2023</span></div>
-        <div class="post-stat-line"><span class="stat-label">ABOUT</span><span class="stat-value">Redefining Alignment Languages to reshape what it means to be a Cleric.</span></div>
-      </div>
-    </a>
-    <hr class="post-divider">
-
-    <a class="post-row" href="/blog/5-mothership-android-variants/" data-category="ttrpg">
-      <div class="post-portrait">⚔</div>
-      <div class="post-stats">
-        <div class="post-name">5 Mothership Android Variants</div>
-        <div class="post-stat-line"><span class="stat-label">CAT</span><span class="stat-value">TTRPGs</span></div>
-        <div class="post-stat-line"><span class="stat-label">DATE</span><span class="stat-value">Aug 14, 2022</span></div>
-        <div class="post-stat-line"><span class="stat-label">ABOUT</span><span class="stat-value">Five unofficial android variants. No playtesting was done.</span></div>
-      </div>
-    </a>
-
-  </div>
+  <div class="card-box box"></div>
 
   <!-- ── NAVHELP ── -->
   <div class="navhelp-box box">
@@ -375,26 +330,7 @@
 
 </div>
 
-<script>
-  document.querySelectorAll('.post-row').forEach(row => {
-    row.addEventListener('click', function() {
-      document.querySelectorAll('.post-row').forEach(r => r.classList.remove('active'));
-      this.classList.add('active');
-    });
-  });
-
-  function filterCat(btn, category) {
-    document.querySelectorAll('.cat-card').forEach(c => c.classList.remove('active'));
-    btn.classList.add('active');
-    document.querySelectorAll('.post-row').forEach(row => {
-      row.classList.toggle('filtered-out', category !== 'all' && row.dataset.category !== category);
-    });
-    document.querySelectorAll('.post-divider').forEach(d => {
-      const next = d.nextElementSibling;
-      d.style.display = (next && next.classList.contains('filtered-out')) ? 'none' : '';
-    });
-  }
-</script>
+<script src="../assets/js/blog-index.js"></script>
 
 </body>
 </html>
