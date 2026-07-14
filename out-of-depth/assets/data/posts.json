@@ -1,6 +1,20 @@
 {
   "posts": [
     {
+      "slug":     "katek-fantasy-dwarves-part-1",
+      "title":    "Ka’tek: Making My Own Fantasy Dwarves (Pt. 1)",
+      "type":     "blog",
+      "category": "TTRPGs",
+      "excerpt":  "Building a fantasy dwarf species from scratch for the Sapphire Doom podcast season -- starting with reproduction, gender, and how the Ka'tek measure time underground.",
+      "date":     "2024-09-24",
+      "author":   "Jae",
+      "readTime": 6,
+      "path":     "/blog/katek-fantasy-dwarves-part-1/",
+      "featured": false,
+      "live":     true,
+      "glyph":    "⛏"
+    },
+    {
       "slug":     "how-gold-for-xp-changed-my-game",
       "title":    "How Using Gold for XP Changed My Game",
       "type":     "blog",
