@@ -1,6 +1,20 @@
 {
   "posts": [
     {
+      "slug":     "how-gold-for-xp-changed-my-game",
+      "title":    "How Using Gold for XP Changed My Game",
+      "type":     "blog",
+      "category": "TTRPGs",
+      "excerpt":  "A follow-up to my gold-for-XP experiment -- what actually happened when a real group of players had to earn, hoard, and blow their gold to level up.",
+      "date":     "2025-08-15",
+      "author":   "Jae",
+      "readTime": 10,
+      "path":     "/blog/how-gold-for-xp-changed-my-game/",
+      "featured": false,
+      "live":     true,
+      "glyph":    "❖"
+    },
+    {
       "slug":     "faith-in-rosemary-and-her-baby",
       "title":    "faith in rosemary and her baby",
       "type":     "blog",
