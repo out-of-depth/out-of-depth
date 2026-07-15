@@ -11,16 +11,15 @@
  * - Fails silently on any error (network, bad response, zero mentions
  *   still renders the empty-state line) — never shows a broken state
  *
- * TOKEN: the string below is a placeholder — swap in the real
- * webmention.io token before this can authenticate. It's meant to live in
- * client-side source: webmention.io scopes tokens to read-only access
- * against your own account's mentions, so it can't write, delete, or
- * modify anything. This is intentional, not a leaked secret.
+ * TOKEN: the string below is the real webmention.io token, intentionally
+ * committed in client-side source. webmention.io scopes tokens to
+ * read-only access against your own account's mentions — it can't write,
+ * delete, or modify anything. This is intentional, not a leaked secret.
  */
 (function () {
   'use strict';
 
-  var TOKEN = 'REPLACE-WITH-WEBMENTION-TOKEN';
+  var TOKEN = 'ocIySpvWBu586jFnjAU3Gw';
 
   function escapeHtml(str) {
     return String(str).replace(/[&<>"']/g, function (c) {
