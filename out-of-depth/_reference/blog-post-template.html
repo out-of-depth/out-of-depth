@@ -117,10 +117,19 @@
            <h2>             — section heading
            <h3>             — sub-heading
            <blockquote><p>  — pull quote (JRPG dialogue style)
-           <img src="" alt="" class=""> — images (default: float right)
-                                          add class="left" to float left
-                                          add class="full" for full width
-           <div class="clearfix"> — use after floated images
+           mini-window      — inline images (default: float right)
+                               <div class="mini-window mini-window--orange">
+                                 <div class="mini-window-titlebar">
+                                   <span class="mini-window-title-text">img // 01</span>
+                                 </div>
+                                 <div class="mini-window-body">
+                                   <img src="" alt="">
+                                 </div>
+                               </div>
+                               add class="left" to the outer div to float left
+                               add class="full" to the outer div for full width
+                               titlebar text is manual — edit per instance
+           <div class="clearfix"> — use after floated mini-windows
       -->
       <div class="post-body e-content">
 
@@ -143,6 +152,17 @@
         <p>safe travels,</p>
         <p class="signature">jae</p>
       </div>
+
+      <!-- ── WEBMENTIONS ── -->
+      <div class="mini-window mini-window--cyan" id="mentions-panel">
+        <div class="mini-window-titlebar">
+          <span class="mini-window-title-text">mentions // elsewhere on the web</span>
+        </div>
+        <div class="mini-window-body" id="mentions-body">
+          <!-- populated by webmentions.js -->
+        </div>
+      </div>
+      <script src="../../assets/js/webmentions.js"></script>
 
     </div>
   </article>

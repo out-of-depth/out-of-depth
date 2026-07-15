@@ -272,6 +272,180 @@
 .file-icon.random .fold-h,
 .file-icon.random .fold-v { background: rgba(0, 229, 255, 0.45); }
 
+/* ── MINI WINDOW ── */
+/* Reusable titlebar+body chrome for small in-page windows
+   (post images, webmentions, etc). Swap accent color via
+   modifier class — everything below recolors off --mw-accent. */
+.mini-window {
+  --mw-accent: var(--magenta);
+  position: relative;
+}
+
+.mini-window--cyan   { --mw-accent: var(--cyan); }
+.mini-window--orange { --mw-accent: #fb9648; }
+
+.mini-window-titlebar {
+  background:
+    repeating-linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--mw-accent) 7%, transparent) 0px,
+      color-mix(in srgb, var(--mw-accent) 7%, transparent) 1px,
+      transparent 1px, transparent 4px
+    ),
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--mw-accent) 18%, black) 0%,
+      color-mix(in srgb, var(--mw-accent) 10%, black) 50%,
+      color-mix(in srgb, var(--mw-accent) 5%, black) 100%
+    );
+  border: 1px solid color-mix(in srgb, var(--mw-accent) 40%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--mw-accent) 25%, transparent);
+  padding: 0 8px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+/* accent glow line under title bar */
+.mini-window-titlebar::after {
+  content: '';
+  position: absolute;
+  bottom: -1px; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--mw-accent), transparent);
+  opacity: 0.35;
+}
+
+.mini-window-title-text {
+  font-family: 'Jersey15', monospace;
+  font-size: 11px;
+  color: color-mix(in srgb, var(--mw-accent) 55%, transparent);
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.mini-window-body {
+  background: linear-gradient(
+    150deg,
+    rgba(0, 92, 99, 0.28) 0%,
+    rgba(6, 9, 59, 0.12) 60%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+  border: 1px solid color-mix(in srgb, var(--mw-accent) 25%, transparent);
+  border-top: none;
+  padding: 6px;
+  position: relative;
+  overflow: hidden;
+}
+
+.mini-window-body img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ── MENTIONS LIST ── */
+/* Rows rendered by webmentions.js inside a .mini-window-body
+   (currently only used with the --cyan modifier). */
+.mention-row {
+  display: flex;
+  gap: 14px;
+  padding: 16px 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.mention-row:last-child { border-bottom: none; }
+
+.mention-icon {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--mw-accent) 40%, transparent);
+  background: color-mix(in srgb, var(--mw-accent) 6%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Jersey15', monospace;
+  font-size: 16px;
+  color: var(--mw-accent);
+}
+
+.mention-content { flex: 1; min-width: 0; }
+
+.mention-meta {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 4px;
+  font-family: 'Jersey15', monospace;
+  font-size: 13px;
+  flex-wrap: wrap;
+}
+
+.mention-author { color: rgba(255, 255, 255, 0.85); }
+
+.mention-type-tag {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--mw-accent);
+  opacity: 0.7;
+}
+
+.mention-source {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.3);
+  margin-left: auto;
+}
+
+.mention-source a {
+  color: rgba(255, 255, 255, 0.4);
+  text-decoration: none;
+}
+
+.mention-source a:hover { color: var(--mw-accent); }
+
+.mention-text {
+  font-family: 'AtkinsonHyperlegible', sans-serif;
+  font-size: 13px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.mention-row.is-like .mention-content {
+  display: flex;
+  align-items: center;
+}
+
+.mentions-empty {
+  padding: 26px 16px;
+  text-align: center;
+  font-family: 'Jersey15', monospace;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.25);
+}
+
+/* mirrors the old .post-body img float behavior, now scoped to the wrapper */
+.post-body .mini-window {
+  max-width: 260px;
+  float: right;
+  margin: 0 0 16px 24px;
+}
+
+.post-body .mini-window.left {
+  float: left;
+  margin: 0 24px 16px 0;
+}
+
+.post-body .mini-window.full {
+  float: none;
+  display: block;
+  max-width: 100%;
+  margin: 24px auto;
+}
+
 /* ── DISCOVERY FOOTER ── */
 .discovery {
   max-width: var(--content-max);
