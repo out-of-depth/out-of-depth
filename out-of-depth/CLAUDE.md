@@ -215,6 +215,8 @@ The old site uses Squarespace. Images from the old site are hosted on Squarespac
 - Maintain consistent sidebar HTML across all pages
 - Follow the CSS path depth rules carefully
 - Include `<link rel="webmention" href="https://webmention.io/www.outofdepth.com/webmention">` in the `<head>` of every page — already present in both `_reference` templates, so posts/episodes built from them inherit it automatically. If a new page type is ever created outside those templates, add the tag manually. Do not add a `rel="pingback"` tag — pingback support is intentionally left disabled.
+- Include `<link rel="alternate" type="application/atom+xml" title="Out of Depth" href="/feed.xml">` in the `<head>` of every page — already present in both `_reference` templates. If a new page type is ever created outside those templates, add the tag manually.
+- Run `python3 build-feed.py` whenever a blog post is added, published, or has its category/date/excerpt/title changed — it regenerates `/feed.xml` and every `/feed-[category].xml` from `posts.json`.
 
 **Do not:**
 - Change the color palette

@@ -7,6 +7,7 @@
   <meta name="description" content="Essays, reviews, and dispatches on TTRPGs, film, games, and life.">
 
   <link rel="webmention" href="https://webmention.io/www.outofdepth.com/webmention">
+  <link rel="alternate" type="application/atom+xml" title="Out of Depth" href="/feed.xml">
   <link rel="stylesheet" href="../assets/css/base.css">
   <link rel="stylesheet" href="../assets/css/components.css">
 
@@ -225,6 +226,8 @@
       transition: all 0.15s;
       padding: 6px 4px;
       position: relative;
+      text-decoration: none;
+      color: inherit;
     }
 
     .cat-card::before {
@@ -320,12 +323,12 @@
     <div class="cat-card" onclick="filterCat(this,'life')">
       <span class="cat-icon">♥</span><span class="cat-name">Life</span>
     </div>
-    <div class="cat-card" onclick="filterCat(this,'games')">
-      <span class="cat-icon">◉</span><span class="cat-name">Games</span>
-    </div>
     <div class="cat-card" onclick="filterCat(this,'reading')">
       <span class="cat-icon">◎</span><span class="cat-name">Reading</span>
     </div>
+    <a class="cat-card" href="/feed/">
+      <span class="cat-icon">⟳</span><span class="cat-name">Feed</span>
+    </a>
   </div>
 
 </div>

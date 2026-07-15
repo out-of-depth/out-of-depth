@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Out of Depth — Film &amp; TV</title>
+  <link href="https://outofdepth.com/feed-film-tv.xml" rel="self" type="application/atom+xml"/>
+  <link href="https://outofdepth.com/" rel="alternate" type="text/html"/>
+  <id>https://outofdepth.com/feed-film-tv.xml</id>
+  <updated>2025-11-12T00:00:00Z</updated>
+  <author><name>Jae</name></author>
+  <entry>
+    <title>faith in rosemary and her baby</title>
+    <link href="https://outofdepth.com/blog/faith-in-rosemary-and-her-baby/" rel="alternate" type="text/html"/>
+    <id>https://outofdepth.com/blog/faith-in-rosemary-and-her-baby/</id>
+    <published>2025-11-12T00:00:00Z</published>
+    <updated>2025-11-12T00:00:00Z</updated>
+    <summary type="html">Rewatching Rosemary's Baby after some time away, and finding something new: what Rosemary believes, and what it means to be a shepherd.</summary>
+    <author><name>Jae</name></author>
+    <category term="Film &amp; TV"/>
+  </entry>
+</feed>
