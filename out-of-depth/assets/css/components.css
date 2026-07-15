@@ -345,6 +345,88 @@
   height: auto;
 }
 
+/* ── MENTIONS LIST ── */
+/* Rows rendered by webmentions.js inside a .mini-window-body
+   (currently only used with the --cyan modifier). */
+.mention-row {
+  display: flex;
+  gap: 14px;
+  padding: 16px 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.mention-row:last-child { border-bottom: none; }
+
+.mention-icon {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--mw-accent) 40%, transparent);
+  background: color-mix(in srgb, var(--mw-accent) 6%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Jersey15', monospace;
+  font-size: 16px;
+  color: var(--mw-accent);
+}
+
+.mention-content { flex: 1; min-width: 0; }
+
+.mention-meta {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 4px;
+  font-family: 'Jersey15', monospace;
+  font-size: 13px;
+  flex-wrap: wrap;
+}
+
+.mention-author { color: rgba(255, 255, 255, 0.85); }
+
+.mention-type-tag {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--mw-accent);
+  opacity: 0.7;
+}
+
+.mention-source {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.3);
+  margin-left: auto;
+}
+
+.mention-source a {
+  color: rgba(255, 255, 255, 0.4);
+  text-decoration: none;
+}
+
+.mention-source a:hover { color: var(--mw-accent); }
+
+.mention-text {
+  font-family: 'AtkinsonHyperlegible', sans-serif;
+  font-size: 13px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.mention-row.is-like .mention-content {
+  display: flex;
+  align-items: center;
+}
+
+.mentions-empty {
+  padding: 26px 16px;
+  text-align: center;
+  font-family: 'Jersey15', monospace;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.25);
+}
+
 /* mirrors the old .post-body img float behavior, now scoped to the wrapper */
 .post-body .mini-window {
   max-width: 260px;
