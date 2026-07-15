@@ -45,16 +45,16 @@
       }
 
       var a = document.createElement('a');
-      a.className = 'post-row' + (i === 0 ? ' active' : '');
+      a.className = 'post-row h-entry u-url' + (i === 0 ? ' active' : '');
       a.href = post.path;
       a.dataset.category = slug;
       a.innerHTML =
         '<div class="post-portrait">' + esc(glyph) + '</div>' +
         '<div class="post-stats">' +
-          '<div class="post-name">' + esc(post.title) + '</div>' +
-          '<div class="post-stat-line"><span class="stat-label">CAT</span><span class="stat-value">' + esc(post.category) + '</span></div>' +
-          '<div class="post-stat-line"><span class="stat-label">DATE</span><span class="stat-value">' + esc(fmtDate(post.date)) + '</span></div>' +
-          '<div class="post-stat-line"><span class="stat-label">ABOUT</span><span class="stat-value">' + esc(post.excerpt) + '</span></div>' +
+          '<div class="post-name p-name">' + esc(post.title) + '</div>' +
+          '<div class="post-stat-line"><span class="stat-label">CAT</span><span class="stat-value p-category">' + esc(post.category) + '</span></div>' +
+          '<div class="post-stat-line"><span class="stat-label">DATE</span><time class="stat-value dt-published" datetime="' + esc(post.date) + '">' + esc(fmtDate(post.date)) + '</time></div>' +
+          '<div class="post-stat-line"><span class="stat-label">ABOUT</span><span class="stat-value p-summary">' + esc(post.excerpt) + '</span></div>' +
         '</div>';
 
       a.addEventListener('click', function () {
