@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Out of Depth — Reading</title>
+  <link href="https://outofdepth.com/feed-reading.xml" rel="self" type="application/atom+xml"/>
+  <link href="https://outofdepth.com/" rel="alternate" type="text/html"/>
+  <id>https://outofdepth.com/feed-reading.xml</id>
+  <updated>2026-07-15T01:46:33Z</updated>
+  <author><name>Jae</name></author>
+</feed>

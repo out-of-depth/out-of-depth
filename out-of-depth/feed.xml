@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Out of Depth</title>
+  <link href="https://outofdepth.com/feed.xml" rel="self" type="application/atom+xml"/>
+  <link href="https://outofdepth.com/" rel="alternate" type="text/html"/>
+  <id>https://outofdepth.com/feed.xml</id>
+  <updated>2025-11-12T00:00:00Z</updated>
+  <author><name>Jae</name></author>
+  <entry>
+    <title>faith in rosemary and her baby</title>
+    <link href="https://outofdepth.com/blog/faith-in-rosemary-and-her-baby/" rel="alternate" type="text/html"/>
+    <id>https://outofdepth.com/blog/faith-in-rosemary-and-her-baby/</id>
+    <published>2025-11-12T00:00:00Z</published>
+    <updated>2025-11-12T00:00:00Z</updated>
+    <summary type="html">Rewatching Rosemary's Baby after some time away, and finding something new: what Rosemary believes, and what it means to be a shepherd.</summary>
+    <author><name>Jae</name></author>
+    <category term="Film &amp; TV"/>
+  </entry>
+  <entry>
+    <title>How Using Gold for XP Changed My Game</title>
+    <link href="https://outofdepth.com/blog/how-gold-for-xp-changed-my-game/" rel="alternate" type="text/html"/>
+    <id>https://outofdepth.com/blog/how-gold-for-xp-changed-my-game/</id>
+    <published>2025-08-15T00:00:00Z</published>
+    <updated>2025-08-15T00:00:00Z</updated>
+    <summary type="html">A follow-up to my gold-for-XP experiment -- what actually happened when a real group of players had to earn, hoard, and blow their gold to level up.</summary>
+    <author><name>Jae</name></author>
+    <category term="TTRPGs"/>
+  </entry>
+  <entry>
+    <title>Ka’tek: Making My Own Fantasy Dwarves (Pt. 4)</title>
+    <link href="https://outofdepth.com/blog/katek-fantasy-dwarves-part-4/" rel="alternate" type="text/html"/>
+    <id>https://outofdepth.com/blog/katek-fantasy-dwarves-part-4/</id>
+    <published>2025-02-06T00:00:00Z</published>
+    <updated>2025-02-06T00:00:00Z</updated>
+    <summary type="html">Part four of the Ka'tek worldbuilding series -- a creation myth for the Fellows, the seven gods of the Ka'tek, and what they mean to the species today.</summary>
+    <author><name>Jae</name></author>
+    <category term="TTRPGs"/>
+  </entry>
+  <entry>
+    <title>Ka’tek: Making My Own Fantasy Dwarves (Pt. 3)</title>
+    <link href="https://outofdepth.com/blog/katek-fantasy-dwarves-part-3/" rel="alternate" type="text/html"/>
+    <id>https://outofdepth.com/blog/katek-fantasy-dwarves-part-3/</id>
+    <published>2025-01-18T00:00:00Z</published>
+    <updated>2025-01-18T00:00:00Z</updated>
+    <summary type="html">Part three of the Ka'tek worldbuilding series -- how a species with furnace hearts feels about water, and what cricket flour, eel sausage, and mushroom tea taste like underground.</summary>
+    <author><name>Jae</name></author>
+    <category term="TTRPGs"/>
+  </entry>
+  <entry>
+    <title>Ka’tek: Making My Own Fantasy Dwarves (Pt. 2)</title>
+    <link href="https://outofdepth.com/blog/katek-fantasy-dwarves-part-2/" rel="alternate" type="text/html"/>
+    <id>https://outofdepth.com/blog/katek-fantasy-dwarves-part-2/</id>
+    <published>2024-09-27T00:00:00Z</published>
+    <updated>2024-09-27T00:00:00Z</updated>
+    <summary type="html">Part two of the Ka'tek worldbuilding series -- how the dwarf-like species of Sapphire Doom see art, religion, and identity through seven sacred metals.</summary>
+    <author><name>Jae</name></author>
+    <category term="TTRPGs"/>
+  </entry>
+  <entry>
+    <title>Ka’tek: Making My Own Fantasy Dwarves (Pt. 1)</title>
+    <link href="https://outofdepth.com/blog/katek-fantasy-dwarves-part-1/" rel="alternate" type="text/html"/>
+    <id>https://outofdepth.com/blog/katek-fantasy-dwarves-part-1/</id>
+    <published>2024-09-24T00:00:00Z</published>
+    <updated>2024-09-24T00:00:00Z</updated>
+    <summary type="html">Building a fantasy dwarf species from scratch for the Sapphire Doom podcast season -- starting with reproduction, gender, and how the Ka'tek measure time underground.</summary>
+    <author><name>Jae</name></author>
+    <category term="TTRPGs"/>
+  </entry>
+  <entry>
+    <title>Using Gold to Level Up in 5e</title>
+    <link href="https://outofdepth.com/blog/using-gold-to-level-up-in-5e/" rel="alternate" type="text/html"/>
+    <id>https://outofdepth.com/blog/using-gold-to-level-up-in-5e/</id>
+    <published>2023-08-18T00:00:00Z</published>
+    <updated>2023-08-18T00:00:00Z</updated>
+    <summary type="html">An experiment in replacing XP with gold pieces, making character advancement feel diegetic, tangible, and properly expensive.</summary>
+    <author><name>Jae</name></author>
+    <category term="TTRPGs"/>
+  </entry>
+  <entry>
+    <title>Reconsidering Alignment Languages</title>
+    <link href="https://outofdepth.com/blog/reconsidering-alignment-language/" rel="alternate" type="text/html"/>
+    <id>https://outofdepth.com/blog/reconsidering-alignment-language/</id>
+    <published>2023-01-10T00:00:00Z</published>
+    <updated>2023-01-10T00:00:00Z</updated>
+    <summary type="html">A deep dive into what Alignment Languages could actually mean -- and how redefining them reshapes what it means to be a Cleric.</summary>
+    <author><name>Jae</name></author>
+    <category term="TTRPGs"/>
+  </entry>
+  <entry>
+    <title>5 Mothership Android Variants</title>
+    <link href="https://outofdepth.com/blog/5-mothership-android-variants/" rel="alternate" type="text/html"/>
+    <id>https://outofdepth.com/blog/5-mothership-android-variants/</id>
+    <published>2022-08-14T00:00:00Z</published>
+    <updated>2022-08-14T00:00:00Z</updated>
+    <summary type="html">Five unofficial android variants for Mothership RPG, each with unique stats, skills, and bugs. No playtesting was done. I don't even know what that means.</summary>
+    <author><name>Jae</name></author>
+    <category term="TTRPGs"/>
+  </entry>
+</feed>
