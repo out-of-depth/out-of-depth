@@ -79,7 +79,7 @@
 
 .post-category {
   font-family: 'Jersey15', monospace;
-  font-size: 13px;
+  font-size: 14px;
   color: var(--magenta-text);
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -125,17 +125,17 @@
 
 .byline-item {
   font-family: 'Jersey15', monospace;
-  font-size: 13px;
+  font-size: 14px;
   color: rgba(255, 255, 255, 0.55);
   display: flex;
   align-items: center;
   gap: 6px;
 }
 
-.byline-item .lbl { color: rgba(255, 3, 255, 0.5); }
+.byline-item .lbl { color: var(--magenta-text); }
 
 .byline-item a {
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.55);
   text-decoration: none;
   transition: color 0.15s;
 }
@@ -216,7 +216,7 @@
   font-style: italic;
   color: rgba(255, 255, 255, 0.7);
   margin: 0;
-  font-size: 16px;
+  font-size: 17px;
   line-height: 1.7;
 }
 
@@ -230,7 +230,7 @@
 }
 
 .post-signature p {
-  font-size: 15px;
+  font-size: 17px;
   color: rgba(255, 255, 255, 0.55);
   margin-bottom: 2px;
 }
@@ -240,6 +240,11 @@
   font-size: 38px;
   color: var(--magenta);
   text-shadow: 0 0 20px rgba(255, 3, 255, 0.35);
+}
+
+/* breathing room before the webmentions panel */
+.post-signature + .mini-window {
+  margin-top: 40px;
 }
 
 /* ── RESPONSIVE ── */

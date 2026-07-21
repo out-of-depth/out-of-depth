@@ -285,7 +285,7 @@ body::before {
 .ood-bar {
   position: fixed;
   bottom: 0; left: 0; right: 0;
-  height: 64px;
+  height: 72px;
   background: #030303;
   border-top: 1px solid var(--blue-mid);
   display: flex;
@@ -307,8 +307,8 @@ body.has-player-bar .content { padding-bottom: 80px; }
 }
 
 .ood-bar-cover {
-  width: 42px;
-  height: 42px;
+  width: 48px;
+  height: 48px;
   object-fit: cover;
   border-radius: 4px;
   display: block;
@@ -316,14 +316,14 @@ body.has-player-bar .content { padding-bottom: 80px; }
 
 .ood-bar-info {
   flex-shrink: 0;
-  min-width: 110px;
-  max-width: 190px;
+  min-width: 130px;
+  max-width: 220px;
   overflow: hidden;
 }
 
 .ood-bar-season {
   color: #888;
-  font-size: 0.62rem;
+  font-size: 0.875rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   white-space: nowrap;
@@ -333,7 +333,7 @@ body.has-player-bar .content { padding-bottom: 80px; }
 
 .ood-bar-title {
   color: #ddd;
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -359,8 +359,8 @@ body.has-player-bar .content { padding-bottom: 80px; }
   border-radius: 4px;
   color: #bbb;
   cursor: pointer;
-  font-size: 0.68rem;
-  padding: 2px 8px;
+  font-size: 0.875rem;
+  padding: 4px 10px;
   line-height: 1.5;
   transition: background 0.15s, border-color 0.15s, color 0.15s;
 }
@@ -370,7 +370,7 @@ body.has-player-bar .content { padding-bottom: 80px; }
 .ood-bar-play-btn {
   border-color: var(--blue-mid);
   color: #fff;
-  padding: 2px 14px;
+  padding: 4px 16px;
 }
 
 .ood-bar-speed {
@@ -379,8 +379,8 @@ body.has-player-bar .content { padding-bottom: 80px; }
   border-radius: 4px;
   color: #666;
   cursor: pointer;
-  font-size: 0.65rem;
-  padding: 2px 5px;
+  font-size: 0.875rem;
+  padding: 3px 7px;
   transition: color 0.15s, border-color 0.15s;
 }
 
@@ -394,7 +394,7 @@ body.has-player-bar .content { padding-bottom: 80px; }
 
 .ood-bar-time {
   color: #666;
-  font-size: 0.67rem;
+  font-size: 0.875rem;
   flex-shrink: 0;
   font-variant-numeric: tabular-nums;
 }
@@ -422,7 +422,7 @@ body.has-player-bar .content { padding-bottom: 80px; }
   .ood-bar {
     padding: 0 12px;
     gap: 10px;
-    height: 60px;
+    height: 68px;
   }
 
   .ood-bar-info { display: none; }
