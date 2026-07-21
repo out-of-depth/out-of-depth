@@ -70,6 +70,8 @@ Every page links these stylesheets. Path depth depends on folder level:
 
 TTRPG/homebrew posts also include inline styles for stat blocks (see Mothership post as reference). These should eventually be extracted to `assets/css/ttrpg.css`.
 
+**`blog/index.html` and `podcast/index.html` are exceptions to the shared-stylesheet rule above.** Both are dashboard-style layouts (fixed-height CSS Grid, their own scrollable panels) with their own large inline `<style>` block in the `<head>`, on top of `base.css`. Text colors, font sizes, and layout rules defined in `components.css` / `blog-post.css` / `podcast-episode.css` do **not** reach these two pages — a sitewide rule (contrast floors, font-size floors, etc.) has to be applied to their inline styles separately, or it will silently miss them. This has already caused one round of missed contrast/font-size fixes; check both files explicitly whenever a design-system rule changes.
+
 ---
 
 ## Design system
