@@ -101,6 +101,12 @@ TTRPG/homebrew posts also include inline styles for stat blocks (see Mothership 
   - **Magenta as text color uses `--magenta-text` (`#ff66ff`), not `--magenta-dim`.** `--magenta-dim` (`rgba(255,3,255,0.45)`) is reserved for borders, glows, and decorative fills — its green channel is near zero, so no amount of realistic alpha gets it to 4.5:1 as text. If a new element needs "dim magenta text," use `--magenta-text` at reduced opacity instead of `--magenta-dim` directly (dim `--magenta-text` still has better contrast headroom than dim `--magenta-dim`).
   - **Before shipping any new text color**, check it against pure black or the box gradient using a contrast checker — do not eyeball it. Target 4.5:1 for normal text, 3:1 for large text (18px+/14px+ bold) or UI-only elements (icons, borders).
   - **This applies to every new page and component**, not just retrofits — home page, fiction, games, and about pages (not yet built) should hit these floors from the start.
+- **Font size floors**
+  - **Body-ish reading text: 17px minimum.** This includes any paragraph-level content meant to be read continuously — post body, signatures, show notes, episode descriptions, blockquotes. Match `.post-body p` (17px) as the reference.
+  - **UI / meta label text: 14px minimum.** This includes bylines, category tags, timestamps, file names/dates, buttons, breadcrumbs, section headings, and player bar text. No exceptions for "secondary" or persistent UI (the player bar is not exempt).
+  - **Jersey15/Jersey25 render smaller than their nominal size** (pixel/display font quirk — smaller effective x-height than a normal text font at the same px value). When in doubt, size Jersey-family text a notch up from where a body font would land, not the same or smaller.
+  - **New components must hit these floors from the start** — home page, fiction, games, and about pages (not yet built) included.
+  - **Sizing changes may require layout adjustments** (padding, min-widths, fixed heights) — don't just bump `font-size` and leave a cramped or truncating container. Check the result visually, including at the mobile breakpoint.
 - Magenta is used freely for headings and accents
 - Cyan is reserved for podcast content and random/wildcard UI elements
 - The sidebar is always present and identical on every page — only the `is-active` class changes per page

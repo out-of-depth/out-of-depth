@@ -30,7 +30,7 @@
 /* Used in post window title bar */
 .amiga-btn {
   font-family: 'Jersey15', monospace;
-  font-size: 13px;
+  font-size: 14px;
   height: 26px;
   border-top:    2px solid rgba(255, 3, 255, 0.55);
   border-left:   2px solid rgba(255, 3, 255, 0.55);
@@ -103,20 +103,27 @@
   opacity: 0.35;
 }
 
+.window-titlebar > .amiga-btn {
+  flex-shrink: 0;
+}
+
 .window-titlebar .nav-btns {
   display: flex;
   gap: 3px;
+  flex-shrink: 0;
 }
 
 .window-title-text {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  flex: 1;
+  min-width: 0;
+  text-align: center;
   font-family: 'Jersey15', monospace;
-  font-size: 12px;
+  font-size: 14px;
   color: var(--magenta-text);
   letter-spacing: 0.05em;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   pointer-events: none;
 }
 
@@ -233,7 +240,7 @@
 
 .file-date {
   font-family: 'Jersey15', monospace;
-  font-size: 11px;
+  font-size: 14px;
   color: rgba(255, 255, 255, 0.55);
   text-align: center;
 }

@@ -23,7 +23,7 @@
 /* ── BREADCRUMB ── */
 .breadcrumb {
   font-family: 'Jersey15', monospace;
-  font-size: 13px;
+  font-size: 14px;
   color: var(--dim-text);
   margin-bottom: 32px;
   letter-spacing: 0.05em;
@@ -51,7 +51,7 @@
 /* ── SEASON TAG ── */
 .season-tag {
   font-family: 'Jersey15', monospace;
-  font-size: 12px;
+  font-size: 14px;
   color: var(--season);
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -78,7 +78,7 @@
 
 .episode-meta {
   font-family: 'Jersey15', monospace;
-  font-size: 13px;
+  font-size: 14px;
   color: var(--dim-text);
   margin-bottom: 22px;
   display: flex;
@@ -87,7 +87,7 @@
 }
 
 .episode-description {
-  font-size: 15px;
+  font-size: 17px;
   line-height: 1.75;
   color: var(--body-text);
   max-width: 580px;
@@ -102,7 +102,7 @@
 
 .ep-nav-btn {
   font-family: 'Jersey15', monospace;
-  font-size: 13px;
+  font-size: 14px;
   color: var(--magenta);
   text-decoration: none;
   border: 1px solid rgba(255, 3, 255, 0.3);
@@ -190,7 +190,7 @@
 
 .player-label {
   font-family: 'Jersey15', monospace;
-  font-size: 11px;
+  font-size: 14px;
   color: rgba(255, 3, 255, 0.5);
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -317,7 +317,7 @@
 
 .section-heading {
   font-family: 'Jersey15', monospace;
-  font-size: 12px;
+  font-size: 14px;
   color: var(--season);
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -333,7 +333,7 @@
 }
 
 .show-notes p {
-  font-size: 15px;
+  font-size: 17px;
   line-height: 1.75;
   color: var(--body-text);
   margin-bottom: 10px;
@@ -384,7 +384,7 @@
 
 .ep-num {
   font-family: 'Jersey15', monospace;
-  font-size: 13px;
+  font-size: 14px;
   color: var(--dim-text);
   text-align: center;
 }
@@ -395,6 +395,6 @@
 
 .ep-duration {
   font-family: 'Jersey15', monospace;
-  font-size: 12px;
+  font-size: 14px;
   color: var(--dim-text);
 }

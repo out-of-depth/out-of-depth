@@ -17,8 +17,11 @@
       --header-height: 72px;
     }
 
-    .blognav-content {
+    .blognav-outer {
       margin-left: var(--sidebar-width);
+    }
+
+    .blognav-content {
       height: 100vh;
       box-sizing: border-box;
       overflow: hidden;
@@ -27,7 +30,8 @@
       grid-template-rows: var(--header-height) 1fr 1fr;
       gap: 12px;
       padding: 32px 28px 80px;
-      max-width: calc(1100px + var(--sidebar-width));
+      max-width: 1100px;
+      margin: 0 auto;
     }
 
     /* ── HEADER ── */
@@ -292,6 +296,7 @@
   </nav>
 </aside>
 
+<div class="blognav-outer">
 <div class="blognav-content">
 
   <!-- ── HEADER ── -->
@@ -331,6 +336,7 @@
     </a>
   </div>
 
+</div>
 </div>
 
 <script src="../assets/js/blog-index.js"></script>
