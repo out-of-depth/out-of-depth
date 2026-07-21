@@ -132,10 +132,10 @@
   gap: 6px;
 }
 
-.byline-item .lbl { color: rgba(255, 3, 255, 0.5); }
+.byline-item .lbl { color: var(--magenta-text); }
 
 .byline-item a {
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.55);
   text-decoration: none;
   transition: color 0.15s;
 }
