@@ -95,7 +95,12 @@ TTRPG/homebrew posts also include inline styles for stat blocks (see Mothership 
 
 ### Key design rules
 - Black background throughout — no light backgrounds
-- Avoid light gray text on dark backgrounds — use at minimum `rgba(255,255,255,0.83)` for body text
+- **Accessibility — contrast rules**
+  - **Minimum white text opacity on black: `0.55`.** Never introduce `rgba(255,255,255,x)` as a text color with `x` below this, regardless of font size, unless the text is purely decorative and has no informational content (e.g. a repeating background glyph).
+  - **Body text stays at `0.83`+** (unchanged from existing rule) — the 0.55 floor is for secondary/meta text only (bylines, timestamps, captions, footer labels), not primary reading content.
+  - **Magenta as text color uses `--magenta-text` (`#ff66ff`), not `--magenta-dim`.** `--magenta-dim` (`rgba(255,3,255,0.45)`) is reserved for borders, glows, and decorative fills — its green channel is near zero, so no amount of realistic alpha gets it to 4.5:1 as text. If a new element needs "dim magenta text," use `--magenta-text` at reduced opacity instead of `--magenta-dim` directly (dim `--magenta-text` still has better contrast headroom than dim `--magenta-dim`).
+  - **Before shipping any new text color**, check it against pure black or the box gradient using a contrast checker — do not eyeball it. Target 4.5:1 for normal text, 3:1 for large text (18px+/14px+ bold) or UI-only elements (icons, borders).
+  - **This applies to every new page and component**, not just retrofits — home page, fiction, games, and about pages (not yet built) should hit these floors from the start.
 - Magenta is used freely for headings and accents
 - Cyan is reserved for podcast content and random/wildcard UI elements
 - The sidebar is always present and identical on every page — only the `is-active` class changes per page

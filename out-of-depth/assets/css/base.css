@@ -8,6 +8,7 @@
 :root {
   --magenta:       #ff03ff;
   --magenta-dim:   rgba(255, 3, 255, 0.45);
+  --magenta-text:  #ff66ff;   /* readable magenta for text — use instead of --magenta-dim when magenta IS the text color */
   --cyan:          #00e5ff;
   --teal:          #005c63;
   --blue-mid:      #054278;

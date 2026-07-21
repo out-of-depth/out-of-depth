@@ -80,7 +80,7 @@
 .post-category {
   font-family: 'Jersey15', monospace;
   font-size: 13px;
-  color: var(--magenta-dim);
+  color: var(--magenta-text);
   letter-spacing: 0.12em;
   text-transform: uppercase;
   margin-bottom: 12px;
@@ -126,7 +126,7 @@
 .byline-item {
   font-family: 'Jersey15', monospace;
   font-size: 13px;
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.55);
   display: flex;
   align-items: center;
   gap: 6px;
@@ -231,7 +231,7 @@
 
 .post-signature p {
   font-size: 15px;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.55);
   margin-bottom: 2px;
 }
 
