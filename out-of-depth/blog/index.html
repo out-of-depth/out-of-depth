@@ -47,8 +47,20 @@
       font-family: 'Jersey25', monospace;
       font-size: 44px;
       color: var(--magenta);
-      text-shadow: 0 0 24px rgba(255,3,255,0.5);
+      text-shadow:
+        0 0 28px rgba(255, 3, 255, 0.4),
+        0 0 60px rgba(255, 3, 255, 0.1);
       line-height: 1;
+      position: relative;
+    }
+
+    /* chromatic aberration on title, matching blog post titles */
+    .header-box h1::before {
+      content: attr(data-text);
+      position: absolute;
+      left: 2px; top: 1px;
+      color: rgba(0, 229, 255, 0.1);
+      pointer-events: none;
     }
 
     /* ── POST LIST ── */
@@ -279,6 +291,64 @@
 
     .cat-card:hover .cat-name,
     .cat-card.active .cat-name { color: #fff; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      .blognav-outer {
+        margin-left: 0;
+      }
+
+      .blognav-content {
+        height: auto;
+        box-sizing: border-box;
+        overflow: visible;
+        display: block;
+        padding: 20px 16px 40px;
+      }
+
+      .header-box {
+        padding: 0 0 16px;
+      }
+
+      /* ── POST LIST ── */
+      .card-box {
+        grid-column: unset;
+        grid-row: unset;
+        overflow: visible;
+        padding: 0;
+      }
+
+      .post-portrait {
+        width: 56px;
+        height: 56px;
+        font-size: 22px;
+      }
+
+      /* ── NAVHELP — hidden, two-panel layout no longer exists ── */
+      .navhelp-box {
+        display: none;
+      }
+
+      /* ── CATEGORY FILTER — horizontal scrolling pill row ── */
+      .cat-box {
+        grid-column: unset;
+        grid-row: unset;
+        display: flex;
+        overflow-x: auto;
+        overflow-y: visible;
+        gap: 8px;
+        padding: 16px 0 24px;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .cat-card {
+        flex-shrink: 0;
+        flex-direction: row;
+        border-radius: 20px;
+        padding: 8px 16px;
+        gap: 6px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -301,7 +371,7 @@
 
   <!-- ── HEADER ── -->
   <div class="header-box box">
-    <h1>Blog</h1>
+    <h1 data-text="Blog">Blog</h1>
   </div>
 
   <!-- ── POST LIST ── -->

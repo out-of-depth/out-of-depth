@@ -426,6 +426,152 @@
     .card-all:hover .cover-label { background: rgba(255,3,255,0.3); }
 
     #player { display: none; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      .content {
+        padding: 20px 16px 90px;
+      }
+
+      .page-grid {
+        height: auto;
+        overflow: visible;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        max-width: none;
+      }
+
+      /* ── EPISODE LIST — full-width column, page scrolls ── */
+      .episode-list {
+        grid-column: unset;
+        grid-row: unset;
+        overflow: visible;
+        order: 0;
+      }
+
+      .episodes-scroll {
+        overflow-y: visible;
+        flex: none;
+      }
+
+      .episode-row {
+        padding: 10px 16px;
+        gap: 10px;
+      }
+
+      .ep-dot {
+        width: 7px;
+        height: 7px;
+      }
+
+      /* ── NOW PLAYING — collapse to a compact sticky bar ── */
+      .player-panel {
+        grid-column: unset;
+        grid-row: unset;
+        order: -1;
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        background-image: none;
+        background-color: #030303;
+        border: none;
+        border-bottom: 1px solid rgba(255,3,255,0.25);
+        border-radius: 0;
+      }
+
+      .player-inner {
+        height: auto;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 14px;
+      }
+
+      .panel-label,
+      .cp-episode-info + div,
+      .cp-ep,
+      #btn-back,
+      #btn-fwd,
+      .cp-speed,
+      .cp-open-episode {
+        display: none;
+      }
+
+      .cp-episode-info {
+        flex: 1;
+        min-width: 0;
+        gap: 10px;
+      }
+
+      .cp-art {
+        width: 44px;
+        height: 44px;
+      }
+
+      .cp-meta { min-width: 0; }
+
+      .cp-season {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .cp-controls {
+        flex-shrink: 0;
+        gap: 0;
+      }
+
+      /* ── SEASON GRID — horizontal scrolling chip row ── */
+      .season-panel {
+        grid-column: unset;
+        grid-row: unset;
+        order: 1;
+      }
+
+      .season-inner {
+        height: auto;
+        padding: 12px 16px 16px;
+      }
+
+      .season-cards {
+        display: flex;
+        overflow-x: auto;
+        gap: 10px;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .season-card {
+        flex-shrink: 0;
+        width: 68px;
+        aspect-ratio: unset;
+      }
+
+      .cover-art {
+        width: 56px;
+        height: 56px;
+        flex: none;
+        font-size: 18px;
+      }
+
+      .card-all {
+        grid-column: unset;
+        height: auto;
+        flex-direction: column;
+      }
+
+      .card-all .cover-art {
+        flex: none;
+        width: 56px;
+        height: 56px;
+        font-size: 18px;
+      }
+
+      .card-all .cover-label {
+        flex: none;
+        padding: 3px 2px;
+      }
+    }
   </style>
 </head>
 <body>
