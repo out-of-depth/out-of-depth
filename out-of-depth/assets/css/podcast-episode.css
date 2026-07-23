@@ -398,3 +398,22 @@
   font-size: 14px;
   color: var(--dim-text);
 }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  /* podcast-episode.css loads after base.css and has its own unconditional
+     .main rule, so base.css's mobile .main override loses the cascade
+     without this — restate it here where it's guaranteed to win. */
+  .main {
+    margin-left: 0;
+    padding: 24px 16px 60px;
+  }
+
+  .episode-header {
+    grid-template-columns: 1fr;
+  }
+
+  .player-panel {
+    position: static;
+  }
+}
