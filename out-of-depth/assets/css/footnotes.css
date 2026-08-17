@@ -1,0 +1,89 @@
+/* ============================================================
+   FOOTNOTES.CSS
+   Out of Depth — outofdepth.com
+   Footnote popover system for blog posts.
+   Requires base.css and components.css (--mw-accent, .mini-window*).
+   Load after components.css. Populated/positioned by footnotes.js,
+   which appends the popover + scrim to document.body on page init —
+   do not nest this markup inside .post-window/.window-body, both of
+   which are overflow:hidden and (via .post-window's materialize
+   animation) a containing block for position:fixed, so anything
+   placed inside them gets clipped instead of spilling past the edge.
+   ============================================================ */
+
+/* ── FOOTNOTE POPOVER ── */
+.footnote-popover {
+  position: absolute; /* lives on document.body — see note above */
+  width: 220px;
+  z-index: 50;
+}
+
+.footnote-popover .mini-window-body {
+  background: #0d0410; /* opaque override — do not use the translucent
+                           mini-window-body gradient here */
+  height: 140px;
+  overflow-y: auto;
+  font-size: 17px; /* meets sitewide body/reading-text floor */
+  line-height: 1.6;
+}
+
+.footnote-marker {
+  all: unset;
+  cursor: pointer;
+  color: var(--magenta); /* intentionally matches every other interactive
+                             element site-wide — marker signals "clickable"
+                             the same way a link does; the popover it opens
+                             is what carries the distinct violet identity */
+  font-family: 'Jersey15', monospace;
+  font-size: 14px; /* UI/meta-label floor per CLAUDE.md — no exceptions */
+  font-weight: 600;
+  margin: 0 2px;
+}
+
+.footnote-marker:hover,
+.footnote-marker[aria-expanded="true"] {
+  text-shadow: 0 0 8px rgba(255, 3, 255, 0.7);
+}
+
+.footnote-marker:focus-visible,
+.footnote-close:focus-visible {
+  outline: 2px solid var(--magenta-text);
+  outline-offset: 2px;
+}
+
+.footnote-close {
+  all: unset;
+  cursor: pointer;
+  color: color-mix(in srgb, var(--mw-accent) 85%, transparent);
+  font-family: 'Jersey15', monospace;
+  font-size: 14px;
+  line-height: 1;
+  padding: 0 2px;
+}
+
+/* Desktop: allowed to overflow past the post window edge on purpose */
+@media (min-width: 769px) {
+  .footnote-popover {
+    /* top/left set dynamically by footnotes.js based on marker
+       position (viewport rect + scroll offset) — see footnotes.js */
+  }
+}
+
+/* Mobile: overlay near top of post, with scrim */
+@media (max-width: 768px) {
+  .footnote-scrim {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    z-index: 49;
+  }
+
+  .footnote-popover {
+    position: fixed;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(300px, calc(100vw - 32px));
+    z-index: 50;
+  }
+}

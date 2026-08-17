@@ -37,6 +37,7 @@
   <link rel="stylesheet" href="../../assets/css/base.css">
   <link rel="stylesheet" href="../../assets/css/components.css">
   <link rel="stylesheet" href="../../assets/css/blog-post.css">
+  <link rel="stylesheet" href="../../assets/css/footnotes.css">
 </head>
 <body>
 
@@ -135,6 +136,17 @@
                                add class="full" to the outer div for full width
                                titlebar text is manual — edit per instance
            <div class="clearfix"> — use after floated mini-windows
+           footnote marker — place inline, right after the referenced text:
+                               <button class="footnote-marker" data-footnote="1"
+                                       aria-expanded="false" aria-label="Footnote 1">[1]</button>
+           footnote content — place the hidden note directly after its
+                               paragraph, content stays with its reference for easy editing:
+                               <span class="footnote-content" id="footnote-1" hidden>
+                                 Note text goes here. Can include <em>emphasis</em> or links.
+                               </span>
+                               the popover window itself is NOT placed here — footnotes.js
+                               builds it and appends it to document.body on page load, so
+                               it isn't clipped by .post-window's overflow:hidden.
       -->
       <div class="post-body e-content">
 
@@ -168,6 +180,7 @@
         </div>
       </div>
       <script src="../../assets/js/webmentions.js"></script>
+      <script src="../../assets/js/footnotes.js"></script>
 
     </div>
   </article>

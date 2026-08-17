@@ -290,6 +290,7 @@
 
 .mini-window--cyan   { --mw-accent: var(--cyan); }
 .mini-window--orange { --mw-accent: #fb9648; }
+.mini-window--violet { --mw-accent: #9d7fd4; }
 
 .mini-window-titlebar {
   background:
